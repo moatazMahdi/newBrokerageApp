@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   I18nManager,
+  KeyboardTypeOptions,
   StyleSheet,
   TextInput,
   TouchableOpacity,
@@ -19,6 +20,7 @@ type Props = {
   leftIcon?: any;
   onLeftIconPress?: () => void;
   secureTextEntry?: boolean;
+  keyboardType?: KeyboardTypeOptions;
 };
 
 const AppInput = ({
@@ -29,9 +31,9 @@ const AppInput = ({
   leftIcon,
   onLeftIconPress,
   secureTextEntry,
+  keyboardType,
 }: Props) => {
   const [focused, setFocused] = useState(false);
-console.log('rtl', I18nManager.isRTL);
   const animatedValue = useRef(
     new Animated.Value(value ? 1 : 0),
   ).current;
@@ -63,8 +65,8 @@ console.log('rtl', I18nManager.isRTL);
     lineHeight: 24,
     paddingVertical: 0,
     maxWidth: wp(220),
-    // overflow: 'hidden' as const,
-    // textAlign: I18nManager.isRTL ? 'right' : 'left' as const,
+    overflow: 'hidden' as const,
+    textAlign: I18nManager.isRTL ? ('right' as const) : ('left' as const),
   };
 
   return (
@@ -98,6 +100,7 @@ console.log('rtl', I18nManager.isRTL);
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
+          keyboardType={keyboardType}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={styles.input}
