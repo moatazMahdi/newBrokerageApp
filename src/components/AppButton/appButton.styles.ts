@@ -1,11 +1,12 @@
 import {
   StyleSheet,
 } from 'react-native';
+import { hp } from '../../utils/dimensions';
 
 export const appButtonStyles =
   StyleSheet.create({
     button: {
-      height: 56,
+      height: hp(48),
 
       borderRadius: 20,
 
@@ -14,10 +15,12 @@ export const appButtonStyles =
       justifyContent: 'center',
 
       backgroundColor: '#FFFFFF',
+
+      paddingHorizontal: 20,
     },
 
     disabledButton: {
-      opacity: 0.5,
+      opacity: 0.4,
     },
 
     title: {
