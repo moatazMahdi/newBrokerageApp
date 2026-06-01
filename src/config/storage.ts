@@ -1,0 +1,4 @@
+export const STORAGE_KEYS = {
+  HAS_SEEN_ONBOARDING:
+    'HAS_SEEN_ONBOARDING',
+};
