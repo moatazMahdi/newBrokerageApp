@@ -123,7 +123,7 @@ export default AppInput;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: hp(20),
+    marginBottom: hp(16),
   },
 
   inputContainer: {
