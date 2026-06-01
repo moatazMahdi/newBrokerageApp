@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { RootNavigator } from './src/navigation';
-import { Dimensions, I18nManager } from 'react-native';
+import { I18nManager } from 'react-native';
 import { useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import i18n from './src/localization';
 import { storage } from './src/storage/mmkv';
 
-export default function App() {
+const queryClient = new QueryClient();
 
+export default function App() {
   useEffect(() => {
     const savedLanguage = storage.getString('language');
     const rtlConstants = I18nManager.getConstants?.();
@@ -20,6 +22,8 @@ export default function App() {
   }, []);
 
   return (
-     <RootNavigator />
+    <QueryClientProvider client={queryClient}>
+      <RootNavigator />
+    </QueryClientProvider>
   );
 }

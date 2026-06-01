@@ -8,8 +8,9 @@ import { hp, wp } from '../../../utils/dimensions'
 type Props = {
     onLoginPress: () => void;
     onFingerprintPress?: () => void;
+    loading?: boolean;
 }
-const LoginButton = ({onLoginPress, onFingerprintPress}: Props) => {
+const LoginButton = ({onLoginPress, onFingerprintPress, loading = false}: Props) => {
   const {images:{
     components: {fingerprint}
   }} = Assets;
@@ -22,7 +23,7 @@ const LoginButton = ({onLoginPress, onFingerprintPress}: Props) => {
         gap: 10,
         marginTop: hp(42),
     }}>
-      <AppButton width={wp(275)} title="تسجيل الدخول" onPress={onLoginPress} loading={false}  />
+      <AppButton width={wp(275)} title="تسجيل الدخول" onPress={onLoginPress} loading={loading}  />
       <TouchableOpacity style={{
         width: wp(48),
         height: hp(48),
