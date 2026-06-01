@@ -53,10 +53,9 @@ export default function RootNavigator() {
       listener.remove();
     };
   }, []);
-console.log("hasSeenOnboarding",hasSeenOnboarding);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer key={storage.getString('language') || 'en'}>
       {hasSeenOnboarding ? (
         <AppNavigator />
       ) : (

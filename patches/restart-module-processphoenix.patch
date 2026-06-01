@@ -1,0 +1,30 @@
+*** Begin Patch
+*** Update File: node_modules/react-native-restart/android/src/main/java/com/reactnativerestart/RestartModule.java
+@@
+     private void loadBundleLegacy() {
+         final Activity currentActivity = getCurrentActivity();
+         if (currentActivity == null) {
+             return;
+         }
+-
+-        currentActivity.runOnUiThread(new Runnable() {
+-            @Override
+-            public void run() {
+-                currentActivity.recreate();
+-            }
+-        });
++        // Use ProcessPhoenix to fully restart the app process so native preferences
++        // (like the RTL forced flag) are applied correctly on next launch.
++        try {
++            ProcessPhoenix.triggerRebirth(currentActivity);
++        } catch (Throwable t) {
++            // Fallback to recreating the activity if ProcessPhoenix is unavailable
++            currentActivity.runOnUiThread(new Runnable() {
++                @Override
++                public void run() {
++                    currentActivity.recreate();
++                }
++            });
++        }
+     }
+*** End Patch

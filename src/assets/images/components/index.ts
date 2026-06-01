@@ -1,6 +1,16 @@
 
 import closeWhite from './closeWhite.svg'
-
+import lang from './lang.svg'
+import logo from './logo.svg'
+import phone from './Phone.svg'
+import lockPassword from './LockPassword.svg'
+import eyeOn from './EyeOpen.svg'
+import eyeOff from './EyeClosed.svg'
+import fingerprint from './fingerprint.svg'
+import google from './google.svg'
+import facebook from './facebook.svg'
+import apple from './apple.svg'
+import ArrowLeft from './arrowLeft.svg'
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
     static onBoarding2 = require('./onboarding2.png');
@@ -10,5 +20,17 @@ export class Components {
     static claims = require('./claims.png');
     static menu = require('./menu.png');
     static whatsApp = require('./whatsApp.png');
+    static AppHeaderImageBG = require('./AppHeaderImageBG.png');
     static closeWhite = closeWhite;
+    static lang = lang;
+    static logo = logo;
+    static phone = phone;
+    static lockPassword = lockPassword;
+    static eyeOn = eyeOn;
+    static eyeOff = eyeOff;
+    static fingerprint = fingerprint;
+    static google = google;
+    static facebook = facebook;
+    static apple = apple;
+    static ArrowLeft = ArrowLeft;
 }

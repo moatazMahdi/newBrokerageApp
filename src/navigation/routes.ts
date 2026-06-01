@@ -5,4 +5,5 @@ export const Routes = {
   OUR_PRODUCTS:'OurProducts',
   CLAIMS:'Claims',
   MENU:'Menu',
+  LOGIN:'Login',
 };
