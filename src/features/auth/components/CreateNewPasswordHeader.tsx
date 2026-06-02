@@ -7,7 +7,7 @@ const CreateNewPasswordHeader = () => (
     size={18}
     weight="400"
     style={{
-      marginTop: hp(20),
+      // marginTop: hp(20),
       marginBottom: hp(24),
       textAlign: 'flex-start',
       lineHeight: hp(30),

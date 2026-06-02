@@ -61,7 +61,7 @@ const CreateNewPasswordForm = ({
           size={12}
           weight="500"
           color="#E11D48"
-          style={{ marginTop: hp(4), textAlign: 'flex-start' }}
+          style={{ marginTop: hp(-8), textAlign: 'flex-start' }}
         >
           {error}
         </AppText>

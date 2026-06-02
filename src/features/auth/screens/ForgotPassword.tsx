@@ -25,10 +25,14 @@ const ForgotPassword = () => {
       Alert.alert('خطأ', 'الرجاء إدخال رقم الهاتف');
       return;
     }
+    const phoneNumber = `+2${phone}`
 
-    forgetPassword(buildForgetPasswordRequest(phone), {
+    forgetPassword(buildForgetPasswordRequest(phoneNumber), {
       onSuccess: () => {
-        navigation.navigate(Routes.OTP, { phone, mode: 'reset' });
+        navigation.navigate(Routes.OTP, { 
+          phone: phoneNumber, 
+          mode: 'reset' 
+        });
       },
       onError: error => {
         Alert.alert('خطأ', error.message || 'تعذر إرسال رمز التحقق');

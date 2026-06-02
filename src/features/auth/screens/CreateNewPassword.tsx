@@ -11,6 +11,7 @@ import { useResetPassword } from '../hooks/useResetPassword';
 import { buildResetPasswordRequest } from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
+import { hp } from '../../../utils/dimensions';
 
 const CreateNewPassword = () => {
   const navigation =
@@ -77,6 +78,10 @@ const CreateNewPassword = () => {
         title="تأكيد"
         onPress={handleConfirm}
         loading={isPending}
+        style={{
+          marginTop: hp(32),
+          marginBottom: hp(24)
+        }}
       />
       <SignupButton />
     </ScreenContainer>

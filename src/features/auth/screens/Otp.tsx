@@ -74,7 +74,10 @@ const Otp = () => {
     if (isReset) {
       forgetVerifyCode(buildForgetVerifyCodeRequest(phone, code), {
         onSuccess: () => {
-          navigation.navigate(Routes.CREATE_NEW_PASSWORD, { phone, code });
+          navigation.reset({
+            index: 0,
+            routes: [{ name: Routes.CREATE_NEW_PASSWORD, params: { phone, code } }],
+          });
         },
         onError: error => {
           Alert.alert('خطأ', error.message || 'كود التحقق غير صحيح');

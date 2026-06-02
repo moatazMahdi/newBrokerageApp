@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  I18nManager,
   Text,
   TextProps,
   TextStyle,
@@ -32,6 +33,7 @@ const AppText = ({
       {...props}
       style={[
         {
+          alignSelf: "flex-start",
           fontSize: size,
           color,
           fontWeight: weight,

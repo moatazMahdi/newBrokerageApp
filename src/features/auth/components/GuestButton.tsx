@@ -15,9 +15,7 @@ const GuestButton = () => {
       justifyContent: 'center',
       alignItems: 'center',
       gap: 4,
-      marginTop: 20,
-      flex: 1,
-
+      // marginTop: 20,
     }}
     onPress={() => {}}
     >

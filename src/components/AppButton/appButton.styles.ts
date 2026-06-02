@@ -7,15 +7,10 @@ export const appButtonStyles =
   StyleSheet.create({
     button: {
       height: hp(48),
-
       borderRadius: 20,
-
       alignItems: 'center',
-
       justifyContent: 'center',
-
       backgroundColor: '#FFFFFF',
-
       paddingHorizontal: 20,
     },
 
@@ -25,9 +20,7 @@ export const appButtonStyles =
 
     title: {
       fontSize: 18,
-
       fontWeight: '700',
-
       color: '#000000',
     },
   });

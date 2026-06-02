@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  I18nManager,
-  NativeSyntheticEvent,
+  Animated,
+  Pressable,
   StyleSheet,
+  Text,
   TextInput,
-  TextInputKeyPressEventData,
   View,
 } from 'react-native';
 import { hp, wp } from '../../../utils/dimensions';
@@ -16,55 +16,83 @@ type Props = {
 };
 
 const OtpInput = ({ length = 6, value, onChange }: Props) => {
-  const inputs = useRef<Array<TextInput | null>>([]);
+  const inputRef = useRef<TextInput | null>(null);
+  const [focused, setFocused] = useState(false);
+  const caretOpacity = useRef(new Animated.Value(1)).current;
+
   const digits = Array.from({ length }, (_, i) => value[i] ?? '');
+  const activeIndex = Math.min(value.length, length - 1);
 
-  const focusInput = (index: number) => {
-    if (index >= 0 && index < length) {
-      inputs.current[index]?.focus();
+  // Blink the caret (500ms fade in / out) while the field is focused.
+  useEffect(() => {
+    if (!focused) {
+      return;
     }
-  };
+    caretOpacity.setValue(1);
+    const blink = Animated.loop(
+      Animated.sequence([
+        Animated.timing(caretOpacity, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(caretOpacity, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    blink.start();
+    return () => blink.stop();
+  }, [focused, caretOpacity]);
 
-  const handleChange = (text: string, index: number) => {
-    const digit = text.replace(/[^0-9]/g, '').slice(-1);
-    const next = digits.slice();
-    next[index] = digit;
-    onChange(next.join(''));
-
-    if (digit) {
-      focusInput(index + 1);
-    }
-  };
-
-  const handleKeyPress = (
-    e: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    index: number,
-  ) => {
-    if (e.nativeEvent.key === 'Backspace' && !digits[index]) {
-      focusInput(index - 1);
-    }
+  const handleChange = (text: string) => {
+    const sanitized = text.replace(/[^0-9]/g, '').slice(0, length);
+    onChange(sanitized);
   };
 
   return (
-    <View style={styles.container}>
-      {digits.map((digit, index) => (
-        <TextInput
-          key={index}
-          ref={ref => {
-            inputs.current[index] = ref;
-          }}
-          value={digit}
-          onChangeText={text => handleChange(text, index)}
-          onKeyPress={e => handleKeyPress(e, index)}
-          keyboardType="number-pad"
-          maxLength={1}
-          style={[
-            styles.box,
-            { borderColor: digit ? '#1A3167' : '#D9D9D9' },
-          ]}
-        />
-      ))}
-    </View>
+    <Pressable
+      style={styles.container}
+      onPress={() => inputRef.current?.focus()}
+    >
+      {digits.map((digit, index) => {
+        const isActive = focused && index === activeIndex;
+        return (
+          <View
+            key={index}
+            style={[
+              styles.box,
+              { borderColor: isActive ? '#E6E6E6' : '#E6E6E6' },
+              { backgroundColor: digit ? '#F7F9FE' : '#FFFFFF' },
+            ]}
+          >
+            {isActive && !digit ? (
+              <Animated.View
+                style={[styles.caret, { opacity: caretOpacity }]}
+              />
+            ) : (
+              <Text style={styles.digit}>{digit}</Text>
+            )}
+          </View>
+        );
+      })}
+
+      <TextInput
+        ref={inputRef}
+        value={value}
+        onChangeText={handleChange}
+        keyboardType="number-pad"
+        maxLength={length}
+        autoFocus
+        caretHidden
+        textContentType="oneTimeCode"
+        style={styles.hiddenInput}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+      />
+    </Pressable>
   );
 };
 
@@ -72,19 +100,36 @@ export default OtpInput;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+    flexDirection: 'row-reverse',
     justifyContent: 'space-between',
     marginTop: hp(24),
   },
   box: {
-    width: wp(48),
-    height: hp(56),
-    borderWidth: 1.5,
+    width: wp(50),
+    height: hp(50),
+    borderWidth: 1,
     borderRadius: wp(12),
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#fff',
+  },
+  digit: {
+    fontSize: hp(24),
+    fontWeight: '600',
+    color: '#1A1A1A',
+  },
+  caret: {
+    width: wp(2),
+    height: hp(24),
+    borderRadius: wp(1),
+    backgroundColor: '#1A3167',
+  },
+  hiddenInput: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0,
   },
 });

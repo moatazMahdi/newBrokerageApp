@@ -46,22 +46,34 @@ const OtpTimer = ({ duration = 153, resetKey = 0, onResend }: Props) => {
         marginTop: hp(20),
       }}
     >
-      {expired ? (
+      {/* {expired ? (
         <TouchableOpacity onPress={onResend}>
-          <AppText size={14} weight="700" color="#18359E">
+          <AppText size={14} weight="700" color="#18359E" style={{textDecorationLine: "underline"}}>
             إعادة الإرسال
           </AppText>
         </TouchableOpacity>
-      ) : (
-        <>
-          <AppText size={14} color="#6F6F74">
-            في حالة عدم وصول الكود
-          </AppText>
-          <AppText size={14} weight="700" color="#F59E0B">
-            {formatTime(remaining)}
-          </AppText>
-        </>
-      )}
+      ) : ( */}
+        <View style={{flex: 1, alignItems: 'center', gap: 4 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            <AppText size={14} color="#282828">
+              في حالة عدم وصول الكود
+            </AppText>
+            <AppText size={14} weight="700" color="#F18222">
+              {formatTime(remaining)}
+            </AppText>
+          </View>
+          <TouchableOpacity onPress={onResend}>
+            <AppText size={16} weight="700" color="#292785" 
+              style={{
+                textDecorationLine: "underline",
+                lineHeight: hp(24),
+                }}
+            >
+              إعادة الإرسال
+            </AppText>
+          </TouchableOpacity>
+        </View>
+      {/* )} */}
     </View>
   );
 };

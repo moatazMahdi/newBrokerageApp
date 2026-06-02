@@ -11,6 +11,7 @@ import {
 
 import { hp, wp } from '../../utils/dimensions';
 import { SvgView } from '../SvgView/SvgView';
+import AppText from '../AppText/AppText';
 
 type Props = {
   label: string;
@@ -19,8 +20,10 @@ type Props = {
   rightIcon: any;
   leftIcon?: any;
   onLeftIconPress?: () => void;
+  onBlur?: (e?: any) => void;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
+  error?: string;
 };
 
 const AppInput = ({
@@ -30,8 +33,10 @@ const AppInput = ({
   rightIcon,
   leftIcon,
   onLeftIconPress,
+  onBlur,
   secureTextEntry,
   keyboardType,
+  error,
 }: Props) => {
   const [focused, setFocused] = useState(false);
   const animatedValue = useRef(
@@ -79,7 +84,11 @@ const AppInput = ({
         style={[
           styles.inputContainer,
           {
-            borderColor: focused ? '#2345B5' : '#D9D9D9',
+            borderColor: error
+              ? '#E11D48'
+              : focused
+              ? '#2345B5'
+              : '#D9D9D9',
             flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
           },
         ]}
@@ -102,7 +111,10 @@ const AppInput = ({
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onBlur={e => {
+            setFocused(false);
+            onBlur?.(e);
+          }}
           style={styles.input}
         />
 
@@ -112,9 +124,20 @@ const AppInput = ({
           svgFile={rightIcon}
           width={wp(24)}
           height={hp(24)}
-          
+
         />
       </View>
+
+      {error ? (
+        <AppText
+          size={12}
+          weight="500"
+          color="#E34935"
+          style={styles.errorText}
+        >
+          {error}
+        </AppText>
+      ) : null}
     </View>
   );
 };
@@ -140,6 +163,12 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     textAlign: I18nManager.isRTL ? 'right' : 'left',
+  },
+
+  errorText: {
+    marginTop: hp(4),
+    marginHorizontal: wp(4),
+    textAlign: I18nManager.isRTL ? 'flex-start' : 'left',
   },
 
   separator: {
