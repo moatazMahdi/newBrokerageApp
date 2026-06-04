@@ -54,7 +54,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     willPresent notification: UNNotification,
     withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
   ) {
-    completionHandler([.banner, .sound, .badge])
+    if notification.request.trigger is UNPushNotificationTrigger {
+      // Remote FCM notification — suppress here; onMessage handler + notifee displays it
+      completionHandler([])
+    } else {
+      // Local notification created by notifee — let iOS show it
+      completionHandler([.banner, .sound, .badge])
+    }
   }
 
   func userNotificationCenter(

@@ -10,7 +10,7 @@ import notifee, { AndroidImportance } from '@notifee/react-native';
 import { getFCMToken, requestNotificationPermission } from './src/utils/hellperFuncation';
 
 const queryClient = new QueryClient();
-const ANDROID_CHANNEL_ID = 'default';
+const ANDROID_CHANNEL_ID = 'default_sound';
 
 export default function App() {
   useEffect(() => {
@@ -62,9 +62,13 @@ export default function App() {
         body,
         android: {
           channelId: ANDROID_CHANNEL_ID,
+          sound: 'default',
           pressAction: {
             id: 'default',
           },
+        },
+        ios: {
+          sound: 'default',
         },
       });
     });
@@ -96,6 +100,7 @@ export default function App() {
       id: ANDROID_CHANNEL_ID,
       name: 'Default Notifications',
       importance: AndroidImportance.HIGH,
+      sound: 'default',
     });
   };
 
