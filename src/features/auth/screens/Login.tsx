@@ -13,6 +13,7 @@ import { useLogin } from '../hooks/useLogin';
 import { buildLoginRequest } from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
+import { showToast } from '../../../components/Toast/toastService';
 
 const Login = () => {
   const navigation =
@@ -37,12 +38,21 @@ const Login = () => {
         // TODO: Save token and navigate to home screen
       },
       onError: (error) => {
-        Alert.alert('خطأ', error.message || 'فشل تسجيل الدخول');
+        showToast({
+          type: 'error',
+          title: 'رقم الهاتف أو كلمة المرور خاطئة',
+          message: 'حاول مرة أخرى.',
+        });
       },
     });
   };
 
   const handleFingerprintPress = () => {
+    showToast({
+      type: 'error',
+      title: 'رقم الهاتف أو كلمة المرور خاطئة',
+      // message: 'حاول مرة أخرى.',
+    });
     // TODO: Implement biometric authentication
   };
 

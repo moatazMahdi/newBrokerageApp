@@ -3,7 +3,6 @@ import {
   Animated,
   I18nManager,
   KeyboardTypeOptions,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   View,
@@ -12,6 +11,8 @@ import {
 import { hp, wp } from '../../utils/dimensions';
 import { SvgView } from '../SvgView/SvgView';
 import AppText from '../AppText/AppText';
+
+import { styles } from './AppTextField.styles';
 
 type Props = {
   label: string;
@@ -144,37 +145,3 @@ const AppInput = ({
 
 export default AppInput;
 
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: hp(16),
-  },
-
-  inputContainer: {
-    height: hp(52),
-    borderWidth: 1.5,
-    borderRadius: wp(18),
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: wp(16),
-    backgroundColor: '#fff',
-  },
-
-  input: {
-    flex: 1,
-    fontSize: 18,
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
-  },
-
-  errorText: {
-    marginTop: hp(4),
-    marginHorizontal: wp(4),
-    textAlign: I18nManager.isRTL ? 'flex-start' : 'left',
-  },
-
-  separator: {
-    width: 1,
-    height: hp(30),
-    backgroundColor: '#fff',
-    // marginHorizontal: wp(12),
-  },
-});

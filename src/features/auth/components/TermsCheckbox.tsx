@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import AppCheckbox from '../../../components/AppCheckbox/AppCheckbox';
-import { hp } from '../../../utils/dimensions';
 
 type Props = {
   agreed: boolean;
