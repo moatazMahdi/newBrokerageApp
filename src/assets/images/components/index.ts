@@ -12,6 +12,7 @@ import facebook from './facebook.svg'
 import apple from './apple.svg'
 import ArrowLeft from './arrowLeft.svg'
 import User from './User.svg'
+import smallBar from './small-bar.svg'
 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
@@ -36,4 +37,5 @@ export class Components {
     static apple = apple;
     static ArrowLeft = ArrowLeft;
     static User = User;
+    static smallBar = smallBar;
 }
