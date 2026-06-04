@@ -1,5 +1,7 @@
 import React from 'react';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer';
 import LoginHeader from '../components/LoginHeader';
 import LoginForm from '../components/LoginForm';
@@ -9,8 +11,12 @@ import SignupButton from '../components/SignupButton';
 import GuestButton from '../components/GuestButton';
 import { useLogin } from '../hooks/useLogin';
 import { buildLoginRequest } from '../../../api/auth';
+import { Routes } from '../../../navigation/routes';
+import type { AppStackParamList } from '../../../navigation/types';
 
 const Login = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const [phone, setPhone] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [openEye, setOpenEye] = React.useState(false);
@@ -45,7 +51,7 @@ const Login = () => {
   };
 
   const handleForgotPassword = () => {
-    // TODO: Navigate to forgot password screen
+    navigation.navigate(Routes.FORGOT_PASSWORD);
   };
 
   return (

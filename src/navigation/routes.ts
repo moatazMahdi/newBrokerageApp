@@ -6,4 +6,8 @@ export const Routes = {
   CLAIMS:'Claims',
   MENU:'Menu',
   LOGIN:'Login',
-};
+  SIGNUP:'Signup',
+  OTP:'Otp',
+  FORGOT_PASSWORD:'ForgotPassword',
+  CREATE_NEW_PASSWORD:'CreateNewPassword',
+} as const;

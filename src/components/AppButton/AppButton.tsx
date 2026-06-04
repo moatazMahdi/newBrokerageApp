@@ -20,9 +20,11 @@ interface Props {
   backgroundColor?: string;
 
   width?: string | number;
+  style?: any;
 }
 
 const AppButton = ({
+  style,
   title,
   onPress,
   disabled,
@@ -44,6 +46,7 @@ const AppButton = ({
         appButtonStyles.button,
         { backgroundColor, width: width as any },
         (disabled || loading) && appButtonStyles.disabledButton,
+        style,
       ]}
     >
       {loading ? (

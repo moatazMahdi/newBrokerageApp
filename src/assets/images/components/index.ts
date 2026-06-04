@@ -11,6 +11,8 @@ import google from './google.svg'
 import facebook from './facebook.svg'
 import apple from './apple.svg'
 import ArrowLeft from './arrowLeft.svg'
+import User from './User.svg'
+
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
     static onBoarding2 = require('./onboarding2.png');
@@ -33,4 +35,5 @@ export class Components {
     static facebook = facebook;
     static apple = apple;
     static ArrowLeft = ArrowLeft;
+    static User = User;
 }
