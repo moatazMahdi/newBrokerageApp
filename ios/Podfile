@@ -5,7 +5,8 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
-platform :ios, min_ios_version_supported
+platform :ios, '16.0'
+use_frameworks! :linkage => :static
 prepare_react_native_project!
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -17,10 +18,16 @@ end
 target 'BrokerageAppRevamp' do
   config = use_native_modules!
 
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
+    :hermes_enabled => true,
+    :fabric_enabled => false,
+    :new_arch_enabled => false
   )
 
   post_install do |installer|
@@ -30,5 +37,11 @@ target 'BrokerageAppRevamp' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+      installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
+    end
+  end
   end
 end
