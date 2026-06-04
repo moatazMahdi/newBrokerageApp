@@ -10,8 +10,11 @@ import SignupHeader from '../components/SignupHeader';
 import SignupForm from '../components/SignupForm';
 import TermsCheckbox from '../components/TermsCheckbox';
 import GuestButton from '../components/GuestButton';
-import { useSignup } from '../hooks/useSignup';
-import { buildSignupRequest } from '../../../api/auth';
+import { useSignupValidation } from '../hooks/useSignupValidation';
+import {
+  buildSignupRequest,
+  buildSignupValidationRequest,
+} from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
 import { signupSchema, SignupValues } from '../validation/signupSchema';
@@ -33,7 +36,7 @@ const Signup = () => {
   const [openConfirmPassword, setOpenConfirmPassword] = React.useState(false);
   const [agreed, setAgreed] = React.useState(false);
 
-  const { mutate: signup, isPending } = useSignup();
+  const { mutate: validateSignup, isPending } = useSignupValidation();
 
   const handleSubmit = (values: SignupValues) => {
     if (!agreed) {
@@ -41,21 +44,31 @@ const Signup = () => {
       return;
     }
 
-    const payload = buildSignupRequest(
-      values.fullName,
-      values.phone,
-      values.password,
-      values.confirmPassword,
+    // Step 1: validate name + phone with the backend before sending the OTP.
+    const phoneNumber = `+2${values.phone}`;
+    validateSignup(
+      buildSignupValidationRequest(values.fullName, phoneNumber),
+      {
+        onSuccess: () => {
+          // Carry the full signup payload to the OTP screen; the actual
+          // signup request is performed after the code is verified.
+          const signupData = buildSignupRequest(
+            values.fullName,
+            phoneNumber,
+            values.password,
+            values.confirmPassword,
+          );
+          navigation.navigate(Routes.OTP, {
+            phone: values.phone,
+            mode: 'signup',
+            signupData,
+          });
+        },
+        onError: error => {
+          Alert.alert('خطأ', error.message || 'تعذر التحقق من البيانات');
+        },
+      },
     );
-
-    signup(payload, {
-      onSuccess: () => {
-        navigation.navigate(Routes.OTP, { phone: values.phone });
-      },
-      onError: error => {
-        Alert.alert('خطأ', error.message || 'فشل إنشاء الحساب');
-      },
-    });
   };
 
   return (

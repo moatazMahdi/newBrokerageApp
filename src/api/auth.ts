@@ -70,6 +70,36 @@ export const buildSignupRequest = (
   password,
   confirmPassword,
   lang: currentLang(),
+  // NOTE: runtime-generated fields (mobile_info, appVersion, location,
+  // firebaseNotificationToken, ...) should be added here once their
+  // integrations are available. This is the single place that builds the
+  // final signup payload.
+});
+
+/* --------------------- Signup Validation (step 1) ---------------------- */
+
+export type SignupValidationRequest = {
+  name: string;
+  phone: string;
+};
+
+export type SignupValidationResponse = {
+  message?: string;
+};
+
+export const validateSignupStep1 = async (
+  payload: SignupValidationRequest,
+): Promise<SignupValidationResponse> => {
+  const response = await api.post('/api/auth/validate/step-1', payload);
+  return response.data;
+};
+
+export const buildSignupValidationRequest = (
+  name: string,
+  phone: string,
+): SignupValidationRequest => ({
+  name,
+  phone,
 });
 
 /* -------------------------------- OTP ----------------------------------- */

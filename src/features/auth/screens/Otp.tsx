@@ -9,6 +9,7 @@ import OtpInput from '../components/OtpInput';
 import OtpTimer from '../components/OtpTimer';
 import { useSendOtp } from '../hooks/useSendOtp';
 import { useVerifyCode } from '../hooks/useVerifyCode';
+import { useSignup } from '../hooks/useSignup';
 import { useForgetPassword } from '../hooks/useForgetPassword';
 import { useForgetVerifyCode } from '../hooks/useForgetVerifyCode';
 import {
@@ -27,7 +28,7 @@ const Otp = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { params } = useRoute<RouteProp<AppStackParamList, 'Otp'>>();
-  const { phone, mode = 'signup' } = params;
+  const { phone, mode = 'signup', signupData } = params;
   const isReset = mode === 'reset';
 
   const [code, setCode] = React.useState('');
@@ -35,11 +36,14 @@ const Otp = () => {
 
   const { mutate: sendOtp } = useSendOtp();
   const { mutate: verifyCode, isPending: isVerifying } = useVerifyCode();
+  const { mutate: signup, isPending: isSigningUp } = useSignup();
   const { mutate: forgetPassword } = useForgetPassword();
   const { mutate: forgetVerifyCode, isPending: isForgetVerifying } =
     useForgetVerifyCode();
 
-  const isPending = isReset ? isForgetVerifying : isVerifying;
+  const isPending = isReset
+    ? isForgetVerifying
+    : isVerifying || isSigningUp;
 
   // Trigger sending the code automatically when the screen opens.
   React.useEffect(() => {
@@ -88,9 +92,22 @@ const Otp = () => {
 
     verifyCode(buildVerifyCodeRequest(phone, code), {
       onSuccess: () => {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: Routes.BUTTON_TAB }],
+        if (!signupData) {
+          Alert.alert('خطأ', 'بيانات التسجيل غير متوفرة');
+          return;
+        }
+
+        // Final step: create the account with the complete signup payload.
+        signup(signupData, {
+          onSuccess: () => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: Routes.ACCOUNT_CREATED }],
+            });
+          },
+          onError: error => {
+            Alert.alert('خطأ', error.message || 'فشل إنشاء الحساب');
+          },
         });
       },
       onError: error => {

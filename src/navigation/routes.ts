@@ -10,4 +10,5 @@ export const Routes = {
   OTP:'Otp',
   FORGOT_PASSWORD:'ForgotPassword',
   CREATE_NEW_PASSWORD:'CreateNewPassword',
+  ACCOUNT_CREATED:'AccountCreated',
 } as const;

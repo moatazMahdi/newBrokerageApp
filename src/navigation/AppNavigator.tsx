@@ -7,6 +7,7 @@ import Signup from '../features/auth/screens/Signup';
 import Otp from '../features/auth/screens/Otp';
 import ForgotPassword from '../features/auth/screens/ForgotPassword';
 import CreateNewPassword from '../features/auth/screens/CreateNewPassword';
+import AccountCreated from '../features/auth/screens/AccountCreated';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,10 @@ export default function AppNavigator() {
       <Stack.Screen
         name={Routes.CREATE_NEW_PASSWORD}
         component={CreateNewPassword}
+      />
+      <Stack.Screen
+        name={Routes.ACCOUNT_CREATED}
+        component={AccountCreated}
       />
       <Stack.Screen name={Routes.BUTTON_TAB} component={ButtonTab} />
       {/* <Stack.Screen name={Routes.HOME} component={Home} /> */}
