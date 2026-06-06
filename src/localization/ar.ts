@@ -48,7 +48,7 @@ export default {
     login: {
       welcome: 'مرحبا بعودتك 👋',
       subtitle: 'ادخل رقم الهاتف وكلمة المرور للدخول الي حسابك.',
-      phone: 'رقم الهاتف',
+      phone: 'رقم الهاتف  ',
       password: 'كلمة المرور',
       forgotPassword: 'نسيت كلمة السر؟',
       loginButton: 'تسجيل الدخول',
