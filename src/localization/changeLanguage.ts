@@ -17,12 +17,6 @@ export const changeLanguage = () => {
   storage.set('language', nextLanguage);
   i18n.changeLanguage(nextLanguage);
 
-  console.log({
-    nextLanguage,
-    isRTL,
-    rtlAfterForce: I18nManager.isRTL,
-    savedLanguage: storage.getString('language'),
-  });
-
+  // A restart is required for the native RTL/LTR layout change to take effect.
   RNRestart.Restart();
 };

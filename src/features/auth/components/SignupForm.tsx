@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import type { FormikProps } from 'formik';
+import { useTranslation } from 'react-i18next';
 import AppTextField from '../../../components/AppTextField/AppTextField';
 import { Assets } from '../../../assets';
 import type { SignupValues } from '../validation/signupSchema';
@@ -20,6 +21,7 @@ const SignupForm = ({
   onTogglePassword,
   onToggleConfirmPassword,
 }: Props) => {
+  const { t } = useTranslation();
   const {
     images: {
       components: { phone: phoneIcon, User, lockPassword, eyeOn, eyeOff },
@@ -35,7 +37,7 @@ const SignupForm = ({
   return (
     <View style={styles.signupFormContainer}>
       <AppTextField
-        label="رقم الهاتف"
+        label={t('auth.signup.phone')}
         value={values.phone}
         onChangeText={handleChange('phone')}
         onBlur={handleBlur('phone')}
@@ -45,7 +47,7 @@ const SignupForm = ({
       />
 
       <AppTextField
-        label="اسم المستخدم"
+        label={t('auth.signup.username')}
         value={values.fullName}
         onChangeText={handleChange('fullName')}
         onBlur={handleBlur('fullName')}
@@ -54,7 +56,7 @@ const SignupForm = ({
       />
 
       <AppTextField
-        label="كلمة المرور"
+        label={t('auth.signup.password')}
         value={values.password}
         onChangeText={handleChange('password')}
         onBlur={handleBlur('password')}
@@ -66,7 +68,7 @@ const SignupForm = ({
       />
 
       <AppTextField
-        label="تأكيد كلمة المرور"
+        label={t('auth.signup.confirmPassword')}
         value={values.confirmPassword}
         onChangeText={handleChange('confirmPassword')}
         onBlur={handleBlur('confirmPassword')}

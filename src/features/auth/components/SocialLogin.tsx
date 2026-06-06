@@ -1,5 +1,6 @@
 import { View, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import AppText from '../../../components/AppText/AppText';
 import { hp, wp } from '../../../utils/dimensions';
 import { Assets } from '../../../assets';
@@ -7,6 +8,7 @@ import SvgView from '../../../components/SvgView/SvgView';
 import SectionSeparator from '../../../components/SectionSeparator';
 
 const SocialLogin = () => {
+  const { t } = useTranslation();
   const {
     images: {
       components: { google, facebook, apple },
@@ -15,7 +17,7 @@ const SocialLogin = () => {
 
   return (
     <View>
-      <SectionSeparator label="أو سجل الدخول باستخدام" />
+      <SectionSeparator label={t('auth.login.orLoginWith')} />
       <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 24 }}>
         <TouchableOpacity style={styles.socialButton} onPress={() => {}}>
           <SvgView svgFile={google} width={wp(24)} height={hp(24)} />

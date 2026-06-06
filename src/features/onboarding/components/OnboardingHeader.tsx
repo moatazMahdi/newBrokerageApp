@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import OnboardingPagination from './OnboardingPagination';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const OnboardingHeader = ({ currentIndex, total, onSkip }: Props) => {
+  const { t } = useTranslation();
   const {
     images: {
       components: { closeWhite },
@@ -34,7 +36,7 @@ const OnboardingHeader = ({ currentIndex, total, onSkip }: Props) => {
 
         <SvgView svgFile={closeWhite} width={12} height={12} />
 
-        <Text style={onboardingStyles.skipText}>تخطي</Text>
+        <Text style={onboardingStyles.skipText}>{t('onboarding.skip')}</Text>
       </TouchableOpacity>
 
       <OnboardingPagination currentIndex={currentIndex} total={total} />

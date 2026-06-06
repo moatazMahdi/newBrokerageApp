@@ -11,26 +11,26 @@ export type SignupValues = {
 export const signupSchema = (t: TFunction) =>
   Yup.object().shape({
     fullName: Yup.string()
-      .required(t('FULL_NAME_REQUIRED'))
-      .min(3, t('FULL_NAME_MIN'))
-      .matches(/^[A-Za-z\s]+$/, t('FULL_NAME_LETTERS_ONLY'))
-      .matches(/^\S*$/, t('NO_SPACES_ALLOWED')),
+      .required(t('auth.validation.fullNameRequired'))
+      .min(3, t('auth.validation.fullNameMin'))
+      .matches(/^[A-Za-z\s]+$/, t('auth.validation.fullNameLettersOnly'))
+      .matches(/^\S*$/, t('auth.validation.noSpaces')),
 
     phone: Yup.string()
-      .required(t('MOBILE_FIELD_REQUIRED_ERROR'))
-      .matches(/^01[0-2,5][0-9]{8}$/, t('INVALID_EGYPTIAN_PHONE'))
-      .length(11, t('PHONE_LENGTH')),
+      .required(t('auth.validation.phoneRequired'))
+      .matches(/^01[0-2,5][0-9]{8}$/, t('auth.validation.invalidPhone'))
+      .length(11, t('auth.validation.phoneLength')),
 
     password: Yup.string()
-      .required(t('PASSWORD_REQUIRED'))
-      .min(8, t('PASSWORD_MUST_BE_AT_LEAST_8_CHARS'))
-      .matches(/[0-9]/, t('PASSWORD_NUMBER'))
-      .matches(/[a-z]/, t('PASSWORD_LOWERCASE'))
-      .matches(/[A-Z]/, t('PASSWORD_UPPERCASE'))
-      .matches(/[^A-Za-z0-9]/, t('PASSWORD_SPECIAL_CHAR'))
-      .matches(/^\S*$/, t('NO_SPACES_ALLOWED')),
+      .required(t('auth.validation.passwordRequired'))
+      .min(8, t('auth.validation.passwordMin'))
+      .matches(/[0-9]/, t('auth.validation.passwordNumber'))
+      .matches(/[a-z]/, t('auth.validation.passwordLowercase'))
+      .matches(/[A-Z]/, t('auth.validation.passwordUppercase'))
+      .matches(/[^A-Za-z0-9]/, t('auth.validation.passwordSpecialChar'))
+      .matches(/^\S*$/, t('auth.validation.noSpaces')),
 
     confirmPassword: Yup.string()
-      .required(t('CONFIRM_PASSWORD_REQUIRED'))
-      .oneOf([Yup.ref('password')], t('PASSWORDS_MUST_MATCH')),
+      .required(t('auth.validation.confirmPasswordRequired'))
+      .oneOf([Yup.ref('password')], t('auth.validation.passwordsMustMatch')),
   });

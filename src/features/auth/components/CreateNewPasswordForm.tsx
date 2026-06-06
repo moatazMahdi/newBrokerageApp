@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import AppTextField from '../../../components/AppTextField/AppTextField';
 import AppText from '../../../components/AppText/AppText';
 import { Assets } from '../../../assets';
@@ -28,6 +29,7 @@ const CreateNewPasswordForm = ({
   onTogglePassword,
   onToggleConfirmPassword,
 }: Props) => {
+  const { t } = useTranslation();
   const {
     images: {
       components: { lockPassword, eyeOn, eyeOff },
@@ -37,7 +39,7 @@ const CreateNewPasswordForm = ({
   return (
     <View style={{ width: '100%' }}>
       <AppTextField
-        label="كلمة المرور"
+        label={t('auth.createNewPassword.password')}
         value={password}
         onChangeText={onPasswordChange}
         rightIcon={lockPassword}
@@ -47,7 +49,7 @@ const CreateNewPasswordForm = ({
       />
 
       <AppTextField
-        label="تأكيد كلمة المرور"
+        label={t('auth.createNewPassword.confirmPassword')}
         value={confirmPassword}
         onChangeText={onConfirmPasswordChange}
         rightIcon={lockPassword}
@@ -61,7 +63,7 @@ const CreateNewPasswordForm = ({
           size={12}
           weight="500"
           color="#E11D48"
-          style={{ marginTop: hp(-8), textAlign: 'flex-start' }}
+          style={{ marginTop: hp(-8) }}
         >
           {error}
         </AppText>
