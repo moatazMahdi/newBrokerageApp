@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import AppTextField from '../../../components/AppTextField/AppTextField';
 import { Assets } from '../../../assets';
 
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const ForgotPasswordForm = ({ phone, onPhoneChange }: Props) => {
+  const { t } = useTranslation();
   const {
     images: {
       components: { phone: phoneIcon },
@@ -18,7 +20,7 @@ const ForgotPasswordForm = ({ phone, onPhoneChange }: Props) => {
   return (
     <View style={{ width: '100%' }}>
       <AppTextField
-        label="رقم الهاتف"
+        label={t('auth.forgotPassword.phone')}
         value={phone}
         onChangeText={onPhoneChange}
         rightIcon={phoneIcon}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer';
@@ -15,6 +16,7 @@ import type { AppStackParamList } from '../../../navigation/types';
 const ForgotPassword = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
+  const { t } = useTranslation();
 
   const [phone, setPhone] = React.useState('');
 
@@ -22,7 +24,7 @@ const ForgotPassword = () => {
 
   const handleNext = () => {
     if (!phone.trim()) {
-      Alert.alert('خطأ', 'الرجاء إدخال رقم الهاتف');
+      Alert.alert(t('common.error'), t('auth.forgotPassword.enterPhone'));
       return;
     }
     const phoneNumber = `+2${phone}`
@@ -35,7 +37,7 @@ const ForgotPassword = () => {
         });
       },
       onError: error => {
-        Alert.alert('خطأ', error.message || 'تعذر إرسال رمز التحقق');
+        Alert.alert(t('common.error'), error.message || t('auth.forgotPassword.sendFailed'));
       },
     });
   };
@@ -47,7 +49,7 @@ const ForgotPassword = () => {
 
       <AppButton
         width="100%"
-        title="التالي"
+        title={t('auth.forgotPassword.next')}
         onPress={handleNext}
         loading={isPending}
       />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer';
@@ -18,6 +19,7 @@ const CreateNewPassword = () => {
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { params } =
     useRoute<RouteProp<AppStackParamList, 'CreateNewPassword'>>();
+  const { t } = useTranslation();
   const { phone, code } = params;
 
   const [password, setPassword] = React.useState('');
@@ -32,12 +34,12 @@ const CreateNewPassword = () => {
 
   const handleConfirm = () => {
     if (!password.trim() || !confirmPassword.trim()) {
-      Alert.alert('خطأ', 'الرجاء ملء جميع الحقول');
+      Alert.alert(t('common.error'), t('common.fillAllFields'));
       return;
     }
 
     if (password !== confirmPassword) {
-      Alert.alert('خطأ', 'يجب أن تتطابق كلمتا المرور');
+      Alert.alert(t('common.error'), t('auth.validation.passwordsMustMatch'));
       return;
     }
 
@@ -45,14 +47,14 @@ const CreateNewPassword = () => {
       buildResetPasswordRequest(phone, code, password, confirmPassword),
       {
         onSuccess: () => {
-          Alert.alert('نجح', 'تم إعادة تعيين كلمة المرور بنجاح');
+          Alert.alert(t('common.success'), t('auth.createNewPassword.success'));
           navigation.reset({
             index: 0,
             routes: [{ name: Routes.LOGIN }],
           });
         },
         onError: error => {
-          Alert.alert('خطأ', error.message || 'تعذر إعادة تعيين كلمة المرور');
+          Alert.alert(t('common.error'), error.message || t('auth.createNewPassword.failed'));
         },
       },
     );
@@ -66,7 +68,7 @@ const CreateNewPassword = () => {
         confirmPassword={confirmPassword}
         openPassword={openPassword}
         openConfirmPassword={openConfirmPassword}
-        error={mismatch ? 'يجب أن تتطابق كلمتا المرور' : undefined}
+        error={mismatch ? t('auth.validation.passwordsMustMatch') : undefined}
         onPasswordChange={setPassword}
         onConfirmPasswordChange={setConfirmPassword}
         onTogglePassword={() => setOpenPassword(prev => !prev)}
@@ -75,7 +77,7 @@ const CreateNewPassword = () => {
 
       <AppButton
         width="100%"
-        title="تأكيد"
+        title={t('auth.createNewPassword.confirm')}
         onPress={handleConfirm}
         loading={isPending}
         style={{

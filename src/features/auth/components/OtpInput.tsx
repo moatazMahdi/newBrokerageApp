@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import { hp, wp } from '../../../utils/dimensions';
+import { flexRowDirection } from '../../../utils/direction';
 
 type Props = {
   length?: number;
@@ -100,7 +101,7 @@ export default OtpInput;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row-reverse',
+    flexDirection: flexRowDirection(),
     justifyContent: 'space-between',
     marginTop: hp(24),
   },

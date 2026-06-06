@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { hp, wp } from '../../../utils/dimensions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,13 +28,13 @@ export const onboardingStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap:32,
+    gap: 20,
   },
 
   skipText: {
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 12,
+    fontWeight: '600',
   },
 
   bottomContent: {
@@ -43,10 +44,10 @@ export const onboardingStyles = StyleSheet.create({
 
   title: {
     color: '#FFFFFF',
-    fontSize: 38,
+    fontSize: 36,
     fontWeight: '800',
     lineHeight: 54,
-    textAlign: 'right',
+    // textAlign: 'right',
   },
 
   highlightedText: {
@@ -57,8 +58,14 @@ export const onboardingStyles = StyleSheet.create({
     color: 'rgba(255,255,255,0.85)',
     fontSize: 16,
     lineHeight: 28,
-    marginTop: 24,
-    textAlign: 'right',
+    // marginTop: 24,
+    // textAlign: 'right',
+  },
+  line: {
+    height: hp(2), 
+    width: wp(190), 
+    backgroundColor: "#FFFFFF",
+    opacity: 0.2,
   },
 
   buttonContainer: {
@@ -88,11 +95,12 @@ export const onboardingStyles = StyleSheet.create({
   backgroundColor: 'rgba(255,255,255,0.15)',
 },
 slideContent: {
+  width: '100%',
   flex: 1,
   justifyContent: 'flex-end',
-
   paddingHorizontal: 24,
   paddingBottom: 140,
+  gap: 12
 },
 
 screen: {

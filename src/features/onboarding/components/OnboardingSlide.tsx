@@ -5,6 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { onboardingStyles } from '../styles/onboarding.styles';
 
@@ -17,6 +18,8 @@ interface Props {
 const OnboardingSlide = ({
   item,
 }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <View style={onboardingStyles.container}>
       <ImageBackground
@@ -25,24 +28,21 @@ const OnboardingSlide = ({
         style={onboardingStyles.backgroundImage}
       >
         <View style={onboardingStyles.slideContent}>
-         <Text style={onboardingStyles.title}>
-  {item.title}{' '}
+          <Text style={onboardingStyles.title}>
+            {t(`onboarding.${item.key}.title`)}{' '}
 
-  <Text
-    style={
-      onboardingStyles.highlightedText
-    }
-  >
-    {item.highlightedTitle}
-  </Text>
+            <Text style={onboardingStyles.highlightedText}>
+              {t(`onboarding.${item.key}.highlightedTitle`)}
+            </Text>
 
-  {'\n'}
+            {'\n'}
 
-  {item.secondLine}
-</Text>
+            {t(`onboarding.${item.key}.secondLine`)}
+          </Text>
+          <View style={onboardingStyles.line} />
 
           <Text style={onboardingStyles.description}>
-            {item.description}
+            {t(`onboarding.${item.key}.description`)}
           </Text>
         </View>
       </ImageBackground>

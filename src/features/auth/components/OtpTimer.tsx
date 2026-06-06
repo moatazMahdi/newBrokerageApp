@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import AppText from '../../../components/AppText/AppText';
 import { hp } from '../../../utils/dimensions';
 
@@ -18,6 +19,7 @@ const formatTime = (totalSeconds: number) => {
 };
 
 const OtpTimer = ({ duration = 153, resetKey = 0, onResend }: Props) => {
+  const { t } = useTranslation();
   const [remaining, setRemaining] = useState(duration);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const OtpTimer = ({ duration = 153, resetKey = 0, onResend }: Props) => {
         <View style={{flex: 1, alignItems: 'center', gap: 4 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <AppText size={14} color="#282828">
-              في حالة عدم وصول الكود
+              {t('auth.otp.didntReceive')}
             </AppText>
             <AppText size={14} weight="700" color="#F18222">
               {formatTime(remaining)}
@@ -69,7 +71,7 @@ const OtpTimer = ({ duration = 153, resetKey = 0, onResend }: Props) => {
                 lineHeight: hp(24),
                 }}
             >
-              إعادة الإرسال
+              {t('auth.otp.resend')}
             </AppText>
           </TouchableOpacity>
         </View>

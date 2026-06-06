@@ -1,23 +1,26 @@
 import React from 'react';
+import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import AppText from '../../../components/AppText/AppText';
 import { hp } from '../../../utils/dimensions';
-import { View } from 'react-native';
 
 type Props = {
   phone: string;
 };
 
-const OtpHeader = ({ phone }: Props) => (
+const OtpHeader = ({ phone }: Props) => {
+  const { t } = useTranslation();
+  return (
   <View>
     <AppText size={18} weight="400" style={{ lineHeight: hp(30) }} color="#1A1A1A">
-      تأكيد كود التحقق
+      {t('auth.otp.title')}
     </AppText>
     <AppText
       size={14}
       color="#6F6F74"
-      style={{ marginTop: hp(8), marginBottom: hp(6), textAlign: 'flex-start', lineHeight: hp(20) }}
+      style={{ marginTop: hp(8), marginBottom: hp(6), lineHeight: hp(20) }}
     >
-      تم ارسال رقم التحقق لمرة واحدة علي هذا الرقم
+      {t('auth.otp.subtitle')}
     </AppText>
     <AppText
       size={14}
@@ -25,7 +28,6 @@ const OtpHeader = ({ phone }: Props) => (
       color="#1A1A1A"
       style={{
         marginTop: hp(6),
-        textAlign: 'flex-start',
         writingDirection: 'ltr',
         lineHeight: hp(20),
       }}
@@ -33,6 +35,7 @@ const OtpHeader = ({ phone }: Props) => (
       {`\u2066${phone}\u2069`}
     </AppText>
   </View>
-);
+  );
+};
 
 export default OtpHeader;

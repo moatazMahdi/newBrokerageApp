@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer';
@@ -27,6 +28,7 @@ const Otp = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { params } = useRoute<RouteProp<AppStackParamList, 'Otp'>>();
+  const { t } = useTranslation();
   const { phone, mode = 'signup' } = params;
   const isReset = mode === 'reset';
 
@@ -41,21 +43,17 @@ const Otp = () => {
 
   const isPending = isReset ? isForgetVerifying : isVerifying;
 
-  // Trigger sending the code automatically when the screen opens.
-  React.useEffect(() => {
-    if (isReset) {
-      forgetPassword(buildForgetPasswordRequest(phone));
-    } else {
+  useEffect(() => {
+    if (!isReset) {
       sendOtp(buildSendOtpRequest(phone));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isReset, phone, sendOtp]);
 
   const handleResend = () => {
     const onResult = {
       onSuccess: () => setResetKey(prev => prev + 1),
       onError: (error: Error) =>
-        Alert.alert('خطأ', error.message || 'تعذر إعادة إرسال الكود'),
+        Alert.alert(t('common.error'), error.message || t('auth.otp.resendFailed')),
     };
 
     if (isReset) {
@@ -67,7 +65,7 @@ const Otp = () => {
 
   const handleConfirm = () => {
     if (code.length < CODE_LENGTH) {
-      Alert.alert('خطأ', 'الرجاء إدخال كود التحقق كاملاً');
+      Alert.alert(t('common.error'), t('auth.otp.enterFullCode'));
       return;
     }
 
@@ -80,7 +78,7 @@ const Otp = () => {
           });
         },
         onError: error => {
-          Alert.alert('خطأ', error.message || 'كود التحقق غير صحيح');
+          Alert.alert(t('common.error'), error.message || t('auth.otp.invalidCode'));
         },
       });
       return;
@@ -94,7 +92,7 @@ const Otp = () => {
         });
       },
       onError: error => {
-        Alert.alert('خطأ', error.message || 'كود التحقق غير صحيح');
+        Alert.alert(t('common.error'), error.message || t('auth.otp.invalidCode'));
       },
     });
   };
@@ -108,7 +106,7 @@ const Otp = () => {
       <View style={{ marginTop: hp(32) }}>
         <AppButton
           width="100%"
-          title="تأكيد"
+          title={t('auth.otp.confirm')}
           onPress={handleConfirm}
           loading={isPending}
         />

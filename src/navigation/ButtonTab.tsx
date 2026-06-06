@@ -9,6 +9,8 @@ import {
   Linking,
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
+import type { ParseKeys } from 'i18next';
 import { Assets } from '../assets';
 import OurProduct from '../screens/ourProduct';
 import Claims from '../screens/claims';
@@ -20,29 +22,36 @@ import Home from '../features/home/screens/Home';
 
 const Tab = createBottomTabNavigator();
 
-const TABS = [
+type TabConfig = {
+  name: string;
+  component: React.ComponentType;
+  label: ParseKeys;
+  icon: keyof typeof Assets.images.components;
+};
+
+const TABS: TabConfig[] = [
   {
     name: 'Home',
     component: Home,
-    label: 'الرئيسية',
+    label: 'tabs.home',
     icon: 'homeIcon',
   },
   {
     name: Routes.OUR_PRODUCTS,
     component: OurProduct,
-    label: 'منتجاتنا',
+    label: 'tabs.products',
     icon: 'ourProduct',
   },
   {
     name: Routes.CLAIMS,
     component: Claims,
-    label: 'التنبيهات',
+    label: 'tabs.alerts',
     icon: 'claims',
   },
   {
     name: Routes.MENU,
     component: Menu,
-    label: 'المزيد',
+    label: 'tabs.more',
     icon: 'menu',
   },
 ];
@@ -82,6 +91,7 @@ export const CustomTabBarBackground = () => {
 };
 
 const ButtonTab = () => {
+  const { t } = useTranslation();
   const {
     images: { components },
   } = Assets;
@@ -151,7 +161,7 @@ const ButtonTab = () => {
                         fontWeight: focused ? '700' : '400',
                       },
                     ]}>
-                    {item.label}
+                    {t(item.label)}
                   </Text>
                 </View>
               ),
@@ -220,7 +230,7 @@ const ButtonTab = () => {
                         fontWeight: focused ? '700' : '400',
                       },
                     ]}>
-                    {item.label}
+                    {t(item.label)}
                   </Text>
                 </View>
               ),

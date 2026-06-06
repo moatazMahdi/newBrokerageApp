@@ -1,23 +1,123 @@
 export default {
   language: 'English',
-  login: 'Login',
-  email: 'Email',
-  password: 'Password',
 
-  // Validation messages
-  FULL_NAME_REQUIRED: 'Full name is required',
-  FULL_NAME_MIN: 'Name must be at least 3 characters',
-  FULL_NAME_LETTERS_ONLY: 'Name must contain only letters',
-  NO_SPACES_ALLOWED: 'No spaces allowed',
-  MOBILE_FIELD_REQUIRED_ERROR: 'Phone number is required',
-  INVALID_EGYPTIAN_PHONE: 'Enter a valid Egyptian phone number',
-  PHONE_LENGTH: 'Phone number must be 11 digits',
-  PASSWORD_REQUIRED: 'Password is required',
-  PASSWORD_MUST_BE_AT_LEAST_8_CHARS: 'Password must be at least 8 characters',
-  PASSWORD_NUMBER: 'Must contain at least one number',
-  PASSWORD_LOWERCASE: 'Must contain a lowercase letter',
-  PASSWORD_UPPERCASE: 'Must contain an uppercase letter',
-  PASSWORD_SPECIAL_CHAR: 'Must contain a special character',
-  CONFIRM_PASSWORD_REQUIRED: 'Confirm password is required',
-  PASSWORDS_MUST_MATCH: 'Passwords must match',
+  common: {
+    error: 'Error',
+    success: 'Success',
+    fillAllFields: 'Please fill all fields',
+    confirm: 'Confirm',
+    next: 'Next',
+    retry: 'Retry',
+  },
+
+  tabs: {
+    home: 'Home',
+    products: 'Our Products',
+    alerts: 'Alerts',
+    more: 'More',
+  },
+
+  onboarding: {
+    skip: 'Skip',
+    next: 'Next',
+    start: 'Get Started',
+    slide1: {
+      title: 'All insurance',
+      highlightedTitle: 'services...',
+      secondLine: 'in one place',
+      description:
+        'Browse and request all types of insurance for individuals and companies from a single app, quickly and without complications.',
+    },
+    slide2: {
+      title: 'Manage your',
+      highlightedTitle: 'documents...',
+      secondLine: 'with ease',
+      description:
+        'View your insurance policies, download them as PDF, and receive automatic reminders before renewal.',
+    },
+    slide3: {
+      title: 'Instant support',
+      highlightedTitle: 'and trust...',
+      secondLine: 'guaranteed',
+      description:
+        'Communicate directly with the Connect team and track real claims with certified insurance companies.',
+    },
+  },
+
+  auth: {
+    login: {
+      welcome: 'Welcome back 👋',
+      subtitle:
+        'Enter your phone number and password to access your account.',
+      phone: 'Phone Number',
+      password: 'Password',
+      forgotPassword: 'Forgot password?',
+      loginButton: 'Login',
+      orLoginWith: 'Or log in with',
+      noAccount: "Don't have an account?",
+      createAccount: 'Create account',
+      guestBrowse: 'Browse the app as a guest',
+      success: 'Logged in successfully',
+      failed: 'Login failed',
+    },
+
+    signup: {
+      title: 'Create a new account',
+      phone: 'Phone Number',
+      username: 'Username',
+      password: 'Password',
+      confirmPassword: 'Confirm Password',
+      terms: 'agree to the Terms and Conditions',
+      mustAcceptTerms: 'You must accept the Terms and Conditions',
+      createAccount: 'Create account',
+      failed: 'Failed to create account',
+    },
+
+    forgotPassword: {
+      title: 'Forgot password',
+      phone: 'Phone Number',
+      next: 'Next',
+      enterPhone: 'Please enter your phone number',
+      sendFailed: 'Could not send the verification code',
+    },
+
+    otp: {
+      title: 'Confirm verification code',
+      subtitle:
+        'A one-time verification code has been sent to this number',
+      confirm: 'Confirm',
+      resend: 'Resend',
+      didntReceive: "If you didn't receive the code",
+      enterFullCode: 'Please enter the full verification code',
+      invalidCode: 'Invalid verification code',
+      resendFailed: 'Could not resend the code',
+    },
+
+    createNewPassword: {
+      title: 'Reset password',
+      password: 'Password',
+      confirmPassword: 'Confirm Password',
+      confirm: 'Confirm',
+      success: 'Password reset successfully',
+      failed: 'Could not reset the password',
+    },
+
+    validation: {
+      fullNameRequired: 'Full name is required',
+      fullNameMin: 'Name must be at least 3 characters',
+      fullNameLettersOnly: 'Name must contain only letters',
+      noSpaces: 'No spaces allowed',
+      phoneRequired: 'Phone number is required',
+      invalidPhone: 'Enter a valid Egyptian phone number',
+      phoneLength: 'Phone number must be 11 digits',
+      passwordRequired: 'Password is required',
+      passwordMin: 'Password must be at least 8 characters',
+      passwordNumber: 'Must contain at least one number',
+      passwordLowercase: 'Must contain a lowercase letter',
+      passwordUppercase: 'Must contain an uppercase letter',
+      passwordSpecialChar: 'Must contain a special character',
+      confirmPasswordRequired: 'Confirm password is required',
+      passwordsMustMatch: 'Passwords must match',
+    },
+  },
 };

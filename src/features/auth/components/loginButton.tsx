@@ -1,5 +1,6 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import AppButton from '../../../components/AppButton'
 import SvgView from '../../../components/SvgView/SvgView'
 import { Assets } from '../../../assets'
@@ -11,27 +12,14 @@ type Props = {
     loading?: boolean;
 }
 const LoginButton = ({onLoginPress, onFingerprintPress, loading = false}: Props) => {
+  const { t } = useTranslation();
   const {images:{
     components: {fingerprint}
   }} = Assets;
   return (
-    <View style={{
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 10,
-        marginTop: hp(42),
-    }}>
-      <AppButton width={wp(275)} title="تسجيل الدخول" onPress={onLoginPress} loading={loading}  />
-      <TouchableOpacity style={{
-        width: wp(48),
-        height: hp(48),
-        borderRadius: 12,
-        backgroundColor: '#F3F3F3',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }} onPress={onFingerprintPress}>
+    <View style={styles.container}>
+      <AppButton width={wp(275)} title={t('auth.login.loginButton')} onPress={onLoginPress} loading={loading}  />
+      <TouchableOpacity style={styles.fingerprintButton} onPress={onFingerprintPress}>
         <SvgView  svgFile={fingerprint} width={32} height={32} />
       </TouchableOpacity>
     </View>
@@ -39,3 +27,22 @@ const LoginButton = ({onLoginPress, onFingerprintPress, loading = false}: Props)
 }
 
 export default LoginButton
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: hp(42),
+  },
+  fingerprintButton: {
+    width: wp(48),
+    height: hp(48),
+    borderRadius: 12,
+    backgroundColor: '#F3F3F3',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

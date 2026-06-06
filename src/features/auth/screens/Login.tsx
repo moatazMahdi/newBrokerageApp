@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer';
@@ -13,10 +14,12 @@ import { useLogin } from '../hooks/useLogin';
 import { buildLoginRequest } from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
+import { hp } from '../../../utils/dimensions';
 
 const Login = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
+  const { t } = useTranslation();
   const [phone, setPhone] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [openEye, setOpenEye] = React.useState(false);
@@ -24,7 +27,7 @@ const Login = () => {
 
   const handleLoginPress = () => {
     if (!phone.trim() || !password.trim()) {
-      Alert.alert('خطأ', 'الرجاء ملء جميع الحقول');
+      Alert.alert(t('common.error'), t('common.fillAllFields'));
       return;
     }
 
@@ -33,11 +36,11 @@ const Login = () => {
 
     login(loginPayload, {
       onSuccess: (data) => {
-        Alert.alert('نجح', 'تم تسجيل الدخول بنجاح');
+        Alert.alert(t('common.success'), t('auth.login.success'));
         // TODO: Save token and navigate to home screen
       },
       onError: (error) => {
-        Alert.alert('خطأ', error.message || 'فشل تسجيل الدخول');
+        Alert.alert(t('common.error'), error.message || t('auth.login.failed'));
       },
     });
   };
@@ -73,9 +76,12 @@ const Login = () => {
       />
       <SocialLogin />
       <SignupButton />
-      <GuestButton />
+      <View style={{ marginTop: hp(42) }}>
+        <GuestButton />
+      </View>
     </ScreenContainer>
   );
-};
+}
+
 
 export default Login;
