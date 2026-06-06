@@ -1,9 +1,9 @@
 import { I18nManager } from 'react-native';
-import RNRestart from 'react-native-restart';
+import RNRestart from 'react-native-restart-newarch';
 import { storage } from '../storage/mmkv';
 import i18n from './index';
 
-export const changeLanguage = () => {
+export const changeLanguage = async () => {
   const currentLanguage =
     storage.getString('language') || 'en';
 
@@ -11,12 +11,13 @@ export const changeLanguage = () => {
     currentLanguage === 'en' ? 'ar' : 'en';
 
   const isRTL = nextLanguage === 'ar';
-
-  I18nManager.allowRTL(isRTL);
-  I18nManager.forceRTL(isRTL);
   storage.set('language', nextLanguage);
   i18n.changeLanguage(nextLanguage);
 
-  // A restart is required for the native RTL/LTR layout change to take effect.
-  RNRestart.Restart();
+  await I18nManager.allowRTL(isRTL);
+  await I18nManager.forceRTL(isRTL);
+
+  setTimeout(() => {
+    RNRestart.restart();
+  }, 150)
 };
