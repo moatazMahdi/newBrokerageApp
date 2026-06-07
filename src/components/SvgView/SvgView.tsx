@@ -10,6 +10,7 @@ export const SvgView: React.FC<SvgViewProps> = ({
   height = hp(24),
   stroke,
   fill,
+  color,
   ...svgProps
 }) => {
   return (
@@ -18,6 +19,9 @@ export const SvgView: React.FC<SvgViewProps> = ({
         {...svgProps}
         width="100%"
         height="100%"
+        {...(color !== undefined && { color })}
+        {...(fill !== undefined && { fill })}
+        {...(stroke !== undefined && { stroke })}
       />
     </View>
   );

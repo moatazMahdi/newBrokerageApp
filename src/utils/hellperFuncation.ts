@@ -31,7 +31,7 @@ export const getFCMToken = async () => {
     await messaging().registerDeviceForRemoteMessages();
 
     const token = await messaging().getToken();
-
+    
     console.log('FCM Token:', token);
 
     return token;

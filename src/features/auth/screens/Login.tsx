@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,6 +13,7 @@ import { useLogin } from '../hooks/useLogin';
 import { buildLoginRequest } from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
+import { getFCMToken } from '../../../utils/hellperFuncation';
 
 const Login = () => {
   const navigation =
@@ -20,20 +21,30 @@ const Login = () => {
   const [phone, setPhone] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [openEye, setOpenEye] = React.useState(false);
+  const [token , setToken] =React.useState('')
   const { mutate: login, isPending } = useLogin();
 
+  useEffect(()=>{
+    const FCMToken = async() =>{
+          const token = await getFCMToken();
+      setToken(token)
+    }
+    FCMToken()
+  },[])
+   
   const handleLoginPress = () => {
     if (!phone.trim() || !password.trim()) {
       Alert.alert('خطأ', 'الرجاء ملء جميع الحقول');
       return;
     }
 
-    const fcmToken = ''; // TODO: Get FCM token from Firebase
-    const loginPayload = buildLoginRequest(phone, password, fcmToken);
+    const fcmToken = token; // TODO: Get FCM token from Firebase
+    const loginPayload = buildLoginRequest(`+2${phone}`, password, fcmToken);
 
     login(loginPayload, {
       onSuccess: (data) => {
-        Alert.alert('نجح', 'تم تسجيل الدخول بنجاح');
+        navigation.navigate(Routes.BUTTON_TAB )
+        // Alert.alert('نجح', 'تم تسجيل الدخول بنجاح');
         // TODO: Save token and navigate to home screen
       },
       onError: (error) => {

@@ -4,4 +4,5 @@ export type SvgViewProps = {
   height?: number | string;
   fill?: string;
   stroke?: string;
+  color?: string;
 };
