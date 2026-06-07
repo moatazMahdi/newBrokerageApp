@@ -3,19 +3,19 @@ import React, { useEffect } from 'react';
 import { Alert, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer';
-import LoginHeader from '../components/LoginHeader';
-import LoginForm from '../components/LoginForm';
-import LoginButton from '../components/loginButton';
-import SocialLogin from '../components/SocialLogin';
-import SignupButton from '../components/SignupButton';
-import GuestButton from '../components/GuestButton';
-import { useLogin } from '../hooks/useLogin';
-import { buildLoginRequest } from '../../../api/auth';
-import { Routes } from '../../../navigation/routes';
-import type { AppStackParamList } from '../../../navigation/types';
-import { hp } from '../../../utils/dimensions';
-import { getFCMToken } from '../../../utils/hellperFuncation';
+import ScreenContainer from 'src/components/ScreenContainer/ScreenContainer';
+import LoginHeader from 'src/features/auth/components/LoginHeader';
+import LoginForm from 'src/features/auth/components/LoginForm';
+import LoginButton from 'src/features/auth/components/loginButton';
+import SocialLogin from 'src/features/auth/components/SocialLogin';
+import SignupButton from 'src/features/auth/components/SignupButton';
+import GuestButton from 'src/features/auth/components/GuestButton';
+import { useLogin } from 'src/features/auth/hooks/useLogin';
+import { buildLoginRequest } from 'src/api/auth';
+import { Routes } from 'src/navigation/routes';
+import type { AppStackParamList } from 'src/navigation/types';
+import { hp } from 'src/utils/dimensions';
+import { getFCMToken } from 'src/utils/hellperFuncation';
 
 const Login = () => {
   const navigation =
@@ -46,7 +46,11 @@ const Login = () => {
 
     login(loginPayload, {
       onSuccess: (data) => {
-        Alert.alert(t('common.success'), t('auth.login.success'));
+        navigation.reset({
+          index: 0,
+          routes: [{ name: Routes.BUTTON_TAB }],
+        });
+        // Alert.alert(t('common.success'), t('auth.login.success'));
         // TODO: Save token and navigate to home screen
       },
       onError: (error) => {
