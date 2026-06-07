@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>05687626170-f4ij1g8t1j2k1cbbbatu38riukr843a5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.05687626170-f4ij1g8t1j2k1cbbbatu38riukr843a5</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>457620080603-k9eangaqp1svpml59lf44r5upjdt1gau.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCYgaAAdg2Xwki8xxEnqEzvJOW8vmRPyNQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>457620080603</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>eg.BrokerageApp</string>
+	<key>PROJECT_ID</key>
+	<string>contact-insurance-brokerage</string>
+	<key>STORAGE_BUCKET</key>
+	<string>contact-insurance-brokerage.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<true></true>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:457620080603:ios:5b03a8e63f1705a2d6c9fe</string>
+</dict>
+</plist>

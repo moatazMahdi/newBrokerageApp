@@ -1,6 +1,6 @@
-import React from 'react';
-import { Alert, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import React, { useEffect } from 'react';
+import { Alert, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer';
@@ -15,6 +15,7 @@ import { buildLoginRequest } from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
 import { hp } from '../../../utils/dimensions';
+import { getFCMToken } from '../../../utils/hellperFuncation';
 
 const Login = () => {
   const navigation =
@@ -23,16 +24,25 @@ const Login = () => {
   const [phone, setPhone] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [openEye, setOpenEye] = React.useState(false);
+  const [token , setToken] =React.useState('')
   const { mutate: login, isPending } = useLogin();
 
+  useEffect(()=>{
+    const FCMToken = async() =>{
+          const token = await getFCMToken();
+      setToken(token)
+    }
+    FCMToken()
+  },[])
+   
   const handleLoginPress = () => {
     if (!phone.trim() || !password.trim()) {
       Alert.alert(t('common.error'), t('common.fillAllFields'));
       return;
     }
 
-    const fcmToken = ''; // TODO: Get FCM token from Firebase
-    const loginPayload = buildLoginRequest(phone, password, fcmToken);
+    const fcmToken = token; // TODO: Get FCM token from Firebase
+    const loginPayload = buildLoginRequest(`+2${phone}`, password, fcmToken);
 
     login(loginPayload, {
       onSuccess: (data) => {

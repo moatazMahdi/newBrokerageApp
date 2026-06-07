@@ -78,9 +78,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.brokerageapprevamp"
+    namespace "com.insuranceBrokerage"
     defaultConfig {
-        applicationId "com.brokerageapprevamp"
+        applicationId "com.insuranceBrokerage"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
