@@ -52,11 +52,11 @@ const Login = () => {
           routes: [{ name: Routes.BUTTON_TAB }],
         });
       },
-      onError: (error) => {
+      onError: (error: Error) => {
         showToast({
           type: 'error',
-          title: 'رقم الهاتف أو كلمة المرور خاطئة',
-          message: error.message,
+          title: error.message,
+          // message: error.message,
         });
       },
     });

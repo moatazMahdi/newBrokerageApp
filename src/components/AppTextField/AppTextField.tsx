@@ -3,6 +3,7 @@ import {
   Animated,
   I18nManager,
   KeyboardTypeOptions,
+  StyleSheet,
   TextInput,
   TouchableOpacity,
   View,
@@ -133,7 +134,7 @@ const AppInput = ({
             <SvgView svgFile={leftIcon} width={wp(24)} height={hp(24)} />
           </TouchableOpacity>
         ) : (
-          <View style={{ width: wp(24) }} />
+          <View style={styles.leftIconSpace} />
         )}
       </View>
 
@@ -186,5 +187,8 @@ const styles = StyleSheet.create({
     height: wp(6),
     borderRadius: wp(3),
     backgroundColor: COLORS.error,
+  },
+  leftIconSpace: {
+    width: wp(24)
   },
 });

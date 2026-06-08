@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -52,6 +52,19 @@ const SocialLogin = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { mutateAsync: socialLogin } = useSocialLogin();
+
+  useEffect(() => {
+    try {
+      Settings.setAppID(FACEBOOK_APP_ID);
+      Settings.initializeSDK();
+      GoogleSignin.configure({
+        webClientId: GOOGLE_WEB_CLIENT_ID,
+        iosClientId: GOOGLE_IOS_CLIENT_ID,
+      });
+    } catch (e) {
+      console.warn('Social SDK init failed:', e);
+    }
+  }, []);
 
   const {
     images: {
