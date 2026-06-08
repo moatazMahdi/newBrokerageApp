@@ -1,60 +1,177 @@
 import React from 'react';
 
 import {
-  ActivityIndicator,
+  StyleProp,
   Text,
+  TextStyle,
   TouchableOpacity,
+  View,
+  ViewStyle,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
+
+import { Assets } from '../../assets';
 
 import { appButtonStyles } from './appButton.styles';
 
+export type AppButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'softBlue'
+  | 'white'
+  | 'alert'
+  | 'ghost';
+
+export type AppButtonSize =
+  | 'full'
+  | 'half'
+  | 'auto';
+
 interface Props {
   title: string;
-
   onPress: () => void;
 
-  disabled?: boolean;
+  variant?: AppButtonVariant;
+  size?: AppButtonSize;
 
+  disabled?: boolean;
   loading?: boolean;
 
-  backgroundColor?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 
-  width?: string | number;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<TextStyle>;
 }
+
+const APP_BUTTON_VARIANTS: Record<
+  AppButtonVariant,
+  {
+    backgroundColor: string;
+    titleColor: string;
+  }
+> = {
+  primary: {
+    backgroundColor: '#1A3167',
+    titleColor: '#FFFFFF',
+  },
+
+  secondary: {
+    backgroundColor: '#F2F2F2',
+    titleColor: '#1A1A1A',
+  },
+
+  softBlue: {
+    backgroundColor: '#EDF4FF',
+    titleColor: '#1A3167',
+  },
+
+  white: {
+    backgroundColor: '#FFFFFF',
+    titleColor: '#1A3167',
+  },
+
+  alert: {
+    backgroundColor: '#EF4335',
+    titleColor: '#FFFFFF',
+  },
+
+  ghost: {
+    backgroundColor: 'transparent',
+    titleColor: '#1A3167',
+  },
+
+};
+
+const LOADER_COLOR_FILTERS = [
+  'Shape Layer 5',
+  'Shape Layer 4',
+  'Shape Layer 3',
+  'Shape Layer 2',
+  'Shape Layer 1',
+].map(keypath => ({ keypath, color: '#FFFFFF' }));
+
+const APP_BUTTON_SIZES: Record<AppButtonSize, ViewStyle> = {
+  full: {
+    width: '100%',
+  },
+
+  half: {
+    width: '48%',
+  },
+
+  auto: {},
+};
 
 const AppButton = ({
   style,
   title,
   onPress,
-  disabled,
-  loading,
-  backgroundColor = '#1A3167',
-  width,
+  disabled = false,
+  loading = false,
+  variant = 'primary',
+  size = 'full',
+  leftIcon,
+  rightIcon,
+  titleStyle,
 }: Props) => {
-  const titleColor =
-    backgroundColor === '#F2F2F2' || backgroundColor === '#EDF4FF'
-      ? '#000000'
-      : '#FFFFFF';
+  const variantConfig = APP_BUTTON_VARIANTS[variant];
+  const sizeStyle = APP_BUTTON_SIZES[size];
+
+  const isDisabled = disabled || loading;
+  // Dim only when disabled; while loading the spinner is the visual cue, so
+  // keep the button at full opacity.
+  const showDimmed = disabled && !loading;
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      disabled={disabled || loading}
+      disabled={isDisabled}
       onPress={onPress}
       style={[
         appButtonStyles.button,
-        { backgroundColor, width: width as any },
-        (disabled || loading) && appButtonStyles.disabledButton,
+        sizeStyle,
+        {
+          backgroundColor: variantConfig.backgroundColor,
+        },
+        showDimmed && appButtonStyles.disabledButton,
         style,
       ]}
     >
       {loading ? (
-        <ActivityIndicator color="#FFFFFF" />
+        <LottieView
+          source={Assets.animations.loadingSpinner}
+          autoPlay
+          loop
+          style={appButtonStyles.loader}
+          colorFilters={LOADER_COLOR_FILTERS}
+        />
       ) : (
-        <Text style={[appButtonStyles.title, { color: titleColor }]}> 
-          {title}
-        </Text>
+        <View style={appButtonStyles.content}>
+          {leftIcon ? (
+            <View style={appButtonStyles.icon}>
+              {leftIcon}
+            </View>
+          ) : null}
+
+          <Text
+            style={[
+              appButtonStyles.title,
+              {
+                color: variantConfig.titleColor,
+              },
+              titleStyle,
+            ]}
+          >
+            {title}
+          </Text>
+
+          {rightIcon ? (
+            <View style={appButtonStyles.icon}>
+              {rightIcon}
+            </View>
+          ) : null}
+        </View>
       )}
     </TouchableOpacity>
   );
