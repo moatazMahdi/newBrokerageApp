@@ -10,4 +10,6 @@ export const Routes = {
   OTP:'Otp',
   FORGOT_PASSWORD:'ForgotPassword',
   CREATE_NEW_PASSWORD:'CreateNewPassword',
+  CONFIRM_SOCIAL_PHONE:'ConfirmSocialPhone',
+  CONFIRM_SOCIAL_OTP:'ConfirmSocialOtp',
 } as const;

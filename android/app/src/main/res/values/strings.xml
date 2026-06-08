@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BrokerageAppRevamp</string>
+    <string name="facebook_app_id">1488199862284773</string>
+    <string name="facebook_client_token">2247f946a286921c332e5bc78f4bf546</string>
 </resources>
