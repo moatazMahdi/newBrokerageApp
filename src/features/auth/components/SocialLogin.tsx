@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -33,25 +33,36 @@ import {
   SocialLoginResponse,
   SocialProvider,
 } from '../../../api/auth';
+import Config from 'react-native-config';
 
-const GOOGLE_WEB_CLIENT_ID ='457620080603-qgrgssuer7dq8mpdafsp69e304djligv.apps.googleusercontent.com';
-const GOOGLE_IOS_CLIENT_ID = '457620080603-rffg80c9s6rkkdcn54uhitkq52vnu43g.apps.googleusercontent.com';
+const GOOGLE_WEB_CLIENT_ID = Config.GOOGLE_WEB_CLIENT_ID;
+const GOOGLE_IOS_CLIENT_ID = Config.GOOGLE_IOS_CLIENT_ID;
 
-const FACEBOOK_APP_ID = '1488199862284773';
-
-Settings.setAppID(FACEBOOK_APP_ID);
-Settings.initializeSDK();
-
-GoogleSignin.configure({
-  webClientId: GOOGLE_WEB_CLIENT_ID,
-  iosClientId: GOOGLE_IOS_CLIENT_ID,
-});
+const FACEBOOK_APP_ID = Config.FACEBOOK_APP_ID;
 
 const SocialLogin = () => {
   const { t } = useTranslation();
   const navigation =
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { mutateAsync: socialLogin } = useSocialLogin();
+
+  useEffect(() => {
+    try {
+      if(FACEBOOK_APP_ID){
+        Settings.setAppID(FACEBOOK_APP_ID);
+      }else {
+        console.error("Facebook App ID is missing in environment variables!");
+      }
+      
+      Settings.initializeSDK();
+      GoogleSignin.configure({
+        webClientId: GOOGLE_WEB_CLIENT_ID,
+        iosClientId: GOOGLE_IOS_CLIENT_ID,
+      });
+    } catch (e) {
+      console.warn('Social SDK init failed:', e);
+    }
+  }, []);
 
   const {
     images: {
