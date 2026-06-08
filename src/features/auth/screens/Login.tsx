@@ -16,6 +16,7 @@ import { Routes } from 'src/navigation/routes';
 import type { AppStackParamList } from 'src/navigation/types';
 import { hp } from 'src/utils/dimensions';
 import { getFCMToken } from 'src/utils/hellperFuncation';
+import { showToast } from 'src/components/Toast/toastService';
 
 const Login = () => {
   const navigation =
@@ -50,16 +51,23 @@ const Login = () => {
           index: 0,
           routes: [{ name: Routes.BUTTON_TAB }],
         });
-        // Alert.alert(t('common.success'), t('auth.login.success'));
-        // TODO: Save token and navigate to home screen
       },
       onError: (error) => {
-        Alert.alert(t('common.error'), error.message || t('auth.login.failed'));
+        showToast({
+          type: 'error',
+          title: 'رقم الهاتف أو كلمة المرور خاطئة',
+          message: error.message,
+        });
       },
     });
   };
 
   const handleFingerprintPress = () => {
+    showToast({
+      type: 'error',
+      title: 'رقم الهاتف أو كلمة المرور خاطئة',
+      // message: 'حاول مرة أخرى.',
+    });
     // TODO: Implement biometric authentication
   };
 

@@ -3,7 +3,6 @@ import {
   Animated,
   I18nManager,
   KeyboardTypeOptions,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   View,
@@ -14,7 +13,6 @@ import { textAlign } from '../../utils/direction';
 import { SvgView } from '../SvgView/SvgView';
 import AppText from '../AppText/AppText';
 
-// Visual palette for the four field states.
 const COLORS = {
   bgDefault: "#FFFFFF",
   bgFilled: '#F7F9FE', 
