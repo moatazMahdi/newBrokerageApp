@@ -86,9 +86,11 @@ const Signup = () => {
               marginVertical: hp(16),
               backgroundColor: "#FFFFFF",
               paddingVertical: hp(16),
+              alignItems: 'center',
           }}>
               <AppButton
-              width="100%"
+              variant='primary'
+              size="full"
               title={t('auth.signup.createAccount')}
               onPress={() => form.handleSubmit()}
               loading={isPending}

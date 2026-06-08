@@ -76,7 +76,8 @@ const CreateNewPassword = () => {
       />
 
       <AppButton
-        width="100%"
+        variant='primary'
+        size='full'
         title={t('auth.createNewPassword.confirm')}
         onPress={handleConfirm}
         loading={isPending}

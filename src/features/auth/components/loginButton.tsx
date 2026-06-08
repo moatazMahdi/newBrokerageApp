@@ -18,7 +18,7 @@ const LoginButton = ({onLoginPress, onFingerprintPress, loading = false}: Props)
   }} = Assets;
   return (
     <View style={styles.container}>
-      <AppButton width={wp(275)} title={t('auth.login.loginButton')} onPress={onLoginPress} loading={loading}  />
+      <AppButton variant='primary' size='full' title={t('auth.login.loginButton')} onPress={onLoginPress} loading={loading}  />
       <TouchableOpacity style={styles.fingerprintButton} onPress={onFingerprintPress}>
         <SvgView  svgFile={fingerprint} width={32} height={32} />
       </TouchableOpacity>
@@ -30,7 +30,7 @@ export default LoginButton
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '85%',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',

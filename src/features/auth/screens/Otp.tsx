@@ -105,7 +105,8 @@ const Otp = () => {
 
       <View style={{ marginTop: hp(32) }}>
         <AppButton
-          width="100%"
+          variant='primary'
+          size='full'
           title={t('auth.otp.confirm')}
           onPress={handleConfirm}
           loading={isPending}

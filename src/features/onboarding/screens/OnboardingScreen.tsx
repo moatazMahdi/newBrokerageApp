@@ -85,6 +85,8 @@ const handleCompleteOnboarding = () => {
               : t('onboarding.next')
           }
           onPress={handleNext}
+          variant='secondary'
+          size="full"
         />
       </View>
     </View>

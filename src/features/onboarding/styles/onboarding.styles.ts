@@ -119,7 +119,8 @@ fixedHeader: {
 
 fixedFooter: {
   position: 'absolute',
-
+  alignItems: 'center',
+  width: '90%',
   bottom: 40,
   left: 24,
   right: 24,
