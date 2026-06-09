@@ -8,6 +8,9 @@ const {
   },
 } = Assets;
 
+type Language = 'ar' | 'en';
+
+
 export const onboardingData: OnboardingItem[] = [
   {
     id: 1,
@@ -25,3 +28,27 @@ export const onboardingData: OnboardingItem[] = [
     image: onBoarding3,
   },
 ];
+
+export const STRINGS = {
+  ar: {
+    title: 'اختار اللغة',
+    confirmButton: 'اختار',
+    options: {
+      ar: 'العربية',
+      en: 'الانجليزية',
+    },
+  },
+  en: {
+    title: 'Choose Language',
+    confirmButton: 'Choose',
+    options: {
+      ar: 'Arabic',
+      en: 'English',
+    },
+  },
+};
+
+export const LANGUAGE_FLAGS: Record<Language, string> = {
+  ar: '🇪🇬',
+  en: '🇺🇸',
+};
