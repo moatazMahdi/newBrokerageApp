@@ -20,6 +20,7 @@ import Close from './Close.svg'
 import Error from './Error.svg'
 import Information from './Information.svg'
 import InformationClose from './InformationClose.svg'
+import biometricModal from './biometricModal.svg'
 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
@@ -51,4 +52,5 @@ export class Components {
     static Error = Error;
     static Information = Information;
     static InformationClose = InformationClose;
+    static biometricModal = biometricModal;
 }

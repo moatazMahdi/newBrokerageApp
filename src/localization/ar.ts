@@ -60,6 +60,12 @@ export default {
       failed: 'فشل تسجيل الدخول',
     },
 
+    biometric: {
+      title: 'تفعيل الخصائص البيومترية',
+      enableNow: 'فعل الان',
+      later: 'ربما في وقت لاحق',
+    },
+
     signup: {
       title: 'إنشاء حساب جديد',
       phone: 'رقم الهاتف',

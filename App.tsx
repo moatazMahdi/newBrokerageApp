@@ -7,7 +7,9 @@ import i18n from './src/localization';
 import { storage } from './src/storage/mmkv';
 import messaging from '@react-native-firebase/messaging';
 import notifee, { AndroidImportance } from '@notifee/react-native';
-import { getFCMToken, requestNotificationPermission } from './src/utils/hellperFuncation';
+import { getFCMToken, requestNotificationPermission } from './src/utils/helperFunctions';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 
 const queryClient = new QueryClient();
 const ANDROID_CHANNEL_ID = 'default_sound';
@@ -105,8 +107,10 @@ export default function App() {
   };
 
   return (
+    <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <RootNavigator />
     </QueryClientProvider>
+    </Provider>
   );
 }

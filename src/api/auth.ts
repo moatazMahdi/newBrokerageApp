@@ -9,13 +9,16 @@ export type LoginRequest = {
   lang: 'en' | 'ar';
 };
 
-export type LoginResponse = {
+export type LoginData = {
+  name: string;
+  username: string;
+  phone: string;
   token: string;
-  user?: {
-    id: string;
-    name?: string;
-    email?: string;
-  };
+};
+
+export type LoginResponse = {
+  statusCode: number;
+  data: LoginData;
 };
 
 export const loginUser = async (

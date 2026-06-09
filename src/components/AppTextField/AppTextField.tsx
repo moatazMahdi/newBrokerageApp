@@ -38,6 +38,7 @@ type Props = {
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
   error?: string;
+  maxLength?: number;
 };
 
 const AppInput = ({
@@ -51,6 +52,7 @@ const AppInput = ({
   secureTextEntry,
   keyboardType,
   error,
+  maxLength,
 }: Props) => {
   const [focused, setFocused] = useState(false);
   const hasError = !!error;
@@ -127,6 +129,7 @@ const AppInput = ({
             onBlur?.(e);
           }}
           style={styles.input}
+          maxLength={maxLength}
         />
 
         {leftIcon ? (

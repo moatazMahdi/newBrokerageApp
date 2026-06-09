@@ -61,6 +61,12 @@ export default {
       failed: 'Login failed',
     },
 
+    biometric: {
+      title: 'Enable biometric features',
+      enableNow: 'Enable now',
+      later: 'Maybe later',
+    },
+
     signup: {
       title: 'Create a new account',
       phone: 'Phone Number',

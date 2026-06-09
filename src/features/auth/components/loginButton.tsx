@@ -10,15 +10,23 @@ type Props = {
     onLoginPress: () => void;
     onFingerprintPress?: () => void;
     loading?: boolean;
+    disabled?: boolean;
 }
-const LoginButton = ({onLoginPress, onFingerprintPress, loading = false}: Props) => {
+const LoginButton = ({onLoginPress, onFingerprintPress, loading = false, disabled}: Props) => {
   const { t } = useTranslation();
   const {images:{
     components: {fingerprint}
   }} = Assets;
   return (
     <View style={styles.container}>
-      <AppButton variant='primary' size='full' title={t('auth.login.loginButton')} onPress={onLoginPress} loading={loading}  />
+      <AppButton 
+        variant='primary' 
+        size='full' 
+        title={t('auth.login.loginButton')} 
+        onPress={onLoginPress} 
+        loading={loading} 
+        disabled= {disabled}
+      />
       <TouchableOpacity style={styles.fingerprintButton} onPress={onFingerprintPress}>
         <SvgView  svgFile={fingerprint} width={32} height={32} />
       </TouchableOpacity>
