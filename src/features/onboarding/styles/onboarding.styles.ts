@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { hp, wp } from '../../../utils/dimensions';
+import { textAlign } from 'src/utils/direction';
 
 const { width, height } = Dimensions.get('window');
 
@@ -47,19 +48,19 @@ export const onboardingStyles = StyleSheet.create({
     fontSize: 36,
     fontWeight: '800',
     lineHeight: 54,
-    // textAlign: 'right',
+    textAlign: "left",
   },
 
   highlightedText: {
     color: '#F5A623',
+    textAlign: textAlign(),
   },
 
   description: {
     color: 'rgba(255,255,255,0.85)',
     fontSize: 16,
     lineHeight: 28,
-    // marginTop: 24,
-    // textAlign: 'right',
+    textAlign: "left",
   },
   line: {
     height: hp(2), 

@@ -8,6 +8,8 @@ import {
 import { setLanguage } from '../../../localization/changeLanguage';
 import AppButton from '../../../components/AppButton';
 import { LANGUAGE_FLAGS, STRINGS } from '../constants/onboardingData';
+import AppModal from 'src/components/AppModal/AppModal';
+import { hp, wp } from 'src/utils/dimensions';
 
 type Language = 'ar' | 'en';
 
@@ -25,57 +27,65 @@ const deviceLang = getDeviceLanguage();
 
 const LanguageSelectionScreen = () => {
   const [selected, setSelected] = useState<Language>(deviceLang);
+  const [visible, setVisible] = useState(true);
 
   const strings = STRINGS[deviceLang];
   const isRTL = deviceLang === 'ar';
 
+  const handleClose = () => {
+    setVisible(false);
+  };
+
   const handleConfirm = () => {
     setLanguage(selected);
+    handleClose();
   };
 
   return (
     <View style={styles.screen}>
-      <View style={styles.sheet}>
-        <View style={[styles.header, isRTL && styles.headerRTL]}>
-          <TouchableOpacity onPress={handleConfirm} style={styles.closeButton}>
-            <Text style={styles.closeText}>✕</Text>
-          </TouchableOpacity>
-          <Text style={styles.title}>{strings.title}</Text>
-        </View>
-
-        <View style={styles.options}>
-          {(['ar', 'en'] as Language[]).map(code => (
-            <TouchableOpacity
-              key={code}
-              style={[
-                styles.option,
-                isRTL && styles.optionRTL,
-                selected === code && styles.optionSelected,
-              ]}
-              onPress={() => setSelected(code)}
-              activeOpacity={0.7}
-            >
-              <Text style={styles.flag}>{LANGUAGE_FLAGS[code]}</Text>
-              <Text
-                style={[
-                  styles.optionLabel,
-                  isRTL && styles.optionLabelRTL,
-                  selected !== code && styles.optionLabelDim,
-                ]}
-              >
-                {strings.options[code]}
-              </Text>
+      <AppModal visible={visible} onClose={handleClose}>
+        <View style={styles.sheet}>
+          <View style={[styles.header, isRTL && styles.headerRTL]}>
+            <TouchableOpacity onPress={handleConfirm} style={styles.closeButton}>
+              <Text style={styles.closeText}>✕</Text>
             </TouchableOpacity>
-          ))}
-        </View>
+            <Text style={styles.title}>{strings.title}</Text>
+          </View>
 
-        <AppButton
-          title={strings.confirmButton}
-          onPress={handleConfirm}
-          variant="primary"
-          size="full"
-        />
-      </View>
+          <View style={styles.options}>
+            {(['ar', 'en'] as Language[]).map(code => (
+              <TouchableOpacity
+                key={code}
+                style={[
+                  styles.option,
+                  isRTL && styles.optionRTL,
+                  selected === code && styles.optionSelected,
+                ]}
+                onPress={() => setSelected(code)}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.flag}>{LANGUAGE_FLAGS[code]}</Text>
+                <Text
+                  style={[
+                    styles.optionLabel,
+                    isRTL && styles.optionLabelRTL,
+                    selected !== code && styles.optionLabelDim,
+                  ]}
+                >
+                  {strings.options[code]}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <AppButton
+            title={strings.confirmButton}
+            onPress={handleConfirm}
+            variant="primary"
+            size="full"
+          />
+          </View>
+      </AppModal>
     </View>
   );
 };
@@ -88,26 +98,21 @@ const styles = StyleSheet.create({
   },
   sheet: {
     backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 40,
-    gap: 20,
+    paddingBottom: hp(26),
   },
   header: {
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   headerRTL: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
   },
   closeButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#F2F2F2',
+    width: wp(24) ,
+    height: hp(24),
+    borderRadius: hp(16),
+    backgroundColor: '#F0F4FA',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -116,12 +121,15 @@ const styles = StyleSheet.create({
     color: '#1A1A1A',
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
     color: '#1A1A1A',
+    alignItems: 'flex-start',
   },
   options: {
-    gap: 12,
+    marginTop: hp(24),
+    gap: hp(16),
+    marginBottom: hp(32),
   },
   option: {
     flexDirection: 'row',
