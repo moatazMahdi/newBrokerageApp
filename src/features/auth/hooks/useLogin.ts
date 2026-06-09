@@ -9,7 +9,7 @@ export const useLogin = () =>
     onError: (error: any) => {
       const message =
         error.response?.data?.message ??
-        error.response?.data?.errors[0] ??
+        error.response?.data?.errors?.[0] ??
         'Something went wrong';
 
       showToast({

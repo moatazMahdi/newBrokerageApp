@@ -1,17 +1,8 @@
 import { StyleSheet } from "react-native";
 import { fs, hp, wp } from "../../utils/dimensions";
-import { ToastSize, ToastTypes } from "./Toast.types";
+import { ToastVariants } from "./Toast.types";
 
-/**
- * Per-variant colors (local replacement for a Theme file).
- */
-export const toastVariants: {
-  type: Record<ToastTypes, { backgroundColor: string; text: string }>;
-  size: Record<
-    ToastSize,
-    { width: number; fontSize: number; lineHeight: number }
-  >;
-} = {
+export const toastVariants: ToastVariants = {
   type: {
     error: { backgroundColor: "#FFF6F5", text: "#FC3B30" },
     information: { backgroundColor: "#FFF4E5", text: "#E08700" },
@@ -82,4 +73,12 @@ export const getToastStyles = () =>
       height: hp(20),
       width: wp(20),
     },
+    host: {
+    position: "absolute",
+    top: hp(8),
+    left: 0,
+    right: 0,
+    alignItems: "center",
+    zIndex: 9999,
+  },
   });

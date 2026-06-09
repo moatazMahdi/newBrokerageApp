@@ -11,25 +11,28 @@ type Props = {
     onFingerprintPress?: () => void;
     loading?: boolean;
     disabled?: boolean;
+    showFingerprint?: boolean;
 }
-const LoginButton = ({onLoginPress, onFingerprintPress, loading = false, disabled}: Props) => {
+const LoginButton = ({onLoginPress, onFingerprintPress, loading = false, disabled, showFingerprint = false}: Props) => {
   const { t } = useTranslation();
   const {images:{
     components: {fingerprint}
   }} = Assets;
   return (
-    <View style={styles.container}>
-      <AppButton 
-        variant='primary' 
-        size='full' 
-        title={t('auth.login.loginButton')} 
-        onPress={onLoginPress} 
-        loading={loading} 
+    <View style={[styles.container, { width: showFingerprint ? '85%' : '100%' }]}>
+      <AppButton
+        variant='primary'
+        size='full'
+        title={t('auth.login.loginButton')}
+        onPress={onLoginPress}
+        loading={loading}
         disabled= {disabled}
       />
-      <TouchableOpacity style={styles.fingerprintButton} onPress={onFingerprintPress}>
-        <SvgView  svgFile={fingerprint} width={32} height={32} />
-      </TouchableOpacity>
+      {showFingerprint && (
+        <TouchableOpacity style={styles.fingerprintButton} onPress={onFingerprintPress}>
+          <SvgView  svgFile={fingerprint} width={32} height={32} />
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
@@ -38,7 +41,6 @@ export default LoginButton
 
 const styles = StyleSheet.create({
   container: {
-    width: '85%',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',

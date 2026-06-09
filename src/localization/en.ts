@@ -65,6 +65,7 @@ export default {
       title: 'Enable biometric features',
       enableNow: 'Enable now',
       later: 'Maybe later',
+      notAvailable: 'Biometric authentication is not available on this device',
     },
 
     signup: {

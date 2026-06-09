@@ -10,7 +10,6 @@ import { ToastProps, ToastTypes } from "./Toast.types";
 
 const { Close, Error, Information } = Assets.images.components;
 
-/** Default title icon per type. `success` has no icon yet. */
 const defaultTitleIcons: Record<
   ToastTypes,
   FunctionComponent<SvgProps> | undefined

@@ -19,3 +19,11 @@ export interface ToastProps {
 export type ToastSize = "lg" | "md";
 
 export type ToastTypes = "error" | "information" | "success";
+
+export interface ToastVariants {
+  type: Record<ToastTypes, { backgroundColor: string; text: string }>;
+  size: Record<
+    ToastSize,
+    { width: number; fontSize: number; lineHeight: number }
+  >;
+}
