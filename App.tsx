@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { RootNavigator } from './src/navigation';
-import { I18nManager } from 'react-native';
+import { I18nManager, Platform } from 'react-native';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import i18n from './src/localization';
 import { storage } from './src/storage/mmkv';
+import messaging from '@react-native-firebase/messaging';
+import notifee, { AndroidImportance } from '@notifee/react-native';
+import { getFCMToken, requestNotificationPermission } from './src/utils/helperFunctions';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 
 const queryClient = new QueryClient();
+const ANDROID_CHANNEL_ID = 'default_sound';
 
 export default function App() {
   useEffect(() => {
@@ -21,9 +27,90 @@ export default function App() {
     console.log('  localeIdentifier:', rtlConstants?.localeIdentifier);
   }, []);
 
+  useEffect(() => {
+    initNotifications();
+
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log('Foreground message received:', remoteMessage);
+
+      if (!remoteMessage) {
+        return;
+      }
+
+      const title =
+        typeof remoteMessage.notification?.title === 'string'
+          ? remoteMessage.notification.title
+          : typeof remoteMessage.data?.title === 'string'
+          ? remoteMessage.data.title
+          : undefined;
+
+      const body =
+        typeof remoteMessage.notification?.body === 'string'
+          ? remoteMessage.notification.body
+          : typeof remoteMessage.data?.body === 'string'
+          ? remoteMessage.data.body
+          : undefined;
+
+      if (!title && !body) {
+        return;
+      }
+
+      if (Platform.OS === 'android') {
+        await createAndroidChannel();
+      }
+
+      await notifee.displayNotification({
+        title,
+        body,
+        android: {
+          channelId: ANDROID_CHANNEL_ID,
+          sound: 'default',
+          pressAction: {
+            id: 'default',
+          },
+        },
+        ios: {
+          sound: 'default',
+        },
+      });
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const initNotifications = async () => {
+    const hasPermission = await requestNotificationPermission();
+
+    if (!hasPermission) {
+      console.log('Permission denied');
+      return;
+    }
+
+    const token = await getFCMToken();
+
+    if (token) {
+      console.log('getFCMToken', token);
+    }
+  };
+
+  const createAndroidChannel = async () => {
+    if (Platform.OS !== 'android') {
+      return;
+    }
+
+    await notifee.createChannel({
+      id: ANDROID_CHANNEL_ID,
+      name: 'Default Notifications',
+      importance: AndroidImportance.HIGH,
+      sound: 'default',
+    });
+  };
+
   return (
+    <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <RootNavigator />
     </QueryClientProvider>
+    </Provider>
   );
 }

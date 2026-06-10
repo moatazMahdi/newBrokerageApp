@@ -8,49 +8,47 @@ const {
   },
 } = Assets;
 
+type Language = 'ar' | 'en';
+
+
 export const onboardingData: OnboardingItem[] = [
   {
     id: 1,
-
-    title: 'كل خدمات',
-
-    highlightedTitle: 'التأمين...',
-
-    secondLine: 'في مكان واحد',
-
-    description:
-      'استعرض واطلب جميع أنواع التأمين للأفراد والشركات من تطبيق واحد، بسرعة وبدون تعقيد.',
-
+    key: 'slide1',
     image: onBoarding1,
   },
-
   {
     id: 2,
-
-    title: 'تحكم في',
-
-    highlightedTitle: 'وثائقك...',
-
-    secondLine: 'بسهولة',
-    
-    description:
-      'اطلع على وثائق التأمين الخاصة بك، حملها PDF، واستقبل تنبيهات تلقائية قبل ميعاد التجديد.',
-
+    key: 'slide2',
     image: onBoarding2,
   },
-
   {
     id: 3,
-
-    title: 'دعم فوري',
-
-    highlightedTitle: 'وثقة...',
-
-    secondLine: 'مضمونة',
-
-    description:
-      'تواصل مباشرة مع فريق كونكتك، وتابع تعويضات حقيقية مع شركة تأمين معتمدين.',
-
+    key: 'slide3',
     image: onBoarding3,
   },
 ];
+
+export const STRINGS = {
+  ar: {
+    title: 'اختار اللغة',
+    confirmButton: 'اختار',
+    options: {
+      ar: 'العربية',
+      en: 'الانجليزية',
+    },
+  },
+  en: {
+    title: 'Choose Language',
+    confirmButton: 'Choose',
+    options: {
+      ar: 'Arabic',
+      en: 'English',
+    },
+  },
+};
+
+export const LANGUAGE_FLAGS: Record<Language, string> = {
+  ar: '🇪🇬',
+  en: '🇺🇸',
+};

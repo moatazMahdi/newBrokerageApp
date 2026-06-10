@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { FlatList, View, ViewToken } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import OnboardingSlide from '../components/OnboardingSlide';
 import OnboardingHeader from '../components/OnboardingHeader';
@@ -13,6 +14,7 @@ import AppButton from '../../../components/AppButton';
 
 const OnboardingScreen = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   const flatListRef = useRef<FlatList>(null);
 
@@ -76,11 +78,15 @@ const handleCompleteOnboarding = () => {
       </View>
 
       <View style={onboardingStyles.fixedFooter}>
-        <AppButton 
+        <AppButton
         title={
-            currentIndex === onboardingData.length - 1 ? 'ابدأ الان' : 'التالي'
+            currentIndex === onboardingData.length - 1
+              ? t('onboarding.start')
+              : t('onboarding.next')
           }
           onPress={handleNext}
+          variant='secondary'
+          size="full"
         />
       </View>
     </View>

@@ -1,0 +1,9 @@
+export const login = "/api/auth/login";
+export const signup = "/api/auth/signup";
+export const otpSend = "/api/auth/otp/send";
+export const verifyOtp = "/api/auth/phone/verify";
+export const passwordForget = "/api/auth/password/forget"; 
+export const forgetVerifyPassword = "/api/auth/password/forget/verify";
+export const passwordReset = "/api/auth/password/reset";
+export const socialLoginAll = "/api/auth/social/login";
+export const socialLoginCompleted = "/api/auth/social/complete"

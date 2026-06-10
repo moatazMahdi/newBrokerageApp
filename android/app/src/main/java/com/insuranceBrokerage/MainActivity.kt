@@ -1,4 +1,4 @@
-package com.brokerageapprevamp
+package com.insuranceBrokerage
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

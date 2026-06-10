@@ -3,14 +3,13 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { Path, Svg } from 'react-native-svg';
 
-import { Assets } from '../../assets';
 import { hp, wp } from '../../utils/dimensions';
-import SvgView from '../SvgView/SvgView';
 
 interface Props {
   visible: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  backdropOpacity?: number;
 }
 
 const SCREEN_W = Dimensions.get('window').width;
@@ -58,7 +57,7 @@ const notchCutoutPath = (() => {
   ].join(' ');
 })();
 
-const AppModal = ({ visible, onClose, children }: Props) => {
+const AppModal = ({ visible, onClose, backdropOpacity, children }: Props) => {
   return (
     <Modal
       isVisible={visible}
@@ -70,7 +69,7 @@ const AppModal = ({ visible, onClose, children }: Props) => {
       animationOutTiming={350}
       backdropTransitionInTiming={450}
       backdropTransitionOutTiming={350}
-      backdropOpacity={0.5}
+      backdropOpacity={backdropOpacity || 0.5} 
       useNativeDriver={false}
       useNativeDriverForBackdrop={false}
       hideModalContentWhileAnimating={false}
@@ -94,11 +93,7 @@ const AppModal = ({ visible, onClose, children }: Props) => {
           </View>
 
           <View style={styles.barWrapper} pointerEvents="none">
-            <SvgView
-              svgFile={Assets.images.components.smallBar}
-              width={BAR_W}
-              height={BAR_H}
-            />
+            <View style={styles.bar} />
           </View>
         </View>
 
@@ -146,6 +141,13 @@ const styles = StyleSheet.create({
     top: (NOTCH_H - BAR_H) / 10,
     alignSelf: 'center',
     zIndex: 3,
+  },
+
+  bar: {
+    width: BAR_W,
+    height: BAR_H,
+    borderRadius: BAR_H / 2,
+    backgroundColor: '#FFFFFF',
   },
 
   sheet: {

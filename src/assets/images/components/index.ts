@@ -2,6 +2,7 @@
 import closeWhite from './closeWhite.svg'
 import lang from './lang.svg'
 import logo from './logo.svg'
+import bell from './Bell.svg'
 import phone from './Phone.svg'
 import lockPassword from './LockPassword.svg'
 import eyeOn from './EyeOpen.svg'
@@ -12,7 +13,14 @@ import facebook from './facebook.svg'
 import apple from './apple.svg'
 import ArrowLeft from './arrowLeft.svg'
 import User from './User.svg'
-import smallBar from './small-bar.svg'
+import UserTab from './userTab.svg'
+import Building from './Buildings.svg'
+
+import Close from './Close.svg'
+import Error from './Error.svg'
+import Information from './Information.svg'
+import InformationClose from './InformationClose.svg'
+import biometricModal from './biometricModal.svg'
 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
@@ -37,5 +45,12 @@ export class Components {
     static apple = apple;
     static ArrowLeft = ArrowLeft;
     static User = User;
-    static smallBar = smallBar;
+    static bell = bell;
+    static userTab = UserTab;
+    static building = Building;
+    static Close = Close;
+    static Error = Error;
+    static Information = Information;
+    static InformationClose = InformationClose;
+    static biometricModal = biometricModal;
 }

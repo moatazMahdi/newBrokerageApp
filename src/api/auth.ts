@@ -1,5 +1,6 @@
 import { api } from './axios';
 import i18n from '../localization';
+import { forgetVerifyPassword, login, otpSend, passwordForget, passwordReset, signup, verifyOtp, socialLoginAll, socialLoginCompleted } from './authRequests';
 
 export type LoginRequest = {
   identifier: string;
@@ -8,19 +9,22 @@ export type LoginRequest = {
   lang: 'en' | 'ar';
 };
 
-export type LoginResponse = {
+export type LoginData = {
+  name: string;
+  username: string;
+  phone: string;
   token: string;
-  user?: {
-    id: string;
-    name?: string;
-    email?: string;
-  };
+};
+
+export type LoginResponse = {
+  statusCode: number;
+  data: LoginData;
 };
 
 export const loginUser = async (
   payload: LoginRequest,
 ): Promise<LoginResponse> => {
-  const response = await api.post('/login', payload);
+  const response = await api.post(login, payload);
   return response.data;
 };
 
@@ -38,8 +42,6 @@ export const buildLoginRequest = (
 const currentLang = (): 'en' | 'ar' =>
   (i18n.language === 'ar' ? 'ar' : 'en') as 'en' | 'ar';
 
-/* -------------------------------- Signup -------------------------------- */
-
 export type SignupRequest = {
   name: string;
   phone: string;
@@ -55,7 +57,7 @@ export type SignupResponse = {
 export const signupUser = async (
   payload: SignupRequest,
 ): Promise<SignupResponse> => {
-  const response = await api.post('/api/auth/signup', payload);
+  const response = await api.post(signup, payload);
   return response.data;
 };
 
@@ -72,8 +74,6 @@ export const buildSignupRequest = (
   lang: currentLang(),
 });
 
-/* -------------------------------- OTP ----------------------------------- */
-
 export type SendOtpRequest = {
   phone: string;
   lang: 'en' | 'ar';
@@ -86,7 +86,7 @@ export type SendOtpResponse = {
 export const sendOtp = async (
   payload: SendOtpRequest,
 ): Promise<SendOtpResponse> => {
-  const response = await api.post('/api/auth/otp/send', payload);
+  const response = await api.post(otpSend, payload);
   return response.data;
 };
 
@@ -109,7 +109,7 @@ export type VerifyCodeResponse = {
 export const verifyCode = async (
   payload: VerifyCodeRequest,
 ): Promise<VerifyCodeResponse> => {
-  const response = await api.post('/api/auth/phone/verify', payload);
+  const response = await api.post(verifyOtp, payload);
   return response.data;
 };
 
@@ -121,8 +121,6 @@ export const buildVerifyCodeRequest = (
   code,
   lang: currentLang(),
 });
-
-/* --------------------------- Forgot Password ---------------------------- */
 
 export type ForgetPasswordRequest = {
   phone: string;
@@ -136,7 +134,7 @@ export type ForgetPasswordResponse = {
 export const forgetPassword = async (
   payload: ForgetPasswordRequest,
 ): Promise<ForgetPasswordResponse> => {
-  const response = await api.post('/api/auth/password/forget', payload);
+  const response = await api.post(passwordForget, payload);
   return response.data;
 };
 
@@ -161,7 +159,7 @@ export type ForgetVerifyCodeResponse = {
 export const forgetVerifyCode = async (
   payload: ForgetVerifyCodeRequest,
 ): Promise<ForgetVerifyCodeResponse> => {
-  const response = await api.post('/api/auth/password/forget/verify', payload);
+  const response = await api.post(forgetVerifyPassword, payload);
   return response.data;
 };
 
@@ -189,7 +187,7 @@ export type ResetPasswordResponse = {
 export const resetPassword = async (
   payload: ResetPasswordRequest,
 ): Promise<ResetPasswordResponse> => {
-  const response = await api.post('/api/auth/password/reset', payload);
+  const response = await api.post(passwordReset, payload);
   return response.data;
 };
 
@@ -204,4 +202,75 @@ export const buildResetPasswordRequest = (
   password,
   confirmPassword,
   lang: currentLang(),
+});
+
+export type SocialProvider = 'google' | 'facebook' | 'apple';
+
+export type SocialLoginStatus =
+  | 'LOGGED_IN'
+  | 'NEED_PHONE_VERIFICATION'
+  | (string & {});
+
+export type SocialLoginRequest = {
+  provider: SocialProvider;
+  token: string;
+  phone?: string;
+  appleUser?: string;
+  lang: 'en' | 'ar';
+};
+
+export type SocialLoginResponse = {
+  data?: {
+    status?: SocialLoginStatus;
+    token?: string;
+    tmpToken?: string;
+    [key: string]: unknown;
+  };
+  status?: SocialLoginStatus;
+  token?: string;
+  tmpToken?: string;
+  message?: string;
+};
+
+export const socialLogin = async (
+  payload: SocialLoginRequest,
+): Promise<SocialLoginResponse> => {
+  const response = await api.post(socialLoginAll, payload);
+  return response.data;
+};
+
+export const buildSocialLoginRequest = (
+  provider: SocialProvider,
+  token: string,
+  phone?: string,
+  appleUser?: string,
+): SocialLoginRequest => ({
+  provider,
+  token,
+  phone,
+  appleUser,
+  lang: currentLang(),
+});
+
+export type SocialLoginCompleteRequest = {
+  tmpToken: string;
+  phone: string;
+  code: string;
+};
+
+export const socialLoginComplete = async (
+  payload: SocialLoginCompleteRequest,
+): Promise<SocialLoginResponse> => {
+  const response = await api.post(socialLoginCompleted, payload);
+  return response.data;
+};
+
+export const buildSocialLoginCompleteRequest = (
+  tmpToken: string,
+  phone: string,
+  code: string,
+): SocialLoginCompleteRequest => ({
+  tmpToken,
+  phone,
+  code,
 });

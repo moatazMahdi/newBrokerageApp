@@ -10,8 +10,22 @@ import {
 } from 'react-native';
 
 import { hp, wp } from '../../utils/dimensions';
+import { textAlign } from '../../utils/direction';
 import { SvgView } from '../SvgView/SvgView';
 import AppText from '../AppText/AppText';
+
+const COLORS = {
+  bgDefault: "#FFFFFF",
+  bgFilled: '#F7F9FE', 
+  bgActive: '#FFFFFF', 
+  borderActive: '#18359E',
+  borderError: '#E34935',
+  borderResting: '#E6E6E6',
+  labelResting: '#8C8C93', 
+  labelFloating: '#8C8C93',
+  text: '#1A1A1A',
+  error: '#E34935',
+};
 
 type Props = {
   label: string;
@@ -24,6 +38,7 @@ type Props = {
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
   error?: string;
+  maxLength?: number;
 };
 
 const AppInput = ({
@@ -37,22 +52,33 @@ const AppInput = ({
   secureTextEntry,
   keyboardType,
   error,
+  maxLength,
 }: Props) => {
   const [focused, setFocused] = useState(false);
-  const animatedValue = useRef(
-    new Animated.Value(value ? 1 : 0),
-  ).current;
+  const hasError = !!error;
+  const isFloating = focused || hasError;
+  const showLabel = isFloating || !value;
+  const defaultInput = !value && !focused;
+
+  const animatedValue = useRef(new Animated.Value(isFloating ? 1 : 0)).current;
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: focused || value ? 1 : 0,
+      toValue: isFloating ? 1 : 0,
       duration: 200,
       useNativeDriver: false,
     }).start();
-  }, [focused, value]);
+  }, [isFloating, animatedValue]);
+
+  const backgroundColor = isFloating ? COLORS.bgActive : defaultInput ? COLORS.bgDefault : COLORS.bgFilled;
+  const borderColor = hasError
+    ? COLORS.borderError
+    : focused
+    ? COLORS.borderActive
+    : COLORS.borderResting;
 
   const labelStyle = {
     position: 'absolute' as const,
-    ...(I18nManager.isRTL ? { left: wp(55) } : { right: wp(55) }),
+    start: focused || hasError ? wp(20) : wp(55),
 
     top: animatedValue.interpolate({
       inputRange: [0, 1],
@@ -61,49 +87,36 @@ const AppInput = ({
 
     fontSize: animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [14, 12],
+      outputRange: [16, 12],
     }),
 
-    backgroundColor: '#fff',
+    backgroundColor: isFloating ? COLORS.bgActive : 'transparent',
+    paddingHorizontal: isFloating ? wp(4) : 0,
     zIndex: 10,
-    color: 'black',
+    color: isFloating ? COLORS.labelFloating : COLORS.labelResting,
     lineHeight: 24,
     paddingVertical: 0,
     maxWidth: wp(220),
     overflow: 'hidden' as const,
-    textAlign: I18nManager.isRTL ? ('right' as const) : ('left' as const),
+    textAlign: textAlign(),
   };
 
   return (
     <View style={styles.container}>
-      <Animated.Text style={labelStyle} numberOfLines={1}>
-        {label}
-      </Animated.Text>
+      {showLabel ? (
+        <Animated.Text
+          style={labelStyle}
+          numberOfLines={1}
+          pointerEvents="none"
+        >
+          {label}
+        </Animated.Text>
+      ) : null}
 
       <View
-        style={[
-          styles.inputContainer,
-          {
-            borderColor: error
-              ? '#E11D48'
-              : focused
-              ? '#2345B5'
-              : '#D9D9D9',
-            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
-          },
-        ]}
-      >
-        {leftIcon ? (
-          <TouchableOpacity onPress={onLeftIconPress}>
-            <SvgView
-              svgFile={leftIcon}
-              width={wp(24)}
-              height={hp(24)}
-            />
-          </TouchableOpacity>
-        ) : (
-          <View style={{ width: wp(24) }} />
-        )}
+        style={[styles.inputContainer, { backgroundColor, borderColor }]}
+      >       
+        <SvgView svgFile={rightIcon} width={wp(24)} height={hp(24)} />
 
         <TextInput
           value={value}
@@ -116,27 +129,25 @@ const AppInput = ({
             onBlur?.(e);
           }}
           style={styles.input}
+          maxLength={maxLength}
         />
 
-        {/* <View style={styles.separator} /> */}
-
-        <SvgView
-          svgFile={rightIcon}
-          width={wp(24)}
-          height={hp(24)}
-
-        />
+        {leftIcon ? (
+          <TouchableOpacity onPress={onLeftIconPress}>
+            <SvgView svgFile={leftIcon} width={wp(24)} height={hp(24)} />
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.leftIconSpace} />
+        )}
       </View>
 
-      {error ? (
-        <AppText
-          size={12}
-          weight="500"
-          color="#E34935"
-          style={styles.errorText}
-        >
-          {error}
-        </AppText>
+      {hasError ? (
+        <View style={styles.errorRow}>
+          <View style={styles.errorDot} />
+          <AppText size={12} weight="500" color={COLORS.error}>
+            {error}
+          </AppText>
+        </View>
       ) : null}
     </View>
   );
@@ -153,28 +164,34 @@ const styles = StyleSheet.create({
     height: hp(52),
     borderWidth: 1.5,
     borderRadius: wp(18),
-    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: wp(16),
-    backgroundColor: '#fff',
+    flexDirection: 'row',
   },
 
   input: {
     flex: 1,
     fontSize: 18,
+    paddingHorizontal: wp(8),
+    color: COLORS.text,
     textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
 
-  errorText: {
-    marginTop: hp(4),
+  errorRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: wp(6),
+    marginTop: hp(6),
     marginHorizontal: wp(4),
-    textAlign: I18nManager.isRTL ? 'flex-start' : 'left',
   },
 
-  separator: {
-    width: 1,
-    height: hp(30),
-    backgroundColor: '#fff',
-    // marginHorizontal: wp(12),
+  errorDot: {
+    width: wp(6),
+    height: wp(6),
+    borderRadius: wp(3),
+    backgroundColor: COLORS.error,
+  },
+  leftIconSpace: {
+    width: wp(24)
   },
 });

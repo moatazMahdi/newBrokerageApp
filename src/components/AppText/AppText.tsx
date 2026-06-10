@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  I18nManager,
-  Text,
-  TextProps,
-  TextStyle,
-} from 'react-native';
+import { Text, TextProps, TextStyle } from 'react-native';
+import { textAlign } from '../../utils/direction';
 
 type FontWeight =
   | '400'
@@ -33,7 +29,8 @@ const AppText = ({
       {...props}
       style={[
         {
-          alignSelf: "flex-start",
+          alignSelf: 'flex-start',
+          textAlign: textAlign(),
           fontSize: size,
           color,
           fontWeight: weight,

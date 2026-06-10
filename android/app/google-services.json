@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "457620080603",
+    "project_id": "contact-insurance-brokerage",
+    "storage_bucket": "contact-insurance-brokerage.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457620080603:android:86d123a2779d4ca3d6c9fe",
+        "android_client_info": {
+          "package_name": "com.insuranceBrokerage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457620080603-f64p79jtdheqtr4qr2r1a97tf9sfce25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.insuranceBrokerage",
+            "certificate_hash": "51c8b15bc4a579bf34fde76a29571884a9f9fba7"
+          }
+        },
+        {
+          "client_id": "457620080603-qgrgssuer7dq8mpdafsp69e304djligv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcF5MtBzIQW8tMYfu1FeEzKD7h4ewc244"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457620080603-qgrgssuer7dq8mpdafsp69e304djligv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

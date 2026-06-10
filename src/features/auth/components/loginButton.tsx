@@ -1,5 +1,6 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import AppButton from '../../../components/AppButton'
 import SvgView from '../../../components/SvgView/SvgView'
 import { Assets } from '../../../assets'
@@ -9,33 +10,49 @@ type Props = {
     onLoginPress: () => void;
     onFingerprintPress?: () => void;
     loading?: boolean;
+    disabled?: boolean;
+    showFingerprint?: boolean;
 }
-const LoginButton = ({onLoginPress, onFingerprintPress, loading = false}: Props) => {
+const LoginButton = ({onLoginPress, onFingerprintPress, loading = false, disabled, showFingerprint = false}: Props) => {
+  const { t } = useTranslation();
   const {images:{
     components: {fingerprint}
   }} = Assets;
   return (
-    <View style={{
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 10,
-        marginTop: hp(42),
-    }}>
-      <AppButton width={wp(275)} title="تسجيل الدخول" onPress={onLoginPress} loading={loading}  />
-      <TouchableOpacity style={{
-        width: wp(48),
-        height: hp(48),
-        borderRadius: 12,
-        backgroundColor: '#F3F3F3',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }} onPress={onFingerprintPress}>
-        <SvgView  svgFile={fingerprint} width={32} height={32} />
-      </TouchableOpacity>
+    <View style={[styles.container, { width: showFingerprint ? '85%' : '100%' }]}>
+      <AppButton
+        variant='primary'
+        size='full'
+        title={t('auth.login.loginButton')}
+        onPress={onLoginPress}
+        loading={loading}
+        disabled= {disabled}
+      />
+      {showFingerprint && (
+        <TouchableOpacity style={styles.fingerprintButton} onPress={onFingerprintPress}>
+          <SvgView  svgFile={fingerprint} width={32} height={32} />
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
 
 export default LoginButton
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: hp(42),
+  },
+  fingerprintButton: {
+    width: wp(48),
+    height: hp(48),
+    borderRadius: 12,
+    backgroundColor: '#F3F3F3',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

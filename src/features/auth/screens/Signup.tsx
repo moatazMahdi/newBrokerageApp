@@ -37,7 +37,7 @@ const Signup = () => {
 
   const handleSubmit = (values: SignupValues) => {
     if (!agreed) {
-      Alert.alert('خطأ', 'يجب الموافقة على الشروط والأحكام');
+      Alert.alert(t('common.error'), t('auth.signup.mustAcceptTerms'));
       return;
     }
 
@@ -53,7 +53,7 @@ const Signup = () => {
         navigation.navigate(Routes.OTP, { phone: values.phone });
       },
       onError: error => {
-        Alert.alert('خطأ', error.message || 'فشل إنشاء الحساب');
+        Alert.alert(t('common.error'), error.message || t('auth.signup.failed'));
       },
     });
   };
@@ -86,10 +86,12 @@ const Signup = () => {
               marginVertical: hp(16),
               backgroundColor: "#FFFFFF",
               paddingVertical: hp(16),
+              alignItems: 'center',
           }}>
               <AppButton
-              width="100%"
-              title="إنشاء حساب"
+              variant='primary'
+              size="full"
+              title={t('auth.signup.createAccount')}
               onPress={() => form.handleSubmit()}
               loading={isPending}
             />
