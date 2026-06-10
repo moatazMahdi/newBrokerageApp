@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
          borderTopRightRadius:wp(20),
          paddingTop:hp(20),
     },
+    content: {
+        flex: 1,
+    },
 });
 
 export default styles;

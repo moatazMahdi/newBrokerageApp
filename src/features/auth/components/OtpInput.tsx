@@ -14,17 +14,21 @@ type Props = {
   length?: number;
   value: string;
   onChange: (code: string) => void;
+  error?: boolean;
 };
 
-const OtpInput = ({ length = 6, value, onChange }: Props) => {
+const OtpInput = ({ length = 6, value, onChange, error }: Props) => {
   const inputRef = useRef<TextInput | null>(null);
   const [focused, setFocused] = useState(false);
   const caretOpacity = useRef(new Animated.Value(1)).current;
 
   const digits = Array.from({ length }, (_, i) => value[i] ?? '');
-  const activeIndex = Math.min(value.length, length - 1);
+  const activeIndex = Math.min(value.length, length);
 
-  // Blink the caret (500ms fade in / out) while the field is focused.
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   useEffect(() => {
     if (!focused) {
       return;
@@ -49,10 +53,11 @@ const OtpInput = ({ length = 6, value, onChange }: Props) => {
   }, [focused, caretOpacity]);
 
   const handleChange = (text: string) => {
-    const sanitized = text.replace(/[^0-9]/g, '').slice(0, length);
+    const sanitized = text.replace(/\D/g, '').slice(0, length);
     onChange(sanitized);
   };
 
+  
   return (
     <Pressable
       style={styles.container}
@@ -60,13 +65,16 @@ const OtpInput = ({ length = 6, value, onChange }: Props) => {
     >
       {digits.map((digit, index) => {
         const isActive = focused && index === activeIndex;
+        const borderColor = error ? '#FC3B30' : '#E6E6E6';
+        const backgroundColor = error ? '#FFF6F5' : digit ? '#F7F9FE' : '#FFFFFF';
+
         return (
           <View
             key={index}
             style={[
               styles.box,
-              { borderColor: isActive ? '#E6E6E6' : '#E6E6E6' },
-              { backgroundColor: digit ? '#F7F9FE' : '#FFFFFF' },
+              { borderColor: borderColor },
+              { backgroundColor: backgroundColor },
             ]}
           >
             {isActive && !digit ? (

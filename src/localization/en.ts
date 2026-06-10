@@ -86,14 +86,16 @@ export default {
       next: 'Next',
       enterPhone: 'Please enter your phone number',
       sendFailed: 'Could not send the verification code',
+      invalidPhone: 'Phone number must start with 01',
+      phoneDigits: 'Phone number must be 11 digits',
     },
-
+    
     otp: {
       title: 'Confirm verification code',
       subtitle:
         'A one-time verification code has been sent to this number',
       confirm: 'Confirm',
-      resend: 'Resend',
+      resend: 'Resend The Code',
       didntReceive: "If you didn't receive the code",
       enterFullCode: 'Please enter the full verification code',
       invalidCode: 'Invalid verification code',

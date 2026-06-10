@@ -73,7 +73,7 @@ useFocusEffect(
   }, [])
 );
 
-  const isPhoneValid = phone.trim().length === 11;
+  const isPhoneValid = /^01\d{9}$/.test(phone.trim());
   const isPasswordValid = password.length >= 8;
   const canSubmit = isPhoneValid && isPasswordValid;
 

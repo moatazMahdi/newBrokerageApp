@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -32,14 +32,17 @@ const Otp = () => {
   const { phone, mode = 'signup' } = params;
   const isReset = mode === 'reset';
 
-  const [code, setCode] = React.useState('');
-  const [resetKey, setResetKey] = React.useState(0);
+  const [code, setCode] = useState('');
+  const [resetKey, setResetKey] = useState(0);
+  const [error, setError] = useState<boolean>(false);
 
   const { mutate: sendOtp } = useSendOtp();
   const { mutate: verifyCode, isPending: isVerifying } = useVerifyCode();
   const { mutate: forgetPassword } = useForgetPassword();
   const { mutate: forgetVerifyCode, isPending: isForgetVerifying } =
     useForgetVerifyCode();
+
+  const isCodeValid = /^\d{6}$/.test(code);
 
   const isPending = isReset ? isForgetVerifying : isVerifying;
 
@@ -64,11 +67,11 @@ const Otp = () => {
   };
 
   const handleConfirm = () => {
-    if (code.length < CODE_LENGTH) {
-      Alert.alert(t('common.error'), t('auth.otp.enterFullCode'));
-      return;
-    }
 
+    const onError = () => {
+      setError(true);
+    };
+    
     if (isReset) {
       forgetVerifyCode(buildForgetVerifyCodeRequest(phone, code), {
         onSuccess: () => {
@@ -77,9 +80,7 @@ const Otp = () => {
             routes: [{ name: Routes.CREATE_NEW_PASSWORD, params: { phone, code } }],
           });
         },
-        onError: error => {
-          Alert.alert(t('common.error'), error.message || t('auth.otp.invalidCode'));
-        },
+        onError
       });
       return;
     }
@@ -91,16 +92,21 @@ const Otp = () => {
           routes: [{ name: Routes.BUTTON_TAB }],
         });
       },
-      onError: error => {
-        Alert.alert(t('common.error'), error.message || t('auth.otp.invalidCode'));
-      },
+      onError
     });
   };
 
   return (
     <ScreenContainer>
       <OtpHeader phone={phone} />
-      <OtpInput length={CODE_LENGTH} value={code} onChange={setCode} />
+      <OtpInput 
+        length={CODE_LENGTH} 
+        value={code} 
+        onChange={(value) => {
+          setError(false);
+          setCode(value)
+        }} 
+        error={error}/>
       <OtpTimer resetKey={resetKey} onResend={handleResend} />
 
       <View style={{ marginTop: hp(32) }}>
@@ -110,6 +116,7 @@ const Otp = () => {
           title={t('auth.otp.confirm')}
           onPress={handleConfirm}
           loading={isPending}
+          disabled={!isCodeValid || isPending}
         />
       </View>
     </ScreenContainer>

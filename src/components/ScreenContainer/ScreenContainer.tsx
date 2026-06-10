@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground } from 'react-native'
+import { View, ImageBackground } from 'react-native'
 import React from 'react'
 import AppHeader from '../AppHeader/AppHeader'
 import styles from './styles';
@@ -14,9 +14,7 @@ const ScreenContainer = ({ children }: Props) => {
   return (
     <ImageBackground
       source={AppHeaderImageBG}
-      style={{
-         flex: 1,
-      }}
+      style={styles.content}
         resizeMode="cover"
     >
       <AppHeader/>
