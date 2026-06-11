@@ -71,7 +71,11 @@ const Signup = () => {
   }
 
   return (
-    <ScreenContainer screenTitle={t('auth.signup.screenTitle')} onBackPress={goBack}>
+    <ScreenContainer
+      screenTitle={t('auth.signup.screenTitle')}
+      onBackPress={goBack}
+      scrollable
+    >
       <SignupHeader />
       <SignupForm
         control={control}

@@ -56,7 +56,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <ScreenContainer screenTitle={t('auth.forgotPassword.screenTitle')} onBackPress={goBack}>
+    <ScreenContainer screenTitle={t('auth.forgotPassword.screenTitle')} onBackPress={goBack} scrollable>
       <ForgotPasswordHeader />
 
       <ForgotPasswordForm

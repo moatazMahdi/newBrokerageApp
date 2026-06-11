@@ -101,7 +101,7 @@ const ConfirmSocialOtp = () => {
   }
 
   return (
-    <ScreenContainer screenTitle={t('auth.otp.screenTitle')} onBackPress={goBack}>
+    <ScreenContainer screenTitle={t('auth.otp.screenTitle')} onBackPress={goBack} scrollable>
       <OtpHeader phone={fullPhone} />
       <OtpInput length={CODE_LENGTH} value={code} onChange={setCode} />
       <OtpTimer resetKey={resetKey} onResend={handleResend} />

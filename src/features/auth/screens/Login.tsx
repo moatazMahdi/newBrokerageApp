@@ -172,7 +172,7 @@ useFocusEffect(
   }, [navigation]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer scrollable>
       <LoginHeader />
       <LoginForm
         phone={phone}

@@ -104,7 +104,7 @@ const Otp = () => {
   }
 
   return (
-    <ScreenContainer screenTitle={t('auth.otp.screenTitle')} onBackPress={goBack}>
+    <ScreenContainer screenTitle={t('auth.otp.screenTitle')} onBackPress={goBack} scrollable>
       <OtpHeader phone={phone} />
       <OtpInput 
         length={CODE_LENGTH} 

@@ -70,7 +70,7 @@ const CreateNewPassword = () => {
   }
 
   return (
-    <ScreenContainer screenTitle={t('auth.createNewPassword.screenTitle')} onBackPress={goBack}>
+    <ScreenContainer screenTitle={t('auth.createNewPassword.screenTitle')} onBackPress={goBack} scrollable>
       <CreateNewPasswordHeader />
       <CreateNewPasswordForm
         password={password}

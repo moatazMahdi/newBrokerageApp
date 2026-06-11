@@ -90,7 +90,7 @@ const ConfirmSocialPhone = () => {
   }
 
   return (
-    <ScreenContainer screenTitle={t('auth.socialPhone.screenTitle')} onBackPress={goBack}>
+    <ScreenContainer screenTitle={t('auth.socialPhone.screenTitle')} onBackPress={goBack} scrollable>
       <View style={styles.headerText}>
         <AppText size={22} weight="700" color="#1A1A1A">
           {t('auth.socialPhone.title')}
