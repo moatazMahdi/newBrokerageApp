@@ -68,7 +68,11 @@ export default {
     },
     socialPhone: {
       screenTitle: 'تسجيل رقم الهاتف',
-      title: 'تسجيل رقم الهاتف'
+      title: 'تسجيل رقم الهاتف',
+      phone: 'رقم الهاتف',
+      enterPhone: 'من فضلك أدخل رقم هاتفك',
+      invalidPhone: 'يجب أن يبدأ رقم الهاتف بـ 01',
+      phoneDigits: 'يجب أن يتكون رقم الهاتف من 11 رقمًا',
     },
 
     signup: {

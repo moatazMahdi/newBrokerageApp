@@ -68,7 +68,17 @@ export default {
       notAvailable: 'Biometric authentication is not available on this device',
     },
 
+    socialPhone: {
+      screenTitle: 'Register phone number',
+      title: 'Register phone number',
+      phone: 'Phone Number',
+      enterPhone: 'Please enter your phone number',
+      invalidPhone: 'Phone number must start with 01',
+      phoneDigits: 'Phone number must be 11 digits',
+    },
+
     signup: {
+      screenTitle: 'Create a new account',
       title: 'Create a new account',
       phone: 'Phone Number',
       username: 'Username',
@@ -81,6 +91,7 @@ export default {
     },
 
     forgotPassword: {
+      screenTitle: 'Forgot password',
       title: 'Forgot password',
       phone: 'Phone Number',
       next: 'Next',
@@ -91,6 +102,7 @@ export default {
     },
     
     otp: {
+      screenTitle: 'Verification code',
       title: 'Confirm verification code',
       subtitle:
         'A one-time verification code has been sent to this number',
@@ -103,6 +115,7 @@ export default {
     },
 
     createNewPassword: {
+      screenTitle: 'Reset password',
       title: 'Reset password',
       password: 'Password',
       confirmPassword: 'Confirm Password',
