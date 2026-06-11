@@ -26,8 +26,7 @@ import { showToast } from 'src/components/Toast/toastService';
 const CODE_LENGTH = 6;
 
 const Otp = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<AppStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { params } = useRoute<RouteProp<AppStackParamList, 'Otp'>>();
   const { t } = useTranslation();
   const { phone, mode = 'signup' } = params;
@@ -99,9 +98,13 @@ const Otp = () => {
       onError
     });
   };
+  
+  const goBack = () =>{
+    navigation.goBack();
+  }
 
   return (
-    <ScreenContainer>
+    <ScreenContainer screenTitle={t('auth.otp.screenTitle')} onBackPress={goBack}>
       <OtpHeader phone={phone} />
       <OtpInput 
         length={CODE_LENGTH} 

@@ -58,6 +58,10 @@ const Signup = () => {
     });
   };
 
+  const goBack = () =>{
+    navigation.goBack();
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -65,7 +69,7 @@ const Signup = () => {
       onSubmit={handleSubmit}
     >
       {form => (
-        <ScreenContainer>
+        <ScreenContainer screenTitle={t('auth.signup.screenTitle')} onBackPress={goBack}>
           <SignupHeader />
           <SignupForm
             form={form}

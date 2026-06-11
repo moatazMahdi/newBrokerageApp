@@ -66,8 +66,13 @@ export default {
       later: 'ربما في وقت لاحق',
       notAvailable: 'المصادقة البيومترية غير متاحة على هذا الجهاز',
     },
+    socialPhone: {
+      screenTitle: 'تسجيل رقم الهاتف',
+      title: 'تسجيل رقم الهاتف'
+    },
 
     signup: {
+      screenTitle: 'إنشاء حساب جديد',
       title: 'إنشاء حساب جديد',
       phone: 'رقم الهاتف',
       username: 'اسم المستخدم',
@@ -80,6 +85,7 @@ export default {
     },
 
     forgotPassword: {
+      screenTitle: 'نسيت  كلمة المرور',
       title: 'نسيت كلمة المرور',
       phone: 'رقم الهاتف',
       next: 'التالي',
@@ -90,6 +96,7 @@ export default {
     },
 
     otp: {
+      screenTitle: 'كود التحقق',
       title: 'تأكيد كود التحقق',
       subtitle: 'تم ارسال رقم التحقق لمرة واحدة علي هذا الرقم',
       confirm: 'تأكيد',
@@ -101,6 +108,7 @@ export default {
     },
 
     createNewPassword: {
+      screenTitle: 'إعادة تعين  كلمة المرور',
       title: 'إعادة تعين كلمة المرور',
       password: 'كلمة المرور',
       confirmPassword: 'تأكيد كلمة المرور',

@@ -26,8 +26,8 @@ const CONFIG: Record<
   { color: string; bars: number; labelKey: string }
 > = {
   weak: { color: '#EF4444', bars: 1, labelKey: 'auth.createNewPassword.strengthWeak' },
-  medium: { color: '#F59E0B', bars: 2, labelKey: 'auth.createNewPassword.strengthMedium' },
-  strong: { color: '#12B76A', bars: 3, labelKey: 'auth.createNewPassword.strengthStrong' },
+  medium: { color: '#FF912F', bars: 2, labelKey: 'auth.createNewPassword.strengthMedium' },
+  strong: { color: '#1AB366', bars: 3, labelKey: 'auth.createNewPassword.strengthStrong' },
 };
 
 type Props = {

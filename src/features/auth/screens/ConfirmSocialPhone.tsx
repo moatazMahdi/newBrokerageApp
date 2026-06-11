@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,6 +13,7 @@ import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
 import { Assets } from '../../../assets';
 import { hp } from '../../../utils/dimensions';
+import { showToast } from 'src/components/Toast/toastService';
 
 const ConfirmSocialPhone = () => {
   const navigation =
@@ -32,10 +33,6 @@ const ConfirmSocialPhone = () => {
   const { mutate: sendOtp, isPending } = useSendOtp();
 
   const handleContinue = () => {
-    if (!phone.trim()) {
-      Alert.alert(t('common.error'), t('common.fillAllFields'));
-      return;
-    }
 
     sendOtp(buildSendOtpRequest(`+2${phone}`), {
       onSuccess: () => {
@@ -45,19 +42,28 @@ const ConfirmSocialPhone = () => {
           provider,
         });
       },
-      onError: error =>
-        Alert.alert(
-          t('common.error'),
-          error.message || t('auth.otp.resendFailed'),
-        ),
+      onError: (error: any) => {
+        const message =
+          error.response?.data?.errors?.[0] ??
+          error.response?.data?.message ??
+            'Something went wrong';
+    
+        showToast({
+          type: 'error',
+          title: message,
+        })
+      }
     });
   };
+  const goBack = () =>{
+    navigation.goBack();
+  }
 
   return (
-    <ScreenContainer>
+    <ScreenContainer screenTitle={t('auth.socialPhone.screenTitle')} onBackPress={goBack}>
       <View style={styles.headerText}>
         <AppText size={22} weight="700" color="#1A1A1A">
-          {t('auth.login.phone')}
+          {t('auth.socialPhone.title')}
         </AppText>
       </View>
 

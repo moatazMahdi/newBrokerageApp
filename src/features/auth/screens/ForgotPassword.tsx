@@ -48,8 +48,15 @@ const ForgotPassword = () => {
     });
   };
 
+  const goBack = () =>{
+    navigation.reset({
+      index: 0,
+      routes: [{name: Routes.LOGIN}]
+    });
+  }
+
   return (
-    <ScreenContainer>
+    <ScreenContainer screenTitle={t('auth.forgotPassword.screenTitle')} onBackPress={goBack}>
       <ForgotPasswordHeader />
 
       <ForgotPasswordForm

@@ -62,8 +62,15 @@ const CreateNewPassword = () => {
     goToLogin();
   }
 
+  const goBack = () => {
+    navigation.reset({
+      index: 1,
+      routes: [{ name: Routes.FORGOT_PASSWORD }],
+    })
+  }
+
   return (
-    <ScreenContainer>
+    <ScreenContainer screenTitle={t('auth.createNewPassword.screenTitle')} onBackPress={goBack}>
       <CreateNewPasswordHeader />
       <CreateNewPasswordForm
         password={password}

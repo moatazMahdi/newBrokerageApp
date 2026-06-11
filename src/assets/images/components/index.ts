@@ -15,7 +15,6 @@ import ArrowLeft from './arrowLeft.svg'
 import User from './User.svg'
 import UserTab from './userTab.svg'
 import Building from './Buildings.svg'
-
 import Close from './Close.svg'
 import Error from './Error.svg'
 import Information from './Information.svg'
@@ -24,6 +23,7 @@ import biometricModal from './biometricModal.svg'
 import circle from './Circle.svg'
 import circleChecked from './CircleChecked.svg'
 import SuccessModalIcon from './SuccessModalIcon.svg'
+import BackArrow from "./BackArrow.svg"
 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
@@ -59,4 +59,5 @@ export class Components {
     static circle = circle;
     static circleChecked = circleChecked;
     static SuccessModalIcon = SuccessModalIcon;
+    static BackArrow = BackArrow;
 }
