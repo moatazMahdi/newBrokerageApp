@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Product, CustomerType } from '../types/home.types';
 import { homeStyles } from '../styles/home.styles';
+import AppCard from '../../../components/AppCard';
 import { Assets } from '../../../assets';
 import { SvgView } from '../../../components/SvgView/SvgView';
 import { hp, wp } from '../../../utils/dimensions';
@@ -52,43 +53,16 @@ const ProductSection: React.FC<ProductSectionProps> = ({
 
       <View style={homeStyles.cardsRow}>
         {products.map((product) => (
-          <ProductCard
+          <AppCard
             key={product.id}
-            product={product}
-            onPress={onProductPress}
-            width={wp(98)}
+            title={product.title}
+            image={product.image}
+            onPress={() => onProductPress?.(product)}
           />
         ))}
       </View>
     </View>
   );
 };
-
-interface ProductCardProps {
-  product: Product;
-  onPress?: (product: Product) => void;
-  width:number
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({ product, onPress,width }) => (
-  <TouchableOpacity
-    style={[homeStyles.card,{width:width}]}
-    onPress={() => onPress?.(product)}
-    activeOpacity={0.8}
-  >
-    <View style={homeStyles.cardImageContainer}>
-      {product.imageUrl ? (
-        <Image
-          source={{ uri: product.imageUrl }}
-          style={homeStyles.cardImage}
-          resizeMode="contain"
-        />
-      ) : (
-        <View style={homeStyles.cardImagePlaceholder} />
-      )}
-    </View>
-    <Text style={homeStyles.cardTitle}>{product.title}</Text>
-  </TouchableOpacity>
-);
 
 export default ProductSection;

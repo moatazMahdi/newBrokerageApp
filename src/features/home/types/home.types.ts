@@ -5,8 +5,10 @@ export type HomeSection = {
 
 export type CustomerType = 'individuals' | 'companies';
 
+import { ImageSourcePropType } from 'react-native';
+
 export type Product = {
   id: string;
   title: string;
-  imageUrl: string;
+  image?: ImageSourcePropType;
 };

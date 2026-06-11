@@ -7,16 +7,18 @@ import { homeStyles, homeHeaderGradient } from '../styles/home.styles';
 import ProductSection from './ProductSection';
 import { Product } from '../types/home.types';
 
+const { components } = Assets.images;
+
 const INDIVIDUAL_PRODUCTS: Product[] = [
-  { id: '1', title: 'تأمين المركبات', imageUrl: '' },
-  { id: '2', title: 'التأمين الطبي', imageUrl: '' },
-  { id: '3', title: 'تأمينات اخري', imageUrl: '' },
+  { id: '3', title: 'تأمينات اخري', image: components.otherInsurance },
+  { id: '2', title: 'التأمين الطبي', image: components.medicalInsurance },
+  { id: '1', title: 'تأمين المركبات', image: components.vehicleInsurance },
 ];
 
 const COMPANY_PRODUCTS: Product[] = [
-  { id: '4', title: 'تأمين المركبات', imageUrl: '' },
-  { id: '5', title: 'التأمين الطبي', imageUrl: '' },
-  { id: '6', title: 'تأمينات اخري', imageUrl: '' },
+  { id: '6', title: 'تأمينات اخري', image: components.otherCompanyInsurance },
+  { id: '5', title: 'تأمين النقل', image: components.transitInsurance },
+  { id: '4', title: 'تأمين الهندسي', image: components.engineeringInsurance },
 ];
 
 interface HomeHeaderProps {

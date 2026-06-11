@@ -15,6 +15,9 @@ import ArrowLeft from './arrowLeft.svg'
 import User from './User.svg'
 import UserTab from './userTab.svg'
 import Building from './Buildings.svg'
+import Policies from './policies.svg'
+import InsuranceClaims from './insuranceClaims.svg'
+import Pricing from './pricing.svg'
 
 
 export class Components {
@@ -27,6 +30,13 @@ export class Components {
     static menu = require('./menu.png');
     static whatsApp = require('./whatsApp.png');
     static AppHeaderImageBG = require('./AppHeaderImageBG.png');
+    static offersDummy = require('./offersDummy.png');
+    static vehicleInsurance = require('./vehicleInsurance.png');
+    static medicalInsurance = require('./medicalInsurance.png');
+    static otherInsurance = require('./otherInsurance.png');
+    static engineeringInsurance = require('./engineeringInsurance.png');
+    static transitInsurance = require('./transitInsurance.png');
+    static otherCompanyInsurance = require('./otherCompanyInsurance.png');
     static closeWhite = closeWhite;
     static lang = lang;
     static logo = logo;
@@ -43,4 +53,7 @@ export class Components {
     static bell = bell;
     static userTab = UserTab;
     static building = Building;
+    static policies = Policies;
+    static insuranceClaims = InsuranceClaims;
+    static pricing = Pricing;
 }
