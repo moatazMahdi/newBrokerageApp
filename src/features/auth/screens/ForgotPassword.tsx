@@ -48,7 +48,8 @@ const ForgotPassword = () => {
       <ForgotPasswordForm phone={phone} onPhoneChange={setPhone} />
 
       <AppButton
-        width="100%"
+        variant='primary'
+        size='full'
         title={t('auth.forgotPassword.next')}
         onPress={handleNext}
         loading={isPending}

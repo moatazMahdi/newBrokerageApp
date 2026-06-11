@@ -1,6 +1,6 @@
 export const Routes = {
   HOME: 'Home',
-  ON_BOARDING:'OnBoarding',
+  ON_BOARDING:'OnboardingScreen',
   BUTTON_TAB:'ButtonTab',
   OUR_PRODUCTS:'OurProducts',
   CLAIMS:'Claims',
@@ -10,4 +10,7 @@ export const Routes = {
   OTP:'Otp',
   FORGOT_PASSWORD:'ForgotPassword',
   CREATE_NEW_PASSWORD:'CreateNewPassword',
+  CONFIRM_SOCIAL_PHONE:'ConfirmSocialPhone',
+  CONFIRM_SOCIAL_OTP:'ConfirmSocialOtp',
+  LANGUAGE_SELECTION:'LanguageSelectionScreen',
 } as const;

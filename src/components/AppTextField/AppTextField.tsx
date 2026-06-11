@@ -14,7 +14,6 @@ import { textAlign } from '../../utils/direction';
 import { SvgView } from '../SvgView/SvgView';
 import AppText from '../AppText/AppText';
 
-// Visual palette for the four field states.
 const COLORS = {
   bgDefault: "#FFFFFF",
   bgFilled: '#F7F9FE', 
@@ -39,6 +38,7 @@ type Props = {
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
   error?: string;
+  maxLength?: number;
 };
 
 const AppInput = ({
@@ -52,6 +52,7 @@ const AppInput = ({
   secureTextEntry,
   keyboardType,
   error,
+  maxLength,
 }: Props) => {
   const [focused, setFocused] = useState(false);
   const hasError = !!error;
@@ -128,6 +129,7 @@ const AppInput = ({
             onBlur?.(e);
           }}
           style={styles.input}
+          maxLength={maxLength}
         />
 
         {leftIcon ? (
@@ -135,7 +137,7 @@ const AppInput = ({
             <SvgView svgFile={leftIcon} width={wp(24)} height={hp(24)} />
           </TouchableOpacity>
         ) : (
-          <View style={{ width: wp(24) }} />
+          <View style={styles.leftIconSpace} />
         )}
       </View>
 
@@ -188,5 +190,8 @@ const styles = StyleSheet.create({
     height: wp(6),
     borderRadius: wp(3),
     backgroundColor: COLORS.error,
+  },
+  leftIconSpace: {
+    width: wp(24)
   },
 });

@@ -19,6 +19,11 @@ import Policies from './policies.svg'
 import InsuranceClaims from './insuranceClaims.svg'
 import Pricing from './pricing.svg'
 
+import Close from './Close.svg'
+import Error from './Error.svg'
+import Information from './Information.svg'
+import InformationClose from './InformationClose.svg'
+import biometricModal from './biometricModal.svg'
 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
@@ -56,4 +61,9 @@ export class Components {
     static policies = Policies;
     static insuranceClaims = InsuranceClaims;
     static pricing = Pricing;
+    static Close = Close;
+    static Error = Error;
+    static Information = Information;
+    static InformationClose = InformationClose;
+    static biometricModal = biometricModal;
 }

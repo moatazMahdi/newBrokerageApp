@@ -7,6 +7,8 @@ import Signup from '../features/auth/screens/Signup';
 import Otp from '../features/auth/screens/Otp';
 import ForgotPassword from '../features/auth/screens/ForgotPassword';
 import CreateNewPassword from '../features/auth/screens/CreateNewPassword';
+import ConfirmSocialPhone from '../features/auth/screens/ConfirmSocialPhone';
+import ConfirmSocialOtp from '../features/auth/screens/ConfirmSocialOtp';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +31,14 @@ export default function AppNavigator() {
       <Stack.Screen
         name={Routes.CREATE_NEW_PASSWORD}
         component={CreateNewPassword}
+      />
+      <Stack.Screen
+        name={Routes.CONFIRM_SOCIAL_PHONE}
+        component={ConfirmSocialPhone}
+      />
+      <Stack.Screen
+        name={Routes.CONFIRM_SOCIAL_OTP}
+        component={ConfirmSocialOtp}
       />
       <Stack.Screen name={Routes.BUTTON_TAB} component={ButtonTab} />
       {/* <Stack.Screen name={Routes.HOME} component={Home} /> */}

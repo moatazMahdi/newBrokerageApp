@@ -3,6 +3,7 @@ import React from 'react'
 import AppHeader from '../AppHeader/AppHeader'
 import styles from './styles';
 import { Assets } from '../../assets';
+import ToastHost from '../Toast/ToastHost';
 
 type Props = {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ const ScreenContainer = ({ children }: Props) => {
       <AppHeader/>
       <View style={styles.contentContainer}>
         {children}
+        <ToastHost />
       </View>
     </ImageBackground>
   );

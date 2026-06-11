@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AppTextField from '../../../components/AppTextField/AppTextField';
 import AppText from '../../../components/AppText/AppText';
@@ -9,7 +9,7 @@ import { Assets } from '../../../assets';
 type Props = {
   phone: string;
   password: string;
-  openEye: boolean;
+  isPasswordVisible: boolean;
   onPhoneChange: (text: string) => void;
   onPasswordChange: (text: string) => void;
   onToggleEye: () => void;
@@ -19,18 +19,14 @@ type Props = {
 const LoginForm = ({
   phone,
   password,
-  openEye,
+  isPasswordVisible,
   onPhoneChange,
   onPasswordChange,
   onToggleEye,
   onForgotPassword,
 }: Props) => {
   const { t } = useTranslation();
-  const {
-    images: {
-      components: { phone: phoneIcon, eyeOn, eyeOff, lockPassword },
-    },
-  } = Assets;
+  const { phone: phoneIcon, eyeOn, eyeOff, lockPassword } = Assets.images.components;
 
   return (
     <>
@@ -40,6 +36,7 @@ const LoginForm = ({
         onChangeText={onPhoneChange}
         rightIcon={phoneIcon}
         keyboardType="phone-pad"
+        maxLength={11}
       />
 
       <AppTextField
@@ -47,14 +44,14 @@ const LoginForm = ({
         value={password}
         onChangeText={onPasswordChange}
         rightIcon={lockPassword}
-        secureTextEntry={!openEye}
-        leftIcon={openEye ? eyeOn : eyeOff}
+        secureTextEntry={!isPasswordVisible}
+        leftIcon={isPasswordVisible ? eyeOn : eyeOff}
         onLeftIconPress={onToggleEye}
       />
 
       <TouchableOpacity
         onPress={onForgotPassword}
-        style={{ alignSelf: 'flex-end', marginTop: hp(8) }}
+        style={styles.forgotPassword}
       >
         <AppText size={14} color="#18359E" weight="600">
           {t('auth.login.forgotPassword')}
@@ -64,4 +61,11 @@ const LoginForm = ({
   );
 };
 
-export default LoginForm;
+export default React.memo(LoginForm);
+
+const styles = StyleSheet.create({
+  forgotPassword: {
+    alignSelf: 'flex-end',
+    marginTop: hp(8),
+  },
+});

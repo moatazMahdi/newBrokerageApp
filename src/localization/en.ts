@@ -61,6 +61,13 @@ export default {
       failed: 'Login failed',
     },
 
+    biometric: {
+      title: 'Enable biometric features',
+      enableNow: 'Enable now',
+      later: 'Maybe later',
+      notAvailable: 'Biometric authentication is not available on this device',
+    },
+
     signup: {
       title: 'Create a new account',
       phone: 'Phone Number',
