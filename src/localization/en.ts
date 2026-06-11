@@ -88,6 +88,8 @@ export default {
       mustAcceptTerms: 'You must accept the Terms and Conditions',
       createAccount: 'Create account',
       failed: 'Failed to create account',
+      successTitle: 'Account created successfully! 🎉',
+      successMessage: 'Thank you for joining, and we hope you enjoy the app.'
     },
 
     forgotPassword: {
@@ -127,6 +129,7 @@ export default {
       reqSpecialChar: 'Special characters such as @,#,$, etc.',
       reqUpperLower: 'Lowercase and uppercase letters',
       reqNumber: 'At least one number',
+      reqHistorical: 'Must not match any historical password parameters',
       strengthLabel: 'Password strength',
       strengthWeak: 'Weak',
       strengthMedium: 'Medium',
@@ -141,7 +144,7 @@ export default {
       usernameMin: 'Username must be at least 7 characters',
       usernameMax: 'Username must not exceed 29 characters',
       usernameInvalid:
-        'Username can contain only English letters, numbers, and underscores (_)',
+        'Username can contain only English letters, numbers, and underscores (_) with no spaces',
 
       phoneRequired: 'Phone number is required',
       invalidPhone: 'Please enter a valid Egyptian phone number',

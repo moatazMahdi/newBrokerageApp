@@ -33,6 +33,11 @@ const RULES: Rule[] = [
     labelKey: 'auth.createNewPassword.reqNumber',
     test: password => /[0-9]/.test(password),
   },
+  {
+    key: 'historical',
+    labelKey: 'auth.createNewPassword.reqHistorical',
+    test: () => true,
+  },
 ];
 
 export const isPasswordValid = (password: string): boolean =>

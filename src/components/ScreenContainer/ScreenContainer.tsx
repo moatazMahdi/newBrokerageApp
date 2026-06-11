@@ -21,6 +21,7 @@ type Props = {
   onBackPress?: () => void;
   screenTitle?: string;
   scrollable?: boolean;
+  showLanguage?: boolean;
 };
 
 const ScreenContainer = ({
@@ -28,6 +29,7 @@ const ScreenContainer = ({
   screenTitle,
   onBackPress,
   scrollable = false,
+  showLanguage = false,
 }: Props) => {
     const {images: {components: {AppHeaderImageBG}}} = Assets
     const route = useRoute();
@@ -40,7 +42,7 @@ const ScreenContainer = ({
       style={styles.content}
         resizeMode="cover"
     >
-      {isLoginScreen || isHomeScreen ? <AppHeaderWithLogo /> : <AppHeaderTitle title={screenTitle} onPress={onBackPress} />}
+      {isLoginScreen || isHomeScreen ? <AppHeaderWithLogo /> : <AppHeaderTitle title={screenTitle} onPress={onBackPress} showLanguage={showLanguage} />}
       <View style={styles.contentContainer}>
         {scrollable ? (
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

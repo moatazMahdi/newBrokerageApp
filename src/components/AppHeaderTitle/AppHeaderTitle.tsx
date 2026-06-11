@@ -3,24 +3,41 @@ import React from 'react';
 import { Assets } from '../../assets';
 import { hp, wp } from '../../utils/dimensions';
 import { SvgView } from '../SvgView/SvgView';
+import { useTranslation } from 'react-i18next';
+import { changeLanguage } from '../../localization/changeLanguage';
 
-const { BackArrow } = Assets.images.components;
+const { BackArrow, lang } = Assets.images.components;
 
 interface Props {
   title?: string 
   onPress?: () => void;
+  showLanguage?: boolean;
 }
 
-const AppHeaderTitle = ({ title, onPress }: Props) => {
+const AppHeaderTitle = ({ title, onPress, showLanguage = false }: Props) => {
+  const { i18n } = useTranslation();
 
   return (
     <View style={styles.container}>
+      <View style={styles.titleGroup}>
         <TouchableOpacity style={styles.arrow} onPress={onPress}>
             <SvgView svgFile={BackArrow} width={wp(28)} height={hp(28)} />
         </TouchableOpacity>
         <Text style={styles.title}>
             {title}
         </Text>
+      </View>
+      {showLanguage ? (
+        <TouchableOpacity
+          style={styles.changeLanguageContainer}
+          onPress={changeLanguage}
+        >
+          <SvgView svgFile={lang} width={wp(14)} height={hp(14)} />
+          <Text style={styles.changeLanguageText}>
+            {i18n.language === 'en' ? 'العربية' : 'English'}
+          </Text>
+        </TouchableOpacity>
+      ) : null}
     </View>
    );
 };
@@ -33,9 +50,15 @@ const styles = StyleSheet.create({
     height: hp(110),
     flexDirection: 'row',
     alignItems: 'center',
-    gap: wp(12),
+    justifyContent: 'space-between',
     paddingHorizontal: wp(20),
     paddingTop: hp(30),
+  },
+  titleGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: wp(12),
+    flex: 1,
   },
   arrow: {
     backgroundColor: "#FFFFFF33",
@@ -50,6 +73,17 @@ const styles = StyleSheet.create({
     color: 'white', 
     fontSize: hp(16),
     fontWeight: "700",
-    lineHeight: hp(24) 
+    lineHeight: hp(24),
+    flexShrink: 1,
+  },
+  changeLanguageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: wp(6),
+    marginLeft: wp(12),
+  },
+  changeLanguageText: {
+    color: 'white',
+    fontSize: hp(16),
   },
 })

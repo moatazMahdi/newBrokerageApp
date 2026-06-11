@@ -1,10 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
-import { sendOtp, SendOtpRequest, SendOtpResponse } from '../../../api/auth';
+import {
+  signupValidation,
+  SignupRequest,
+  SignupValidationResponse,
+} from '../../../api/auth';
 import { showToast } from 'src/components/Toast/toastService';
 
-export const useSendOtp = () =>
-  useMutation<SendOtpResponse, Error, SendOtpRequest>({
-    mutationFn: sendOtp,
+export const useSignupValidation = () =>
+  useMutation<SignupValidationResponse, Error, SignupRequest>({
+    mutationFn: signupValidation,
+
     onError: (error: any) => {
       const message =
       error.response?.data?.errors?.[0] ??

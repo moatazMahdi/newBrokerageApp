@@ -19,7 +19,7 @@ const LoginButton = ({onLoginPress, onFingerprintPress, loading = false, disable
     components: {fingerprint}
   }} = Assets;
   return (
-    <View style={[styles.container, { width: showFingerprint ? '85%' : '100%' }]}>
+    <View style={[styles.container, { width: showFingerprint ? '80%' : '100%' }]}>
       <AppButton
         variant='primary'
         size='full'
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    gap: 10,
+    gap: wp(16),
     marginTop: hp(42),
   },
   fingerprintButton: {

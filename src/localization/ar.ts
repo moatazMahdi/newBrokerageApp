@@ -86,6 +86,8 @@ export default {
       mustAcceptTerms: 'يجب الموافقة على الشروط والأحكام',
       createAccount: 'إنشاء حساب',
       failed: 'فشل إنشاء الحساب',
+      successTitle: 'تم إنشاء الحساب بنجاح! 🎉',
+      successMessage: 'نشكرك علي الانضمام ونتمني لك الاستمتاع بكافة مزايا التطبيق الموجودة'
     },
 
     forgotPassword: {
@@ -124,6 +126,7 @@ export default {
       reqSpecialChar: 'رموز خاصة مثل @,#,$,الخ',
       reqUpperLower: 'حروف صغيرة وكبيرة',
       reqNumber: 'رقم واحد علي الأقل',
+      reqHistorical: 'أن لا تتطابق مع كلمة المرور القديمة',
       strengthLabel: 'قوة كلمة المرور',
       strengthWeak: 'ضعيف',
       strengthMedium: 'متوسط',
@@ -137,7 +140,7 @@ export default {
       usernameRequired: 'اسم المستخدم مطلوب',
       usernameMin: 'يجب ألا يقل اسم المستخدم عن 7 أحرف',
       usernameMax: 'يجب ألا يزيد اسم المستخدم عن 29 حرفًا',
-      usernameInvalid: 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية أو أرقام أو _ فقط',
+      usernameInvalid: 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية أو أرقام أو _ فقط بدون مسافات',
         
       phoneRequired: 'رقم الهاتف مطلوب',
       invalidPhone: 'أدخل رقم هاتف مصري صحيح',

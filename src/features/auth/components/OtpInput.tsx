@@ -15,9 +15,10 @@ type Props = {
   value: string;
   onChange: (code: string) => void;
   error?: boolean;
+  success?: boolean;
 };
 
-const OtpInput = ({ length = 6, value, onChange, error }: Props) => {
+const OtpInput = ({ length = 6, value, onChange, error, success }: Props) => {
   const inputRef = useRef<TextInput | null>(null);
   const [focused, setFocused] = useState(false);
   const caretOpacity = useRef(new Animated.Value(1)).current;
@@ -65,8 +66,18 @@ const OtpInput = ({ length = 6, value, onChange, error }: Props) => {
     >
       {digits.map((digit, index) => {
         const isActive = focused && index === activeIndex;
-        const borderColor = error ? '#FC3B30' : '#E6E6E6';
-        const backgroundColor = error ? '#FFF6F5' : digit ? '#F7F9FE' : '#FFFFFF';
+        const borderColor = error
+          ? '#FC3B30'
+          : success
+            ? '#1AB366'
+            : '#E6E6E6';
+        const backgroundColor = error
+          ? '#FFF6F5'
+          : success
+            ? '#F0FFF7'
+            : digit
+              ? '#F7F9FE'
+              : '#FFFFFF';
 
         return (
           <View

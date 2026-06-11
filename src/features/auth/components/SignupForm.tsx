@@ -5,12 +5,14 @@ import { useTranslation } from 'react-i18next';
 import AppTextField from '../../../components/AppTextField/AppTextField';
 import { Assets } from '../../../assets';
 import type { SignupValues } from '../validation/signupSchema';
+import PasswordStrengthMeter from './PasswordStrengthMeter';
 
 type Props = {
   control: Control<SignupValues>;
   errors: FieldErrors<SignupValues>;
   isPasswordVisible: boolean;
   isConfirmPasswordVisible: boolean;
+  password: string;
   onTogglePassword: () => void;
   onToggleConfirmPassword: () => void;
 };
@@ -20,6 +22,7 @@ const SignupForm = ({
   errors,
   isPasswordVisible,
   isConfirmPasswordVisible,
+  password,
   onTogglePassword,
   onToggleConfirmPassword,
 }: Props) => {
@@ -44,6 +47,7 @@ const SignupForm = ({
             rightIcon={phoneIcon}
             keyboardType="phone-pad"
             error={errors.phone?.message}
+            maxLength={11}
           />
         )}
       />
@@ -55,7 +59,9 @@ const SignupForm = ({
           <AppTextField
             label={t('auth.signup.username')}
             value={value}
-            onChangeText={onChange}
+            onChangeText={text =>
+              onChange(text.replace(/^\s+/, '').replace(/[^A-Za-z0-9_]/g, ''))
+            }
             onBlur={onBlur}
             rightIcon={User}
             error={errors.username?.message}
@@ -81,6 +87,8 @@ const SignupForm = ({
         )}
       />
 
+      <PasswordStrengthMeter password={password} />
+      
       <Controller
         control={control}
         name="confirmPassword"

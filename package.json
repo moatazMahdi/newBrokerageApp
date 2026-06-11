@@ -33,6 +33,7 @@
     "react-native-biometrics": "^3.0.1",
     "react-native-config": "^1.6.1",
     "react-native-curved-bottom-bar": "^3.5.1",
+    "react-native-device-info": "^15.0.2",
     "react-native-fbsdk-next": "^13.4.3",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-mmkv": "^4.3.1",

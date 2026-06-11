@@ -1,6 +1,6 @@
 import { api } from './axios';
 import i18n from '../localization';
-import { forgetVerifyPassword, login, otpSend, passwordForget, passwordReset, signup, verifyOtp, socialLoginAll, socialLoginCompleted } from './authRequests';
+import { forgetVerifyPassword, login, otpSend, passwordForget, passwordReset, signup, signupValidate, verifyOtp, socialLoginAll, socialLoginCompleted } from './authRequests';
 
 export type LoginRequest = {
   identifier: string;
@@ -44,14 +44,36 @@ const currentLang = (): 'en' | 'ar' =>
 
 export type SignupRequest = {
   name: string;
+  username: string;
   phone: string;
   password: string;
   confirmPassword: string;
   lang: 'en' | 'ar';
+  appVersion?: string;
+  firebaseNotificationToken?: string | null;
+  location?: {
+    time: string;
+  };
+  mobile_info?: Record<string, unknown>;
 };
 
 export type SignupResponse = {
   message?: string;
+  data?: {
+    token?: string;
+  };
+  token?: string;
+};
+
+export type SignupValidationResponse = {
+  message?: string;
+};
+
+export const signupValidation = async (
+  payload: SignupRequest,
+): Promise<SignupValidationResponse> => {
+  const response = await api.post(signupValidate, payload);
+  return response.data;
 };
 
 export const signupUser = async (
@@ -67,8 +89,9 @@ export const buildSignupRequest = (
   password: string,
   confirmPassword: string,
 ): SignupRequest => ({
-  name,
-  phone,
+  name: name.trim(),
+  username: name.trim(),
+  phone: `+2${phone}`,
   password,
   confirmPassword,
   lang: currentLang(),
