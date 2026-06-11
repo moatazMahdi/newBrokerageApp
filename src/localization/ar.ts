@@ -107,6 +107,18 @@ export default {
       confirm: 'تأكيد',
       success: 'تم إعادة تعيين كلمة المرور بنجاح',
       failed: 'تعذر إعادة تعيين كلمة المرور',
+      requirementsTitle: 'كلمة المرور الجديدة يجب ان تحتوي علي :',
+      reqMinLength: '8 احرف علي الأقل',
+      reqSpecialChar: 'رموز خاصة مثل @,#,$,الخ',
+      reqUpperLower: 'حروف صغيرة وكبيرة',
+      reqNumber: 'رقم واحد علي الأقل',
+      strengthLabel: 'قوة كلمة المرور',
+      strengthWeak: 'ضعيف',
+      strengthMedium: 'متوسط',
+      strengthStrong: 'قوي',
+      successTitle: 'تم إعادة تعين كلمة المرور بنجاح! 🎉',
+      successSubtitle: 'نشكرك علي الانضمام ونتمني لك الاستمتاع بكافة مزايا التطبيق الموجودة',
+      login: 'تسجيل الدخول',
     },
 
     validation: {

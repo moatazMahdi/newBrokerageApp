@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
@@ -29,8 +29,8 @@ const Signup = () => {
     useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { t } = useTranslation();
 
-  const [openPassword, setOpenPassword] = React.useState(false);
-  const [openConfirmPassword, setOpenConfirmPassword] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false);
   const [agreed, setAgreed] = React.useState(false);
 
   const { mutate: signup, isPending } = useSignup();
@@ -69,25 +69,18 @@ const Signup = () => {
           <SignupHeader />
           <SignupForm
             form={form}
-            openPassword={openPassword}
-            openConfirmPassword={openConfirmPassword}
-            onTogglePassword={() => setOpenPassword(prev => !prev)}
+            isPasswordVisible={isPasswordVisible}
+            isConfirmPasswordVisible={isConfirmPasswordVisible}
+            onTogglePassword={() => setIsPasswordVisible(prev => !prev)}
             onToggleConfirmPassword={() =>
-              setOpenConfirmPassword(prev => !prev)
+              setIsConfirmPasswordVisible(prev => !prev)
             }
           />
           <TermsCheckbox agreed={agreed} onChange={setAgreed} />
 
-          <View style={{ flex: 1 }} />
+          <View style={styles.seperator} />
 
-          <View style= {{
-              flexDirection: 'column',
-              gap: hp(16),
-              marginVertical: hp(16),
-              backgroundColor: "#FFFFFF",
-              paddingVertical: hp(16),
-              alignItems: 'center',
-          }}>
+          <View style= {styles.buttonContainer}>
               <AppButton
               variant='primary'
               size="full"
@@ -104,3 +97,17 @@ const Signup = () => {
 };
 
 export default Signup;
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: 'column',
+    gap: hp(16),
+    marginVertical: hp(16),
+    backgroundColor: "#FFFFFF",
+    paddingVertical: hp(16),
+    alignItems: 'center',
+  },
+  seperator: {
+    flex: 1,
+  },
+})

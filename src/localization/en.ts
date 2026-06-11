@@ -109,6 +109,18 @@ export default {
       confirm: 'Confirm',
       success: 'Password reset successfully',
       failed: 'Could not reset the password',
+      requirementsTitle: 'The new password must contain:',
+      reqMinLength: 'At least 8 characters',
+      reqSpecialChar: 'Special characters such as @,#,$, etc.',
+      reqUpperLower: 'Lowercase and uppercase letters',
+      reqNumber: 'At least one number',
+      strengthLabel: 'Password strength',
+      strengthWeak: 'Weak',
+      strengthMedium: 'Medium',
+      strengthStrong: 'Strong',
+      successTitle: 'Password reset successfully! 🎉',
+      successSubtitle: 'Thank you for joining and we hope you benefit from the advantages of the application available',
+      login: 'Log in',
     },
 
     validation: {

@@ -21,6 +21,9 @@ import Error from './Error.svg'
 import Information from './Information.svg'
 import InformationClose from './InformationClose.svg'
 import biometricModal from './biometricModal.svg'
+import circle from './Circle.svg'
+import circleChecked from './CircleChecked.svg'
+import SuccessModalIcon from './SuccessModalIcon.svg'
 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
@@ -53,4 +56,7 @@ export class Components {
     static Information = Information;
     static InformationClose = InformationClose;
     static biometricModal = biometricModal;
+    static circle = circle;
+    static circleChecked = circleChecked;
+    static SuccessModalIcon = SuccessModalIcon;
 }

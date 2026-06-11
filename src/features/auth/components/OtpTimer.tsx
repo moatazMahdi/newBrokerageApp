@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: hp(4)
   },
   resendText: {
     textDecorationLine: 'underline',

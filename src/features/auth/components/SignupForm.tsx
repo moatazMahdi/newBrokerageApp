@@ -8,16 +8,16 @@ import type { SignupValues } from '../validation/signupSchema';
 
 type Props = {
   form: FormikProps<SignupValues>;
-  openPassword: boolean;
-  openConfirmPassword: boolean;
+  isPasswordVisible: boolean;
+  isConfirmPasswordVisible: boolean;
   onTogglePassword: () => void;
   onToggleConfirmPassword: () => void;
 };
 
 const SignupForm = ({
   form,
-  openPassword,
-  openConfirmPassword,
+  isPasswordVisible,
+  isConfirmPasswordVisible,
   onTogglePassword,
   onToggleConfirmPassword,
 }: Props) => {
@@ -30,7 +30,6 @@ const SignupForm = ({
 
   const { values, errors, touched, handleChange, handleBlur } = form;
 
-  // Only surface an error once the field has been touched.
   const errorFor = (field: keyof SignupValues) =>
     touched[field] ? errors[field] : undefined;
 
@@ -61,8 +60,8 @@ const SignupForm = ({
         onChangeText={handleChange('password')}
         onBlur={handleBlur('password')}
         rightIcon={lockPassword}
-        secureTextEntry={!openPassword}
-        leftIcon={openPassword ? eyeOn : eyeOff}
+        secureTextEntry={!isPasswordVisible}
+        leftIcon={isPasswordVisible ? eyeOn : eyeOff}
         onLeftIconPress={onTogglePassword}
         error={errorFor('password')}
       />
@@ -73,8 +72,8 @@ const SignupForm = ({
         onChangeText={handleChange('confirmPassword')}
         onBlur={handleBlur('confirmPassword')}
         rightIcon={lockPassword}
-        secureTextEntry={!openConfirmPassword}
-        leftIcon={openConfirmPassword ? eyeOn : eyeOff}
+        secureTextEntry={!isConfirmPasswordVisible}
+        leftIcon={isConfirmPasswordVisible ? eyeOn : eyeOff}
         onLeftIconPress={onToggleConfirmPassword}
         error={errorFor('confirmPassword')}
       />

@@ -8,7 +8,6 @@ import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer
 import AppButton from '../../../components/AppButton';
 import ForgotPasswordHeader from '../components/ForgotPasswordHeader';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
-import SignupButton from '../components/SignupButton';
 import { useForgetPassword } from '../hooks/useForgetPassword';
 import { buildForgetPasswordRequest } from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
@@ -38,10 +37,6 @@ const ForgotPassword = () => {
 
   const handleNext = ({ phone }: FormData) => {
     const phoneNumber = `+2${phone}`;
-    navigation.reset({
-                index: 0,
-                routes: [{ name: Routes.CREATE_NEW_PASSWORD, params: { phone, code: "123123" } }],
-              });
 
     forgetPassword(buildForgetPasswordRequest(phoneNumber), {
       onSuccess: () => {

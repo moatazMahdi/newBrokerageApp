@@ -91,7 +91,7 @@ const AppInput = ({
     }),
 
     backgroundColor: isFloating ? COLORS.bgActive : 'transparent',
-    paddingHorizontal: isFloating ? wp(4) : 0,
+    paddingHorizontal: isFloating ? wp(4) : wp(2),
     zIndex: 10,
     color: isFloating ? COLORS.labelFloating : COLORS.labelResting,
     lineHeight: 24,
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
   },
 
   errorRow: {
+    width: "100%",
     flexDirection: 'row',
     alignItems: 'center',
     gap: wp(6),

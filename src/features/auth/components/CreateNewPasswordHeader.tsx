@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import AppText from '../../../components/AppText/AppText';
 import { hp } from '../../../utils/dimensions';
+import { StyleSheet } from 'react-native';
 
 const CreateNewPasswordHeader = () => {
   const { t } = useTranslation();
@@ -9,10 +10,7 @@ const CreateNewPasswordHeader = () => {
     <AppText
       size={18}
       weight="400"
-      style={{
-        marginBottom: hp(24),
-        lineHeight: hp(30),
-      }}
+      style={Styles.title}
       color="#1A1A1A"
     >
       {t('auth.createNewPassword.title')}
@@ -21,3 +19,12 @@ const CreateNewPasswordHeader = () => {
 };
 
 export default CreateNewPasswordHeader;
+
+const Styles = StyleSheet.create({
+  title: {
+    width: "100%",
+    marginBottom: hp(24),
+    lineHeight: hp(30),
+    textAlign: "left"
+  }
+})

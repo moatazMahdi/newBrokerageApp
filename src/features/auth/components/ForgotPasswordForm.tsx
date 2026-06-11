@@ -1,10 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Controller, Control } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-
 import AppTextField from '../../../components/AppTextField/AppTextField';
 import { Assets } from '../../../assets';
+import { hp } from 'src/utils/dimensions';
 
 type FormData = {
   phone: string;
@@ -25,7 +25,7 @@ const ForgotPasswordForm = ({ control, error }: Props) => {
   } = Assets;
 
   return (
-    <View style={{ width: '100%' }}>
+    <View style={styles.container}>
       <Controller
         control={control}
         name="phone"
@@ -63,3 +63,10 @@ const ForgotPasswordForm = ({ control, error }: Props) => {
 };
 
 export default ForgotPasswordForm;
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    marginBottom: hp(8)
+  }
+})

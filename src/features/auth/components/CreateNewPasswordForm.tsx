@@ -1,28 +1,28 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AppTextField from '../../../components/AppTextField/AppTextField';
-import AppText from '../../../components/AppText/AppText';
+import PasswordStrengthMeter from './PasswordStrengthMeter';
 import { Assets } from '../../../assets';
-import { hp } from '../../../utils/dimensions';
 
 type Props = {
   password: string;
   confirmPassword: string;
-  openPassword: boolean;
-  openConfirmPassword: boolean;
+  isPasswordVisible: boolean;
+  isConfirmPasswordVisible: boolean;
   error?: string;
   onPasswordChange: (text: string) => void;
   onConfirmPasswordChange: (text: string) => void;
   onTogglePassword: () => void;
   onToggleConfirmPassword: () => void;
 };
+const { lockPassword, eyeOn, eyeOff } = Assets.images.components;
 
 const CreateNewPasswordForm = ({
   password,
   confirmPassword,
-  openPassword,
-  openConfirmPassword,
+  isPasswordVisible,
+  isConfirmPasswordVisible,
   error,
   onPasswordChange,
   onConfirmPasswordChange,
@@ -30,46 +30,40 @@ const CreateNewPasswordForm = ({
   onToggleConfirmPassword,
 }: Props) => {
   const { t } = useTranslation();
-  const {
-    images: {
-      components: { lockPassword, eyeOn, eyeOff },
-    },
-  } = Assets;
+  
 
   return (
-    <View style={{ width: '100%' }}>
+    <View style={styles.conatainer}>
       <AppTextField
         label={t('auth.createNewPassword.password')}
         value={password}
         onChangeText={onPasswordChange}
         rightIcon={lockPassword}
-        secureTextEntry={!openPassword}
-        leftIcon={openPassword ? eyeOn : eyeOff}
+        secureTextEntry={!isPasswordVisible}
+        leftIcon={isPasswordVisible ? eyeOn : eyeOff}
         onLeftIconPress={onTogglePassword}
       />
+
+      <PasswordStrengthMeter password={password} />
 
       <AppTextField
         label={t('auth.createNewPassword.confirmPassword')}
         value={confirmPassword}
         onChangeText={onConfirmPasswordChange}
         rightIcon={lockPassword}
-        secureTextEntry={!openConfirmPassword}
-        leftIcon={openConfirmPassword ? eyeOn : eyeOff}
+        secureTextEntry={!isConfirmPasswordVisible}
+        leftIcon={isConfirmPasswordVisible ? eyeOn : eyeOff}
         onLeftIconPress={onToggleConfirmPassword}
+        error={error}
       />
-
-      {error ? (
-        <AppText
-          size={12}
-          weight="500"
-          color="#E11D48"
-          style={{ marginTop: hp(-8) }}
-        >
-          {error}
-        </AppText>
-      ) : null}
     </View>
   );
 };
 
 export default CreateNewPasswordForm;
+
+const styles = StyleSheet.create({
+  conatainer: {
+    width: "100%"
+  }
+})

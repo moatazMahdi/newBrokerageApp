@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -21,6 +21,7 @@ import {
 import { Routes } from '../../../navigation/routes';
 import type { AppStackParamList } from '../../../navigation/types';
 import { hp } from '../../../utils/dimensions';
+import { showToast } from 'src/components/Toast/toastService';
 
 const CODE_LENGTH = 6;
 
@@ -55,8 +56,11 @@ const Otp = () => {
   const handleResend = () => {
     const onResult = {
       onSuccess: () => setResetKey(prev => prev + 1),
-      onError: (error: Error) =>
-        Alert.alert(t('common.error'), error.message || t('auth.otp.resendFailed')),
+      onError: (err: any) =>
+        showToast({
+          type: "error",
+          message: err
+        })
     };
 
     if (isReset) {
