@@ -1,4 +1,5 @@
 export const login = "/api/auth/login";
+export const signupValidate = "api/auth/validate/step-1"
 export const signup = "/api/auth/signup";
 export const otpSend = "/api/auth/otp/send";
 export const verifyOtp = "/api/auth/phone/verify";

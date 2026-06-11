@@ -77,7 +77,7 @@ export default {
 
     signup: {
       screenTitle: 'إنشاء حساب جديد',
-      title: 'إنشاء حساب جديد',
+      title: 'تفاصيل إنشاء حساب',
       phone: 'رقم الهاتف',
       username: 'اسم المستخدم',
       password: 'كلمة المرور',
@@ -134,21 +134,24 @@ export default {
     },
 
     validation: {
-      fullNameRequired: 'الاسم مطلوب',
-      fullNameMin: 'يجب أن يتكون الاسم من 3 أحرف على الأقل',
-      fullNameLettersOnly: 'يجب أن يحتوي الاسم على أحرف فقط',
-      noSpaces: 'غير مسموح بالمسافات',
+      usernameRequired: 'اسم المستخدم مطلوب',
+      usernameMin: 'يجب ألا يقل اسم المستخدم عن 7 أحرف',
+      usernameMax: 'يجب ألا يزيد اسم المستخدم عن 29 حرفًا',
+      usernameInvalid: 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية أو أرقام أو _ فقط',
+        
       phoneRequired: 'رقم الهاتف مطلوب',
       invalidPhone: 'أدخل رقم هاتف مصري صحيح',
-      phoneLength: 'يجب أن يتكون رقم الهاتف من 11 رقمًا',
+        
       passwordRequired: 'كلمة المرور مطلوبة',
       passwordMin: 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
       passwordNumber: 'يجب أن تحتوي على رقم واحد على الأقل',
       passwordLowercase: 'يجب أن تحتوي على حرف صغير',
       passwordUppercase: 'يجب أن تحتوي على حرف كبير',
       passwordSpecialChar: 'يجب أن تحتوي على رمز خاص',
+      noSpaces: 'غير مسموح بالمسافات',
+        
       confirmPasswordRequired: 'تأكيد كلمة المرور مطلوب',
       passwordsMustMatch: 'يجب أن تتطابق كلمتا المرور',
-    },
+    }
   },
 };

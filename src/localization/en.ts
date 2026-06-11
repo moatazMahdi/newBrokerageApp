@@ -137,20 +137,24 @@ export default {
     },
 
     validation: {
-      fullNameRequired: 'Full name is required',
-      fullNameMin: 'Name must be at least 3 characters',
-      fullNameLettersOnly: 'Name must contain only letters',
-      noSpaces: 'No spaces allowed',
+      usernameRequired: 'Username is required',
+      usernameMin: 'Username must be at least 7 characters',
+      usernameMax: 'Username must not exceed 29 characters',
+      usernameInvalid:
+        'Username can contain only English letters, numbers, and underscores (_)',
+
       phoneRequired: 'Phone number is required',
-      invalidPhone: 'Enter a valid Egyptian phone number',
-      phoneLength: 'Phone number must be 11 digits',
+      invalidPhone: 'Please enter a valid Egyptian phone number',
+
       passwordRequired: 'Password is required',
       passwordMin: 'Password must be at least 8 characters',
-      passwordNumber: 'Must contain at least one number',
-      passwordLowercase: 'Must contain a lowercase letter',
-      passwordUppercase: 'Must contain an uppercase letter',
-      passwordSpecialChar: 'Must contain a special character',
-      confirmPasswordRequired: 'Confirm password is required',
+      passwordNumber: 'Password must contain at least one number',
+      passwordLowercase: 'Password must contain at least one lowercase letter',
+      passwordUppercase: 'Password must contain at least one uppercase letter',
+      passwordSpecialChar: 'Password must contain at least one special character',
+      noSpaces: 'Spaces are not allowed',
+
+      confirmPasswordRequired: 'Please confirm your password',
       passwordsMustMatch: 'Passwords must match',
     },
   },
