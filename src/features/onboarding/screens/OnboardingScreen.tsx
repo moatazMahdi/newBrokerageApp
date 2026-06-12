@@ -7,18 +7,20 @@ import OnboardingSlide from '../components/OnboardingSlide';
 import OnboardingHeader from '../components/OnboardingHeader';
 import { onboardingData } from '../constants/onboardingData';
 import { onboardingStyles } from '../styles/onboarding.styles';
-import { useNavigation } from '@react-navigation/native';
 import { storage } from '../../../storage/mmkv';
 import { STORAGE_KEYS } from '../../../config/storage';
 import AppButton from '../../../components/AppButton';
+import { Assets } from 'src/assets';
+
+const { OnboardingNextArrow } = Assets.images.components;
 
 const OnboardingScreen = () => {
-  const navigation = useNavigation();
   const { t } = useTranslation();
 
   const flatListRef = useRef<FlatList>(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const isLastSlide = currentIndex === onboardingData.length - 1;
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -79,14 +81,15 @@ const handleCompleteOnboarding = () => {
 
       <View style={onboardingStyles.fixedFooter}>
         <AppButton
-        title={
-            currentIndex === onboardingData.length - 1
+          title={
+            isLastSlide
               ? t('onboarding.start')
               : t('onboarding.next')
           }
           onPress={handleNext}
           variant='secondary'
           size="full"
+          leftIcon={!isLastSlide ? OnboardingNextArrow : undefined}
         />
       </View>
     </View>

@@ -22,25 +22,25 @@ export default {
     next: 'Next',
     start: 'Get Started',
     slide1: {
-      title: 'All insurance',
-      highlightedTitle: 'services...',
-      secondLine: 'in one place',
+      title: 'All Insurance',
+      highlightedTitle: 'Services...',
+      secondLine: 'In One Place',
       description:
-        'Browse and request all types of insurance for individuals and companies from a single app, quickly and without complications.',
+        'Explore and request all types of individual and corporate insurance from a single app—quickly and effortlessly.',
     },
     slide2: {
-      title: 'Manage your',
-      highlightedTitle: 'documents...',
-      secondLine: 'with ease',
+      title: 'Manage Your',
+      highlightedTitle: 'Policies...',
+      secondLine: 'Effortlessly',
       description:
-        'View your insurance policies, download them as PDF, and receive automatic reminders before renewal.',
+        'View your insurance policies, download them as PDFs, and receive automatic reminders before your renewal date.',
     },
     slide3: {
       title: 'Instant support',
-      highlightedTitle: 'and trust...',
-      secondLine: 'guaranteed',
+      highlightedTitle: '& Trust...',
+      secondLine: 'Guaranteed',
       description:
-        'Communicate directly with the Connect team and track real claims with certified insurance companies.',
+        'Connect directly with the Contact team, and track real-time claims with certified insurance partners.',
     },
   },
 

@@ -24,7 +24,8 @@ import circle from './Circle.svg'
 import circleChecked from './CircleChecked.svg'
 import SuccessModalIcon from './SuccessModalIcon.svg'
 import BackArrow from "./BackArrow.svg"
-
+import OnboardingNextArrow from "./OnboardingNextArrow.svg"
+ 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
     static onBoarding2 = require('./onboarding2.png');
@@ -60,4 +61,5 @@ export class Components {
     static circleChecked = circleChecked;
     static SuccessModalIcon = SuccessModalIcon;
     static BackArrow = BackArrow;
+    static OnboardingNextArrow = OnboardingNextArrow;
 }
