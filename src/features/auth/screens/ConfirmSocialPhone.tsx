@@ -80,7 +80,8 @@ const ConfirmSocialPhone = () => {
     
         showToast({
           type: 'error',
-          title: message,
+          message: message,
+          dismissible: false
         })
       }
     });

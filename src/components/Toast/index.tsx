@@ -112,21 +112,22 @@ export default function Toast({
 
   return (
     <View style={[toastStyle, baseStyles.centeredRow]}>
-      <View style={baseStyles.contentRow}>
+      <View style={[baseStyles.contentRow, {alignItems: ((dismissible == false) && !hasTitle) ? "center" : "flex-start"}]}>
         {resolvedTitleIcon && renderIcon(resolvedTitleIcon)}
-        <AppText
-          style={baseStyles.messageInline}
-          color={typeStyle.text}
-          size={sizeStyle.fontSize}
-        >
+        <View style={baseStyles.textContent}>
           {hasTitle && (
             <AppText color={typeStyle.text} size={sizeStyle.fontSize} weight="700">
               {title}
-              {message ? " " : ""}
             </AppText>
           )}
-          {message}
-        </AppText>
+          <AppText
+            style={baseStyles.messageInline}
+            color={typeStyle.text}
+            size={14}
+          >
+            {message}
+          </AppText>
+        </View>
       </View>
       {dismissible && resolvedCloseIcon && (
         <Pressable onPress={dismiss}>{renderIcon(resolvedCloseIcon)}</Pressable>

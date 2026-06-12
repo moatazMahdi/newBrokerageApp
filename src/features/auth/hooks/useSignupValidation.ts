@@ -18,7 +18,8 @@ export const useSignupValidation = () =>
 
       showToast({
         type: 'error',
-        title: message,
+        message: message,
+        dismissible: false
       })
     }
   });

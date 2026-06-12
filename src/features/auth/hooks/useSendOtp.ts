@@ -13,7 +13,8 @@ export const useSendOtp = () =>
 
       showToast({
         type: 'error',
-        title: message,
+        message: message,
+        dismissible: false
       })
     }
   });

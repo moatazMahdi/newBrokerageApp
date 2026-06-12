@@ -52,7 +52,8 @@ const ConfirmSocialOtp = () => {
     
         showToast({
           type: 'error',
-          title: message,
+          message: message,
+          dismissible: false
         })
       }   
     });
@@ -83,7 +84,8 @@ const ConfirmSocialOtp = () => {
 
           showToast({
             type: 'error',
-            title: message,
+            message: message,
+            dismissible: false
           })
         },
       },

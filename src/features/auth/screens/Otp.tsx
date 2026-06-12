@@ -152,7 +152,18 @@ const Otp = () => {
 
   const handleResend = () => {
     const onResult = {
-      onSuccess: () => setResetKey(prev => prev + 1),
+      onSuccess: (response: any) => {
+        setCode('');
+        setError(false);
+        setVerified(false);
+        setResetKey(prev => prev + 1);
+        
+        showToast({
+          type: 'success',
+          message: response?.msg,
+          dismissible: false
+        });
+      },
       onError: (err: any) =>{
         const message =
           err.response?.data?.errors?.[0] ??
@@ -160,7 +171,8 @@ const Otp = () => {
             'Something went wrong';
         showToast({
           type: "error",
-          message: message
+          message: message,
+          dismissible: false,
         })
       }
     };
@@ -189,7 +201,8 @@ const Otp = () => {
               'Something went wrong';
              showToast({
               type: "error",
-              title: message
+              title: message,
+              dismissible: false,
             })
             setVerified(false);
             setError(true);
@@ -210,7 +223,8 @@ const Otp = () => {
             'Something went wrong';
            showToast({
             type: "error",
-            title: message
+            title: message,
+            dismissible: false,
           })
           setVerified(false);
           setError(true);

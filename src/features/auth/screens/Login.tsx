@@ -116,7 +116,11 @@ useFocusEffect(
   const handleEnableBiometric = useCallback(async () => {
     const sensorAvailable = await isBiometricSensorAvailable();
     if (!sensorAvailable) {
-      showToast({ type: 'error', title: t('auth.biometric.notAvailable') });
+      showToast({ 
+        type: 'error', 
+        message: t('auth.biometric.notAvailable') ,
+        dismissible: false
+      });
       setShowBiometricModal(false);
       goToHome();
       return;

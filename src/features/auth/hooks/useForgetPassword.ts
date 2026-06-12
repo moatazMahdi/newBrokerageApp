@@ -18,7 +18,8 @@ export const useForgetPassword = () =>
 
       showToast({
         type: 'error',
-        title: message,
+        message: message,
+        dismissible: false
       })
     }
   });

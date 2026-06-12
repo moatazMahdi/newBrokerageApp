@@ -16,7 +16,7 @@ const formatTime = (totalSeconds: number) => {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 };
 
-const OtpTimer = ({ duration = 153, resetKey = 0, onResend }: Props) => {
+const OtpTimer = ({ duration = 180, resetKey = 0, onResend }: Props) => {
   const { t } = useTranslation();
   const [remaining, setRemaining] = useState(duration);
 

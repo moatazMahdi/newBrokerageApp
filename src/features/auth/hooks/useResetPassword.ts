@@ -17,7 +17,8 @@ export const useResetPassword = () =>
 
       showToast({
         type: 'error',
-        title: message,
+        message: message,
+        dismissible: false
       })
     }
   });
