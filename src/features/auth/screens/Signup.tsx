@@ -82,9 +82,9 @@ const Signup = () => {
           },
         });
       },
-      onError: error => {
-        Alert.alert(t('common.error'), error.message || t('auth.signup.failed'));
-      },
+      // onError: error => {
+      //   Alert.alert(t('common.error'), error.message || t('auth.signup.failed'));
+      // },
     });
   };
 

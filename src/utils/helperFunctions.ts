@@ -43,6 +43,14 @@ export const getFCMToken = async () => {
   }
 };
 
+export const getErrorMessage = (
+  error: any,
+  fallback = 'Something went wrong',
+): string =>
+  error?.response?.data?.errors?.[0] ??
+  error?.response?.data?.message ??
+  fallback;
+
 export const getAppVersion = () => DeviceInfo.getVersion();
 
 export const getDeviceInfo = async () => {

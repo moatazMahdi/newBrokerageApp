@@ -53,7 +53,6 @@ export const getToastStyles = () =>
     },
     messageInline: {
       flex: 1,
-      textAlign: "center",
     },
     collapsedContainer: {
       width: wp(343),

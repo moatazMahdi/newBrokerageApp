@@ -21,6 +21,7 @@ import {
   setGuest,
 } from '../../../storage/mmkv';
 import { showToast } from 'src/components/Toast/toastService';
+import { getErrorMessage } from '../../../utils/helperFunctions';
 
 const CODE_LENGTH = 6;
 
@@ -45,17 +46,12 @@ const ConfirmSocialOtp = () => {
     sendOtp(buildSendOtpRequest(fullPhone), {
       onSuccess: () => setResetKey(prev => prev + 1),
       onError: (error: any) => {
-        const message =
-          error.response?.data?.errors?.[0] ??
-          error.response?.data?.message ??
-            'Something went wrong';
-    
         showToast({
           type: 'error',
-          message: message,
+          message: getErrorMessage(error),
           dismissible: false
         })
-      }   
+      }
     });
   };
 
@@ -77,14 +73,9 @@ const ConfirmSocialOtp = () => {
           });
         },
         onError: (error: any) => {
-          const message =
-            error.response?.data?.errors?.[0] ??
-            error.response?.data?.message ??
-              'Something went wrong';
-
           showToast({
             type: 'error',
-            message: message,
+            message: getErrorMessage(error),
             dismissible: false
           })
         },

@@ -15,6 +15,7 @@ import type { AppStackParamList } from '../../../navigation/types';
 import { Assets } from '../../../assets';
 import { hp } from '../../../utils/dimensions';
 import { showToast } from 'src/components/Toast/toastService';
+import { getErrorMessage } from '../../../utils/helperFunctions';
 
 type FormData = {
   phone: string;
@@ -73,14 +74,9 @@ const ConfirmSocialPhone = () => {
         });
       },
       onError: (error: any) => {
-        const message =
-          error.response?.data?.errors?.[0] ??
-          error.response?.data?.message ??
-            'Something went wrong';
-    
         showToast({
           type: 'error',
-          message: message,
+          message: getErrorMessage(error),
           dismissible: false
         })
       }

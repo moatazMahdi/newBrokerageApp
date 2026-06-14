@@ -39,6 +39,7 @@ import {
 import {
   getAppVersion,
   getDeviceInfo,
+  getErrorMessage,
   getFCMToken,
 } from '../../../utils/helperFunctions';
 import { useDispatch } from 'react-redux';
@@ -165,13 +166,9 @@ const Otp = () => {
         });
       },
       onError: (err: any) =>{
-        const message =
-          err.response?.data?.errors?.[0] ??
-          err.response?.data?.message ??
-            'Something went wrong';
         showToast({
           type: "error",
-          message: message,
+          message: getErrorMessage(err),
           dismissible: false,
         })
       }
@@ -195,13 +192,9 @@ const Otp = () => {
           });
         },
         onError: (err) => {
-          const message =
-            err?.response?.data?.errors?.[0] ??
-            err?.response?.data?.message ??
-              'Something went wrong';
              showToast({
               type: "error",
-              title: message,
+              message: getErrorMessage(err),
               dismissible: false,
             })
             setVerified(false);
@@ -217,13 +210,9 @@ const Otp = () => {
         completeSignup();
       },
        onError: (err) => {
-        const message =
-          err?.response?.data?.errors?.[0] ??
-          err?.response?.data?.message ??
-            'Something went wrong';
            showToast({
             type: "error",
-            title: message,
+            message: getErrorMessage(err),
             dismissible: false,
           })
           setVerified(false);
