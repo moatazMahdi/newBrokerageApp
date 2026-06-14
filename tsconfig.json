@@ -7,6 +7,6 @@
       "src/*": ["src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   "exclude": ["**/node_modules", "**/Pods"]
 }

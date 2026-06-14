@@ -14,7 +14,8 @@ export const useLogin = () =>
 
       showToast({
         type: 'error',
-        title: message,
+        message: message,
+        dismissible: false
       });
     },
   });
