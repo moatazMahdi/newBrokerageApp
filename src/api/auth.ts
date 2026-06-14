@@ -1,12 +1,11 @@
 import { api } from './axios';
-import i18n from '../localization';
 import { forgetVerifyPassword, login, otpSend, passwordForget, passwordReset, signup, signupValidate, verifyOtp, socialLoginAll, socialLoginCompleted } from './authRequests';
 
 export type LoginRequest = {
   identifier: string;
   password: string;
   firebaseToken: string;
-  lang: 'en' | 'ar';
+
 };
 
 export type LoginData = {
@@ -36,11 +35,8 @@ export const buildLoginRequest = (
   identifier,
   password,
   firebaseToken,
-  lang: (i18n.language === 'ar' ? 'ar' : 'en') as 'en' | 'ar',
 });
 
-const currentLang = (): 'en' | 'ar' =>
-  (i18n.language === 'ar' ? 'ar' : 'en') as 'en' | 'ar';
 
 export type SignupRequest = {
   name: string;
@@ -48,7 +44,7 @@ export type SignupRequest = {
   phone: string;
   password: string;
   confirmPassword: string;
-  lang: 'en' | 'ar';
+
   appVersion?: string;
   firebaseNotificationToken?: string | null;
   location?: {
@@ -94,12 +90,11 @@ export const buildSignupRequest = (
   phone: `+2${phone}`,
   password,
   confirmPassword,
-  lang: currentLang(),
 });
 
 export type SendOtpRequest = {
   phone: string;
-  lang: 'en' | 'ar';
+
 };
 
 export type SendOtpResponse = {
@@ -115,13 +110,12 @@ export const sendOtp = async (
 
 export const buildSendOtpRequest = (phone: string): SendOtpRequest => ({
   phone,
-  lang: currentLang(),
 });
 
 export type VerifyCodeRequest = {
   phone: string;
   code: string;
-  lang: 'en' | 'ar';
+
 };
 
 export type VerifyCodeResponse = {
@@ -142,12 +136,12 @@ export const buildVerifyCodeRequest = (
 ): VerifyCodeRequest => ({
   phone,
   code,
-  lang: currentLang(),
+
 });
 
 export type ForgetPasswordRequest = {
   phone: string;
-  lang: 'en' | 'ar';
+
 };
 
 export type ForgetPasswordResponse = {
@@ -165,13 +159,13 @@ export const buildForgetPasswordRequest = (
   phone: string,
 ): ForgetPasswordRequest => ({
   phone,
-  lang: currentLang(),
+
 });
 
 export type ForgetVerifyCodeRequest = {
   phone: string;
   code: string;
-  lang: 'en' | 'ar';
+
 };
 
 export type ForgetVerifyCodeResponse = {
@@ -192,7 +186,7 @@ export const buildForgetVerifyCodeRequest = (
 ): ForgetVerifyCodeRequest => ({
   phone,
   code,
-  lang: currentLang(),
+
 });
 
 export type ResetPasswordRequest = {
@@ -200,7 +194,7 @@ export type ResetPasswordRequest = {
   code: string;
   password: string;
   confirmPassword: string;
-  lang: 'en' | 'ar';
+
 };
 
 export type ResetPasswordResponse = {
@@ -224,7 +218,7 @@ export const buildResetPasswordRequest = (
   code,
   password,
   confirmPassword,
-  lang: currentLang(),
+
 });
 
 export type SocialProvider = 'google' | 'facebook' | 'apple';
@@ -239,7 +233,7 @@ export type SocialLoginRequest = {
   token: string;
   phone?: string;
   appleUser?: string;
-  lang: 'en' | 'ar';
+
 };
 
 export type SocialLoginResponse = {
@@ -272,7 +266,7 @@ export const buildSocialLoginRequest = (
   token,
   phone,
   appleUser,
-  lang: currentLang(),
+
 });
 
 export type SocialLoginCompleteRequest = {
