@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageSourcePropType, FlatList } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import AppCard from '../../../components/AppCard';
 import { hp, wp } from '../../../utils/dimensions';
 
@@ -18,13 +19,16 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({
   partners,
   onViewAll,
   onPartnerPress,
-}) => (
+}) => {
+  const { t } = useTranslation();
+
+  return (
   <View style={styles.container}>
     <View style={styles.header}>
       <TouchableOpacity onPress={onViewAll}>
-        <Text style={styles.viewAll}>رؤية الكل</Text>
+        <Text style={styles.viewAll}>{t('home.partners.viewAll')}</Text>
       </TouchableOpacity>
-      <Text style={styles.title}>شركائنا</Text>
+      <Text style={styles.title}>{t('home.partners.sectionTitle')}</Text>
     </View>
     <FlatList
       data={partners}
@@ -43,7 +47,8 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({
       )}
     />
   </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

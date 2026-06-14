@@ -44,6 +44,29 @@ export default {
     },
   },
 
+  home: {
+    products: {
+      sectionTitle: 'Insurance Products',
+      individuals: 'Individuals',
+      companies: 'Companies',
+      vehicleInsurance: 'Vehicle Insurance',
+      medicalInsurance: 'Medical Insurance',
+      otherInsurance: 'Other Insurance',
+      transitInsurance: 'Transit Insurance',
+      engineeringInsurance: 'Engineering Insurance',
+    },
+    services: {
+      sectionTitle: 'Our Insurance Services',
+      policies: 'Policies',
+      claims: 'Claims',
+      pricing: 'Pricing',
+    },
+    partners: {
+      sectionTitle: 'Our Partners',
+      viewAll: 'View All',
+    },
+  },
+
   auth: {
     login: {
       welcome: 'Welcome back 👋',

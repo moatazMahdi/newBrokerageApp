@@ -1,24 +1,28 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import AppCard from '../../../components/AppCard';
 import { Assets } from '../../../assets';
 import { hp, wp } from '../../../utils/dimensions';
 
 const { components } = Assets.images;
 
-const SERVICES = [
-  { id: '1', title: 'الوثائق', svgIcon: components.policies },
-  { id: '2', title: 'المطالبات', svgIcon: components.insuranceClaims },
-  { id: '3', title: 'التسعير', svgIcon: components.pricing },
-];
-
 interface ServicesSectionProps {
   onServicePress?: (id: string) => void;
 }
 
-const ServicesSection: React.FC<ServicesSectionProps> = ({ onServicePress }) => (
+const ServicesSection: React.FC<ServicesSectionProps> = ({ onServicePress }) => {
+  const { t } = useTranslation();
+
+  const SERVICES = [
+    { id: '1', title: t('home.services.policies'), svgIcon: components.policies },
+    { id: '2', title: t('home.services.claims'), svgIcon: components.insuranceClaims },
+    { id: '3', title: t('home.services.pricing'), svgIcon: components.pricing },
+  ];
+
+  return (
   <View style={styles.container}>
-    <Text style={styles.title}>خدماتنا التأمينية</Text>
+    <Text style={styles.title}>{t('home.services.sectionTitle')}</Text>
     <View style={styles.row}>
       {SERVICES.map((service) => (
         <AppCard
@@ -30,7 +34,8 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onServicePress }) => 
       ))}
     </View>
   </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

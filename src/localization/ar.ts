@@ -44,6 +44,29 @@ export default {
     },
   },
 
+  home: {
+    products: {
+      sectionTitle: 'المنتجات التأمينية',
+      individuals: 'أفراد',
+      companies: 'شركات',
+      vehicleInsurance: 'تأمين المركبات',
+      medicalInsurance: 'التأمين الطبي',
+      otherInsurance: 'تأمينات أخري',
+      transitInsurance: 'تأمين النقل',
+      engineeringInsurance: 'التأمين الهندسي',
+    },
+    services: {
+      sectionTitle: 'خدماتنا التأمينية',
+      policies: 'الوثائق',
+      claims: 'المطالبات',
+      pricing: 'التسعير',
+    },
+    partners: {
+      sectionTitle: 'شركائنا',
+      viewAll: 'رؤية الكل',
+    },
+  },
+
   auth: {
     login: {
       welcome: 'مرحبا بعودتك 👋',

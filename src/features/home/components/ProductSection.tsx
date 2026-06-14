@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Product, CustomerType } from '../types/home.types';
 import { homeStyles } from '../styles/home.styles';
 import AppCard from '../../../components/AppCard';
@@ -18,6 +19,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
   companyProducts = [],
   onProductPress,
 }) => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<CustomerType>('individuals');
 
   const products = activeTab === 'individuals' ? individualProducts : companyProducts;
@@ -26,7 +28,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
   return (
     <View style={homeStyles.productSection}>
       <View style={homeStyles.productSectionHeader}>
-        <Text style={homeStyles.productSectionTitle}>المنتجات التأمينية</Text>
+        <Text style={homeStyles.productSectionTitle}>{t('home.products.sectionTitle')}</Text>
         <View style={homeStyles.tabsRow}>
          
           <TouchableOpacity
@@ -35,7 +37,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
           >
                    <SvgView svgFile={userTab} width={wp(12)} height={hp(12)} color={activeTab === 'individuals' ? '#FFFFFF' : '#6F6F74'} />
             <Text style={[homeStyles.tabText, activeTab === 'individuals' && homeStyles.activeTabText]}>
-              أفراد
+              {t('home.products.individuals')}
             </Text>
           </TouchableOpacity>
            <TouchableOpacity
@@ -44,7 +46,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
           >
                                <SvgView svgFile={building} width={wp(12)} height={hp(12)} color={activeTab === 'individuals' ? '#FFFFFF' : '#6F6F74'} />
             <Text style={[homeStyles.tabText, activeTab === 'companies' && homeStyles.activeTabText]}>
-              شركات
+              {t('home.products.companies')}
             </Text>
 
           </TouchableOpacity>
