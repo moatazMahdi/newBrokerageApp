@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, Image, Pressable, ImageSourcePropType, ViewStyle } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  ImageSourcePropType,
+  ViewStyle,
+} from 'react-native';
 import { appCardStyles } from './appCard.styles';
 import { SvgView } from '../SvgView/SvgView';
 
@@ -12,9 +19,20 @@ interface AppCardProps {
   cardStyle?: ViewStyle;
 }
 
-const AppCard: React.FC<AppCardProps> = ({ title, image, svgIcon, onPress, width, cardStyle }) => (
+const AppCard: React.FC<AppCardProps> = ({
+  title,
+  image,
+  svgIcon,
+  onPress,
+  width,
+  cardStyle,
+}) => (
   <Pressable
-    style={[appCardStyles.card, width !== undefined ? { width } : { flex: 1 }, cardStyle]}
+    style={[
+      appCardStyles.card,
+      width !== undefined ? { width } : { flex: 1 },
+      cardStyle,
+    ]}
     onPress={onPress}
   >
     {svgIcon !== undefined && (
@@ -22,22 +40,16 @@ const AppCard: React.FC<AppCardProps> = ({ title, image, svgIcon, onPress, width
         <SvgView svgFile={svgIcon} width="100%" height="100%" />
       </View>
     )}
-    {image !== undefined && svgIcon === undefined && (
+    {image && !svgIcon && (
       <View style={appCardStyles.imageContainer}>
-        {image ? (
-          <Image
-            source={image}
-            style={appCardStyles.image}
-            resizeMode="contain"
-          />
-        ) : (
-          <View style={appCardStyles.imagePlaceholder} />
-        )}
+        <Image
+          source={image}
+          style={appCardStyles.image}
+          resizeMode="contain"
+        />
       </View>
     )}
-    {title !== undefined && (
-      <Text style={appCardStyles.title}>{title}</Text>
-    )}
+    {title !== undefined && <Text style={appCardStyles.title}>{title}</Text>}
   </Pressable>
 );
 

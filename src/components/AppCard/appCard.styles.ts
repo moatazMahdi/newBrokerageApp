@@ -16,12 +16,6 @@ export const appCardStyles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  imagePlaceholder: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#E8EDFF',
-    borderRadius: wp(8),
-  },
   title: {
     fontSize: wp(12),
     fontWeight: '500',
