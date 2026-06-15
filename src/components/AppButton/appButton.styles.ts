@@ -1,34 +1,33 @@
 import { I18nManager, StyleSheet } from 'react-native';
 
-import { hp } from '../../utils/dimensions';
+import { hp, wp } from '../../utils/dimensions';
 
 export const appButtonStyles = StyleSheet.create({
   button: {
     height: hp(48),
-    borderRadius: 12,
+    borderRadius: hp(12),
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: wp(20),
   },
 
   content: {
-    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+    flexDirection: "row-reverse",
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   icon: {
-    marginHorizontal: 8,
+    marginHorizontal: wp(4),
     alignItems: 'center',
     justifyContent: 'center',
+    transform: I18nManager.isRTL ? [] : [{ rotate: '180deg' }],
   },
 
   title: {
-    fontSize: 16,
+    fontSize: hp(16),
     fontWeight: "700",
     textAlign: 'center',
-    paddingHorizontal: 2,
-    paddingVertical: 4,
   },
 
   disabledButton: {
@@ -36,8 +35,8 @@ export const appButtonStyles = StyleSheet.create({
   },
 
   loader: {
-    width: 70,
-    height: 70,
+    width: wp(70),
+    height: hp(70),
   },
 
 });

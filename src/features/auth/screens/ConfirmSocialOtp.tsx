@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Alert, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -20,6 +20,8 @@ import {
   saveUserPhone,
   setGuest,
 } from '../../../storage/mmkv';
+import { showToast } from 'src/components/Toast/toastService';
+import { getErrorMessage } from '../../../utils/helperFunctions';
 
 const CODE_LENGTH = 6;
 
@@ -38,23 +40,22 @@ const ConfirmSocialOtp = () => {
   const { mutate: sendOtp } = useSendOtp();
   const { mutate: completeLogin, isPending } = useSocialLoginComplete();
 
+  const isCodeValid = /^\d{6}$/.test(code);
+
   const handleResend = () => {
     sendOtp(buildSendOtpRequest(fullPhone), {
       onSuccess: () => setResetKey(prev => prev + 1),
-      onError: error =>
-        Alert.alert(
-          t('common.error'),
-          error.message || t('auth.otp.resendFailed'),
-        ),
+      onError: (error: any) => {
+        showToast({
+          type: 'error',
+          message: getErrorMessage(error),
+          dismissible: false
+        })
+      }
     });
   };
 
   const handleConfirm = (value: string = code) => {
-    if (value.length < CODE_LENGTH) {
-      Alert.alert(t('common.error'), t('auth.otp.enterFullCode'));
-      return;
-    }
-
     completeLogin(
       { tmpToken, phone: fullPhone, code: value },
       {
@@ -71,24 +72,29 @@ const ConfirmSocialOtp = () => {
             routes: [{ name: Routes.BUTTON_TAB }],
           });
         },
-        onError: error =>
-          Alert.alert(
-            t('common.error'),
-            error.message || t('auth.otp.invalidCode'),
-          ),
+        onError: (error: any) => {
+          showToast({
+            type: 'error',
+            message: getErrorMessage(error),
+            dismissible: false
+          })
+        },
       },
     );
   };
 
-  useEffect(() => {
-    if (code.length === CODE_LENGTH) {
-      handleConfirm(code);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code]);
+  // useEffect(() => {
+  //   if (code.length === CODE_LENGTH) {
+  //     handleConfirm(code);
+  //   }
+  // }, [code, handleConfirm]);
+
+  const goBack = () =>{
+    navigation.goBack();
+  }
 
   return (
-    <ScreenContainer>
+    <ScreenContainer screenTitle={t('auth.otp.screenTitle')} onBackPress={goBack} scrollable>
       <OtpHeader phone={fullPhone} />
       <OtpInput length={CODE_LENGTH} value={code} onChange={setCode} />
       <OtpTimer resetKey={resetKey} onResend={handleResend} />
@@ -100,6 +106,7 @@ const ConfirmSocialOtp = () => {
           title={t('auth.otp.confirm')}
           onPress={() => handleConfirm()}
           loading={isPending}
+          disabled={!isCodeValid || isPending}
         />
       </View>
     </ScreenContainer>

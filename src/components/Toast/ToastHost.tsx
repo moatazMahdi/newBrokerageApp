@@ -15,6 +15,10 @@ export default function ToastHost() {
   const baseStyles = getToastStyles();
 
   useEffect(() => {
+  registerToast(setOptions, () => setVisible(false));
+}, []);
+
+  useEffect(() => {
     registerToast(
       next => {
         setOptions(next);

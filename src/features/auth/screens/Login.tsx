@@ -73,7 +73,7 @@ useFocusEffect(
   }, [])
 );
 
-  const isPhoneValid = phone.trim().length === 11;
+  const isPhoneValid = /^01\d{9}$/.test(phone.trim());
   const isPasswordValid = password.length >= 8;
   const canSubmit = isPhoneValid && isPasswordValid;
 
@@ -116,7 +116,11 @@ useFocusEffect(
   const handleEnableBiometric = useCallback(async () => {
     const sensorAvailable = await isBiometricSensorAvailable();
     if (!sensorAvailable) {
-      showToast({ type: 'error', title: t('auth.biometric.notAvailable') });
+      showToast({ 
+        type: 'error', 
+        message: t('auth.biometric.notAvailable') ,
+        dismissible: false
+      });
       setShowBiometricModal(false);
       goToHome();
       return;
@@ -172,7 +176,7 @@ useFocusEffect(
   }, [navigation]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer scrollable>
       <LoginHeader />
       <LoginForm
         phone={phone}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import {
   StyleProp,
@@ -13,6 +13,9 @@ import LottieView from 'lottie-react-native';
 import { Assets } from '../../assets';
 
 import { appButtonStyles } from './appButton.styles';
+import { SvgProps } from 'react-native-svg';
+import SvgView from '../SvgView/SvgView';
+import { hp, wp } from 'src/utils/dimensions';
 
 export type AppButtonVariant =
   | 'primary'
@@ -37,8 +40,8 @@ interface Props {
   disabled?: boolean;
   loading?: boolean;
 
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: FC<SvgProps>;
+  rightIcon?: FC<SvgProps>;
 
   style?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
@@ -148,11 +151,11 @@ const AppButton = ({
         />
       ) : (
         <View style={appButtonStyles.content}>
-          {leftIcon ? (
-            <View style={appButtonStyles.icon}>
-              {leftIcon}
-            </View>
-          ) : null}
+          <View style={appButtonStyles.icon}>
+            {leftIcon ? (
+              <SvgView svgFile={leftIcon} width={wp(24)} height={hp(24)} />
+            ) : null}
+          </View>
 
           <Text
             style={[
@@ -167,9 +170,7 @@ const AppButton = ({
           </Text>
 
           {rightIcon ? (
-            <View style={appButtonStyles.icon}>
-              {rightIcon}
-            </View>
+            <SvgView svgFile={rightIcon} width={wp(24)} height={hp(24)} />
           ) : null}
         </View>
       )}

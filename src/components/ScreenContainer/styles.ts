@@ -10,6 +10,16 @@ const styles = StyleSheet.create({
          borderTopRightRadius:wp(20),
          paddingTop:hp(20),
     },
+    content: {
+        flex: 1,
+    },
+    keyboardAvoidingView: {
+        flex: 1,
+    },
+    scrollContent: {
+        flexGrow: 1,
+        paddingBottom: hp(120),
+    },
 });
 
 export default styles;

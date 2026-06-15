@@ -1,5 +1,7 @@
 import {PermissionsAndroid, Platform} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import DeviceInfo from 'react-native-device-info';
+
 
 export const requestNotificationPermission = async () => {
   try {
@@ -39,4 +41,29 @@ export const getFCMToken = async () => {
     console.log(error);
     return null;
   }
+};
+
+export const getErrorMessage = (
+  error: any,
+  fallback = 'Something went wrong',
+): string =>
+  error?.response?.data?.errors?.[0] ??
+  error?.response?.data?.message ??
+  fallback;
+
+export const getAppVersion = () => DeviceInfo.getVersion();
+
+export const getDeviceInfo = async () => {
+  return {
+    platform: Platform.OS,
+    is_tablet: DeviceInfo.isTablet(),
+    system_version: DeviceInfo.getSystemVersion(),
+    brand: DeviceInfo.getBrand(),
+    model: DeviceInfo.getModel(),
+    power_state: await DeviceInfo.getPowerState(),
+    manufacturer: await DeviceInfo.getManufacturer(),
+    carrier: await DeviceInfo.getCarrier(),
+    total_capacity: await DeviceInfo.getTotalDiskCapacity(),
+    free_storage: await DeviceInfo.getFreeDiskStorage(),
+  };
 };

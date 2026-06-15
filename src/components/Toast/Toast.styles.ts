@@ -25,7 +25,6 @@ export const toastVariants: ToastVariants = {
 export const getToastStyles = () =>
   StyleSheet.create({
     container: {
-      minHeight: hp(48),
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -37,18 +36,24 @@ export const getToastStyles = () =>
       borderWidth: 0.5,
     },
     centeredRow: {
-      alignItems: "center",
+      flex: 1,
+      flexDirection: "row",
+      gap: wp(12),
     },
     contentRow: {
       flexDirection: "row",
-      alignItems: "center",
       gap: wp(8),
       flexShrink: 1,
       flexGrow: 1,
     },
+    textContent: {
+      flex: 1,
+      flexDirection: 'column',
+      gap: hp(8),
+    },
     messageInline: {
       flex: 1,
-      textAlign: "center",
+      textAlign: "left"
     },
     collapsedContainer: {
       width: wp(343),
