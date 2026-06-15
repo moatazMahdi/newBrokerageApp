@@ -4,15 +4,24 @@ import { useTranslation } from 'react-i18next'
 import AppText from '../../../components/AppText/AppText'
 import SvgView from '../../../components/SvgView/SvgView'
 import { Assets } from '../../../assets'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { AppStackParamList } from 'src/navigation/types'
+import { Routes } from 'src/navigation/routes'
 
 const GuestButton = () => {
   const { t } = useTranslation()
-  const {images:{
+const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();  const {images:{
     components: {ArrowLeft},
   }} = Assets
+
+  const handelGuestPress = () => {
+    navigation.navigate(Routes.BUTTON_TAB )
+  }
+
   return (
     <TouchableOpacity style= {styles.container}
-    onPress={() => {}}
+    onPress={handelGuestPress}
     >
       <AppText size={16} weight="500" color="black">
        {t('auth.login.guestBrowse')}

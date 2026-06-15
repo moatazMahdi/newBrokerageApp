@@ -7,6 +7,8 @@ import com.facebook.react.ReactHost
 import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.lugg.RNCConfig.RNCConfigPackage;
+import com.facebook.react.modules.network.NetworkingModule
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 
 class MainApplication : Application(), ReactApplication {
 
@@ -24,6 +26,17 @@ class MainApplication : Application(), ReactApplication {
 
   override fun onCreate() {
     super.onCreate()
+
+    NetworkingModule.setCustomClientBuilder { builder ->
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(
+                ChuckerInterceptor.Builder(this)
+                    .alwaysReadResponseBody(true)
+                    .build()
+            )
+        }
+    }
+
     loadReactNative(this)
-  }
+}
 }

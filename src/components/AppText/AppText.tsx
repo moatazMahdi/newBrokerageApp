@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextProps, TextStyle } from 'react-native';
+import { StyleProp, Text, TextProps, TextStyle } from 'react-native';
 import { textAlign } from '../../utils/direction';
 
 type FontWeight =
@@ -13,7 +13,7 @@ interface AppTextProps extends TextProps {
   size?: number;
   color?: string;
   weight?: FontWeight;
-  style?: TextStyle | TextStyle[];
+  style?: StyleProp<TextStyle>;
 }
 
 const AppText = ({

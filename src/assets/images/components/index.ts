@@ -15,13 +15,21 @@ import ArrowLeft from './arrowLeft.svg'
 import User from './User.svg'
 import UserTab from './userTab.svg'
 import Building from './Buildings.svg'
+import Policies from './policies.svg'
+import InsuranceClaims from './insuranceClaims.svg'
+import Pricing from './pricing.svg'
 
 import Close from './Close.svg'
 import Error from './Error.svg'
 import Information from './Information.svg'
 import InformationClose from './InformationClose.svg'
 import biometricModal from './biometricModal.svg'
-
+import circle from './Circle.svg'
+import circleChecked from './CircleChecked.svg'
+import SuccessModalIcon from './SuccessModalIcon.svg'
+import BackArrow from "./BackArrow.svg"
+import OnboardingNextArrow from "./OnboardingNextArrow.svg"
+ 
 export class Components {
     static onBoarding1 = require('./onboarding1.png');
     static onBoarding2 = require('./onboarding2.png');
@@ -32,6 +40,13 @@ export class Components {
     static menu = require('./menu.png');
     static whatsApp = require('./whatsApp.png');
     static AppHeaderImageBG = require('./AppHeaderImageBG.png');
+    static offersDummy = require('./offersDummy.png');
+    static vehicleInsurance = require('./vehicleInsurance.png');
+    static medicalInsurance = require('./medicalInsurance.png');
+    static otherInsurance = require('./otherInsurance.png');
+    static engineeringInsurance = require('./engineeringInsurance.png');
+    static transitInsurance = require('./transitInsurance.png');
+    static otherCompanyInsurance = require('./otherCompanyInsurance.png');
     static closeWhite = closeWhite;
     static lang = lang;
     static logo = logo;
@@ -48,9 +63,17 @@ export class Components {
     static bell = bell;
     static userTab = UserTab;
     static building = Building;
+    static policies = Policies;
+    static insuranceClaims = InsuranceClaims;
+    static pricing = Pricing;
     static Close = Close;
     static Error = Error;
     static Information = Information;
     static InformationClose = InformationClose;
     static biometricModal = biometricModal;
+    static circle = circle;
+    static circleChecked = circleChecked;
+    static SuccessModalIcon = SuccessModalIcon;
+    static BackArrow = BackArrow;
+    static OnboardingNextArrow = OnboardingNextArrow;
 }

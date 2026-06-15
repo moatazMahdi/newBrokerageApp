@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Product, CustomerType } from '../types/home.types';
 import { homeStyles } from '../styles/home.styles';
+import AppCard from '../../../components/AppCard';
 import { Assets } from '../../../assets';
 import { SvgView } from '../../../components/SvgView/SvgView';
 import { hp, wp } from '../../../utils/dimensions';
+import AppText from 'src/components/AppText/AppText';
 
 interface ProductSectionProps {
   individualProducts?: Product[];
@@ -17,6 +20,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
   companyProducts = [],
   onProductPress,
 }) => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<CustomerType>('individuals');
 
   const products = activeTab === 'individuals' ? individualProducts : companyProducts;
@@ -25,7 +29,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
   return (
     <View style={homeStyles.productSection}>
       <View style={homeStyles.productSectionHeader}>
-        <Text style={homeStyles.productSectionTitle}>المنتجات التأمينية</Text>
+        <AppText style={homeStyles.productSectionTitle}>{t('home.products.sectionTitle')}</AppText>
         <View style={homeStyles.tabsRow}>
          
           <TouchableOpacity
@@ -33,18 +37,18 @@ const ProductSection: React.FC<ProductSectionProps> = ({
             onPress={() => setActiveTab('individuals')}
           >
                    <SvgView svgFile={userTab} width={wp(12)} height={hp(12)} color={activeTab === 'individuals' ? '#FFFFFF' : '#6F6F74'} />
-            <Text style={[homeStyles.tabText, activeTab === 'individuals' && homeStyles.activeTabText]}>
-              أفراد
-            </Text>
+            <AppText style={[homeStyles.tabText, activeTab === 'individuals' && homeStyles.activeTabText]}>
+              {t('home.products.individuals')}
+            </AppText>
           </TouchableOpacity>
            <TouchableOpacity
             style={[homeStyles.tab, activeTab === 'companies' && homeStyles.activeTab]}
             onPress={() => setActiveTab('companies')}
           >
                                <SvgView svgFile={building} width={wp(12)} height={hp(12)} color={activeTab === 'individuals' ? '#FFFFFF' : '#6F6F74'} />
-            <Text style={[homeStyles.tabText, activeTab === 'companies' && homeStyles.activeTabText]}>
-              شركات
-            </Text>
+            <AppText style={[homeStyles.tabText, activeTab === 'companies' ? homeStyles.activeTabText : undefined]}>
+               {t('home.products.companies')}
+            </AppText>
 
           </TouchableOpacity>
         </View>
@@ -52,43 +56,16 @@ const ProductSection: React.FC<ProductSectionProps> = ({
 
       <View style={homeStyles.cardsRow}>
         {products.map((product) => (
-          <ProductCard
+          <AppCard
             key={product.id}
-            product={product}
-            onPress={onProductPress}
-            width={wp(98)}
+            title={product.title}
+            image={product.image}
+            onPress={() => onProductPress?.(product)}
           />
         ))}
       </View>
     </View>
   );
 };
-
-interface ProductCardProps {
-  product: Product;
-  onPress?: (product: Product) => void;
-  width:number
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({ product, onPress,width }) => (
-  <TouchableOpacity
-    style={[homeStyles.card,{width:width}]}
-    onPress={() => onPress?.(product)}
-    activeOpacity={0.8}
-  >
-    <View style={homeStyles.cardImageContainer}>
-      {product.imageUrl ? (
-        <Image
-          source={{ uri: product.imageUrl }}
-          style={homeStyles.cardImage}
-          resizeMode="contain"
-        />
-      ) : (
-        <View style={homeStyles.cardImagePlaceholder} />
-      )}
-    </View>
-    <Text style={homeStyles.cardTitle}>{product.title}</Text>
-  </TouchableOpacity>
-);
 
 export default ProductSection;

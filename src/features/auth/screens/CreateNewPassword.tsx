@@ -1,5 +1,4 @@
 import React from 'react';
-import { Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -7,7 +6,10 @@ import ScreenContainer from '../../../components/ScreenContainer/ScreenContainer
 import AppButton from '../../../components/AppButton';
 import CreateNewPasswordHeader from '../components/CreateNewPasswordHeader';
 import CreateNewPasswordForm from '../components/CreateNewPasswordForm';
-import SignupButton from '../components/SignupButton';
+import PasswordRequirements, {
+  isPasswordValid,
+} from '../components/PasswordRequirements';
+import SuccessModal from '../components/SuccessModal';
 import { useResetPassword } from '../hooks/useResetPassword';
 import { buildResetPasswordRequest } from '../../../api/auth';
 import { Routes } from '../../../navigation/routes';
@@ -24,56 +26,65 @@ const CreateNewPassword = () => {
 
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [openPassword, setOpenPassword] = React.useState(false);
-  const [openConfirmPassword, setOpenConfirmPassword] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = React.useState(false);
+  const [showSuccess, setShowSuccess] = React.useState(false);
 
   const { mutate: resetPassword, isPending } = useResetPassword();
+
+  const goToLogin = () => {
+    setShowSuccess(false);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.LOGIN }],
+    });
+  };
 
   const mismatch =
     confirmPassword.length > 0 && password !== confirmPassword;
 
-  const handleConfirm = () => {
-    if (!password.trim() || !confirmPassword.trim()) {
-      Alert.alert(t('common.error'), t('common.fillAllFields'));
-      return;
-    }
+  const canSubmit =
+    isPasswordValid(password) && password === confirmPassword;
 
-    if (password !== confirmPassword) {
-      Alert.alert(t('common.error'), t('auth.validation.passwordsMustMatch'));
-      return;
-    }
+  const handleConfirm = () => {
 
     resetPassword(
       buildResetPasswordRequest(phone, code, password, confirmPassword),
       {
         onSuccess: () => {
-          Alert.alert(t('common.success'), t('auth.createNewPassword.success'));
-          navigation.reset({
-            index: 0,
-            routes: [{ name: Routes.LOGIN }],
-          });
-        },
-        onError: error => {
-          Alert.alert(t('common.error'), error.message || t('auth.createNewPassword.failed'));
+          setShowSuccess(true);
         },
       },
     );
   };
 
+  const onCloseModal = () => {
+    goToLogin();
+  }
+
+  const goBack = () => {
+    navigation.reset({
+      index: 1,
+      routes: [{ name: Routes.FORGOT_PASSWORD }],
+    })
+  }
+
   return (
-    <ScreenContainer>
+    <ScreenContainer screenTitle={t('auth.createNewPassword.screenTitle')} onBackPress={goBack} scrollable>
       <CreateNewPasswordHeader />
       <CreateNewPasswordForm
         password={password}
         confirmPassword={confirmPassword}
-        openPassword={openPassword}
-        openConfirmPassword={openConfirmPassword}
+        isPasswordVisible={isPasswordVisible}
+        isConfirmPasswordVisible={isConfirmPasswordVisible}
         error={mismatch ? t('auth.validation.passwordsMustMatch') : undefined}
         onPasswordChange={setPassword}
         onConfirmPasswordChange={setConfirmPassword}
-        onTogglePassword={() => setOpenPassword(prev => !prev)}
-        onToggleConfirmPassword={() => setOpenConfirmPassword(prev => !prev)}
+        onTogglePassword={() => setIsPasswordVisible(prev => !prev)}
+        onToggleConfirmPassword={() => setIsConfirmPasswordVisible(prev => !prev)}
       />
+
+      <PasswordRequirements password={password} />
 
       <AppButton
         variant='primary'
@@ -81,12 +92,18 @@ const CreateNewPassword = () => {
         title={t('auth.createNewPassword.confirm')}
         onPress={handleConfirm}
         loading={isPending}
+        disabled={!canSubmit}
         style={{
           marginTop: hp(32),
           marginBottom: hp(24)
         }}
       />
-      <SignupButton />
+
+      <SuccessModal
+        visible={showSuccess}
+        onClose={onCloseModal}
+        onLogin={goToLogin}
+      />
     </ScreenContainer>
   );
 };

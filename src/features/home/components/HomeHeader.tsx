@@ -1,23 +1,12 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Pressable, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Assets } from '../../../assets';
 import { wp, hp } from '../../../utils/dimensions';
 import { SvgView } from '../../../components/SvgView/SvgView';
 import { homeStyles, homeHeaderGradient } from '../styles/home.styles';
 import ProductSection from './ProductSection';
 import { Product } from '../types/home.types';
-
-const INDIVIDUAL_PRODUCTS: Product[] = [
-  { id: '1', title: 'تأمين المركبات', imageUrl: '' },
-  { id: '2', title: 'التأمين الطبي', imageUrl: '' },
-  { id: '3', title: 'تأمينات اخري', imageUrl: '' },
-];
-
-const COMPANY_PRODUCTS: Product[] = [
-  { id: '4', title: 'تأمين المركبات', imageUrl: '' },
-  { id: '5', title: 'التأمين الطبي', imageUrl: '' },
-  { id: '6', title: 'تأمينات اخري', imageUrl: '' },
-];
 
 interface HomeHeaderProps {
   notificationCount?: number;
@@ -28,7 +17,20 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
   notificationCount = 0,
   onNotificationPress,
 }) => {
-  const { components: { logo, bell } } = Assets.images;
+  const { t } = useTranslation();
+  const { components: { logo, bell, otherInsurance, medicalInsurance, vehicleInsurance, otherCompanyInsurance, transitInsurance, engineeringInsurance } } = Assets.images;
+
+  const INDIVIDUAL_PRODUCTS: Product[] = [
+    { id: '3', title: t('home.products.otherInsurance'), image: otherInsurance },
+    { id: '2', title: t('home.products.medicalInsurance'), image: medicalInsurance },
+    { id: '1', title: t('home.products.vehicleInsurance'), image: vehicleInsurance },
+  ];
+
+  const COMPANY_PRODUCTS: Product[] = [
+    { id: '6', title: t('home.products.otherInsurance'), image: otherCompanyInsurance },
+    { id: '5', title: t('home.products.transitInsurance'), image: transitInsurance },
+    { id: '4', title: t('home.products.engineeringInsurance'), image: engineeringInsurance },
+  ];
 
   return (
     <View
@@ -36,7 +38,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
     >
       <View style={homeStyles.headerRow}>
         <SvgView svgFile={logo} width={wp(95)} height={hp(32)} />
-        <TouchableOpacity style={homeStyles.bellButton} onPress={onNotificationPress}>
+        <Pressable style={homeStyles.bellButton} onPress={onNotificationPress}>
           <SvgView svgFile={bell} width={wp(20)} height={hp(20)} />
           {notificationCount > 0 && (
             <View style={homeStyles.badge}>
@@ -45,7 +47,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
               </Text>
             </View>
           )}
-        </TouchableOpacity>
+        </Pressable>
       </View>
        <ProductSection
               individualProducts={INDIVIDUAL_PRODUCTS}

@@ -1,23 +1,28 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { FormikProps } from 'formik';
+import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import AppTextField from '../../../components/AppTextField/AppTextField';
 import { Assets } from '../../../assets';
 import type { SignupValues } from '../validation/signupSchema';
+import PasswordStrengthMeter from './PasswordStrengthMeter';
 
 type Props = {
-  form: FormikProps<SignupValues>;
-  openPassword: boolean;
-  openConfirmPassword: boolean;
+  control: Control<SignupValues>;
+  errors: FieldErrors<SignupValues>;
+  isPasswordVisible: boolean;
+  isConfirmPasswordVisible: boolean;
+  password: string;
   onTogglePassword: () => void;
   onToggleConfirmPassword: () => void;
 };
 
 const SignupForm = ({
-  form,
-  openPassword,
-  openConfirmPassword,
+  control,
+  errors,
+  isPasswordVisible,
+  isConfirmPasswordVisible,
+  password,
   onTogglePassword,
   onToggleConfirmPassword,
 }: Props) => {
@@ -28,55 +33,78 @@ const SignupForm = ({
     },
   } = Assets;
 
-  const { values, errors, touched, handleChange, handleBlur } = form;
-
-  // Only surface an error once the field has been touched.
-  const errorFor = (field: keyof SignupValues) =>
-    touched[field] ? errors[field] : undefined;
-
   return (
     <View style={styles.signupFormContainer}>
-      <AppTextField
-        label={t('auth.signup.phone')}
-        value={values.phone}
-        onChangeText={handleChange('phone')}
-        onBlur={handleBlur('phone')}
-        rightIcon={phoneIcon}
-        keyboardType="phone-pad"
-        error={errorFor('phone')}
+      <Controller
+        control={control}
+        name="phone"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <AppTextField
+            label={t('auth.signup.phone')}
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            rightIcon={phoneIcon}
+            keyboardType="phone-pad"
+            error={errors.phone?.message}
+            maxLength={11}
+          />
+        )}
       />
 
-      <AppTextField
-        label={t('auth.signup.username')}
-        value={values.fullName}
-        onChangeText={handleChange('fullName')}
-        onBlur={handleBlur('fullName')}
-        rightIcon={User}
-        error={errorFor('fullName')}
+      <Controller
+        control={control}
+        name="username"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <AppTextField
+            label={t('auth.signup.username')}
+            value={value}
+            onChangeText={text =>
+              onChange(text.replace(/^\s+/, '').replace(/[^A-Za-z0-9_]/g, ''))
+            }
+            onBlur={onBlur}
+            rightIcon={User}
+            error={errors.username?.message}
+          />
+        )}
       />
 
-      <AppTextField
-        label={t('auth.signup.password')}
-        value={values.password}
-        onChangeText={handleChange('password')}
-        onBlur={handleBlur('password')}
-        rightIcon={lockPassword}
-        secureTextEntry={!openPassword}
-        leftIcon={openPassword ? eyeOn : eyeOff}
-        onLeftIconPress={onTogglePassword}
-        error={errorFor('password')}
+      <Controller
+        control={control}
+        name="password"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <AppTextField
+            label={t('auth.signup.password')}
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            rightIcon={lockPassword}
+            secureTextEntry={!isPasswordVisible}
+            leftIcon={isPasswordVisible ? eyeOn : eyeOff}
+            onLeftIconPress={onTogglePassword}
+            error={errors.password?.message}
+          />
+        )}
       />
 
-      <AppTextField
-        label={t('auth.signup.confirmPassword')}
-        value={values.confirmPassword}
-        onChangeText={handleChange('confirmPassword')}
-        onBlur={handleBlur('confirmPassword')}
-        rightIcon={lockPassword}
-        secureTextEntry={!openConfirmPassword}
-        leftIcon={openConfirmPassword ? eyeOn : eyeOff}
-        onLeftIconPress={onToggleConfirmPassword}
-        error={errorFor('confirmPassword')}
+      <PasswordStrengthMeter password={password} />
+      
+      <Controller
+        control={control}
+        name="confirmPassword"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <AppTextField
+            label={t('auth.signup.confirmPassword')}
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            rightIcon={lockPassword}
+            secureTextEntry={!isConfirmPasswordVisible}
+            leftIcon={isConfirmPasswordVisible ? eyeOn : eyeOff}
+            onLeftIconPress={onToggleConfirmPassword}
+            error={errors.confirmPassword?.message}
+          />
+        )}
       />
     </View>
   );
