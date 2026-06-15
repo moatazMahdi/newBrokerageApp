@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Pressable, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Assets } from '../../../assets';
 import { wp, hp } from '../../../utils/dimensions';
@@ -38,7 +38,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
     >
       <View style={homeStyles.headerRow}>
         <SvgView svgFile={logo} width={wp(95)} height={hp(32)} />
-        <TouchableOpacity style={homeStyles.bellButton} onPress={onNotificationPress}>
+        <Pressable style={homeStyles.bellButton} onPress={onNotificationPress}>
           <SvgView svgFile={bell} width={wp(20)} height={hp(20)} />
           {notificationCount > 0 && (
             <View style={homeStyles.badge}>
@@ -47,7 +47,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
               </Text>
             </View>
           )}
-        </TouchableOpacity>
+        </Pressable>
       </View>
        <ProductSection
               individualProducts={INDIVIDUAL_PRODUCTS}

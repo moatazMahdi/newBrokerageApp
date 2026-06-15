@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, I18nManager } from 'react-native';
 import { hp, wp } from '../../../utils/dimensions';
 
 const { width } = Dimensions.get('window');
@@ -23,10 +23,9 @@ export const homeStyles = StyleSheet.create({
     padding:wp(12)
   },
   headerRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // paddingHorizontal: wp(20),
     paddingTop: hp(50),
   },
   bellButton: {
@@ -70,6 +69,8 @@ export const homeStyles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 24,
     color: '#1A1A1A',
+    flexShrink: 1,
+    marginRight: wp(8),
   },
   tabsRow: {
     backgroundColor: '#F8F9FB',

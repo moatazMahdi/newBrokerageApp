@@ -3,7 +3,7 @@ import {
   View,
   Image,
   FlatList,
-  TouchableOpacity,
+  Pressable,
   ImageSourcePropType,
   NativeSyntheticEvent,
   NativeScrollEvent,
@@ -38,13 +38,12 @@ const OffersSection: React.FC<OffersSectionProps> = ({ offers, onOfferPress }) =
         onMomentumScrollEnd={onMomentumScrollEnd}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            activeOpacity={0.9}
+          <Pressable
             onPress={() => onOfferPress?.(item)}
             style={offersSectionStyles.slide}
           >
             <Image source={item.image} style={offersSectionStyles.image} resizeMode="cover" />
-          </TouchableOpacity>
+          </Pressable>
         )}
       />
       <View style={offersSectionStyles.dots}>

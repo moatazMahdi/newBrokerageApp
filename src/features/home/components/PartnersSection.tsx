@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ImageSourcePropType, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ImageSourcePropType, FlatList, I18nManager } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AppCard from '../../../components/AppCard';
 import { hp, wp } from '../../../utils/dimensions';
+import AppText from 'src/components/AppText/AppText';
+import i18n from 'src/localization';
 
 export type Partner = {
   id: string;
-  image: ImageSourcePropType; // local asset now; { uri: backendUrl } when API is ready
+  image: ImageSourcePropType; 
 };
 
 interface PartnersSectionProps {
@@ -26,9 +28,9 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({
   <View style={styles.container}>
     <View style={styles.header}>
       <TouchableOpacity onPress={onViewAll}>
-        <Text style={styles.viewAll}>{t('home.partners.viewAll')}</Text>
+        <AppText style={styles.viewAll}>{t('home.partners.viewAll')}</AppText>
       </TouchableOpacity>
-      <Text style={styles.title}>{t('home.partners.sectionTitle')}</Text>
+      <AppText style={styles.title}>{t('home.partners.sectionTitle')}</AppText>
     </View>
     <FlatList
       data={partners}
@@ -55,15 +57,15 @@ const styles = StyleSheet.create({
     marginTop: hp(16),
   },
   header: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: hp(16),
     paddingHorizontal: wp(16),
   },
   title: {
-    fontSize: wp(18),
-    fontWeight: '700',
+    
+    fontSize: wp(16),
+    fontWeight: '400',
     color: '#1A1A1A',
   },
   viewAll: {

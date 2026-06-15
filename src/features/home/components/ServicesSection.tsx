@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import AppCard from '../../../components/AppCard';
 import { Assets } from '../../../assets';
 import { hp, wp } from '../../../utils/dimensions';
+import AppText from 'src/components/AppText/AppText';
 
 const { components } = Assets.images;
 
@@ -22,7 +23,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onServicePress }) => 
 
   return (
   <View style={styles.container}>
-    <Text style={styles.title}>{t('home.services.sectionTitle')}</Text>
+    <AppText style={styles.title}>{t('home.services.sectionTitle')}</AppText>
     <View style={styles.row}>
       {SERVICES.map((service) => (
         <AppCard
@@ -46,9 +47,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: wp(16),
-    fontWeight: '600',
+    fontWeight: '400',
     color: '#1A1A1A',
-    textAlign: 'right',
     marginBottom: hp(16),
   },
   row: {

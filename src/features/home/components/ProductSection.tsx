@@ -7,6 +7,7 @@ import AppCard from '../../../components/AppCard';
 import { Assets } from '../../../assets';
 import { SvgView } from '../../../components/SvgView/SvgView';
 import { hp, wp } from '../../../utils/dimensions';
+import AppText from 'src/components/AppText/AppText';
 
 interface ProductSectionProps {
   individualProducts?: Product[];
@@ -28,7 +29,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
   return (
     <View style={homeStyles.productSection}>
       <View style={homeStyles.productSectionHeader}>
-        <Text style={homeStyles.productSectionTitle}>{t('home.products.sectionTitle')}</Text>
+        <AppText style={homeStyles.productSectionTitle}>{t('home.products.sectionTitle')}</AppText>
         <View style={homeStyles.tabsRow}>
          
           <TouchableOpacity
@@ -36,18 +37,18 @@ const ProductSection: React.FC<ProductSectionProps> = ({
             onPress={() => setActiveTab('individuals')}
           >
                    <SvgView svgFile={userTab} width={wp(12)} height={hp(12)} color={activeTab === 'individuals' ? '#FFFFFF' : '#6F6F74'} />
-            <Text style={[homeStyles.tabText, activeTab === 'individuals' && homeStyles.activeTabText]}>
+            <AppText style={[homeStyles.tabText, activeTab === 'individuals' && homeStyles.activeTabText]}>
               {t('home.products.individuals')}
-            </Text>
+            </AppText>
           </TouchableOpacity>
            <TouchableOpacity
             style={[homeStyles.tab, activeTab === 'companies' && homeStyles.activeTab]}
             onPress={() => setActiveTab('companies')}
           >
                                <SvgView svgFile={building} width={wp(12)} height={hp(12)} color={activeTab === 'individuals' ? '#FFFFFF' : '#6F6F74'} />
-            <Text style={[homeStyles.tabText, activeTab === 'companies' && homeStyles.activeTabText]}>
-              {t('home.products.companies')}
-            </Text>
+            <AppText style={[homeStyles.tabText, activeTab === 'companies' ? homeStyles.activeTabText : undefined]}>
+               {t('home.products.companies')}
+            </AppText>
 
           </TouchableOpacity>
         </View>

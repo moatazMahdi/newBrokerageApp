@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, ImageSourcePropType, ViewStyle } from 'react-native';
+import { View, Text, Image, Pressable, ImageSourcePropType, ViewStyle } from 'react-native';
 import { appCardStyles } from './appCard.styles';
 import { SvgView } from '../SvgView/SvgView';
 
@@ -13,10 +13,9 @@ interface AppCardProps {
 }
 
 const AppCard: React.FC<AppCardProps> = ({ title, image, svgIcon, onPress, width, cardStyle }) => (
-  <TouchableOpacity
+  <Pressable
     style={[appCardStyles.card, width !== undefined ? { width } : { flex: 1 }, cardStyle]}
     onPress={onPress}
-    activeOpacity={0.8}
   >
     {svgIcon !== undefined && (
       <View style={appCardStyles.imageContainer}>
@@ -39,7 +38,7 @@ const AppCard: React.FC<AppCardProps> = ({ title, image, svgIcon, onPress, width
     {title !== undefined && (
       <Text style={appCardStyles.title}>{title}</Text>
     )}
-  </TouchableOpacity>
+  </Pressable>
 );
 
 export default AppCard;
